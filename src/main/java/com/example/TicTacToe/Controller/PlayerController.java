@@ -21,8 +21,18 @@ public class PlayerController {
         return playerService.addMove(player, move);
     }
 
+    @PostMapping(value = "/clear")
+    public void clearBoard(){
+        playerService.clearBoard();
+    }
+
     @PostMapping(value = "/reset")
-    public void resetGame(){
-        playerService.resetGame();
+    public void resetStats(){
+        playerService.resetStats();
+    }
+
+    @PostMapping(value = "/win/{id}")
+    public void increaseWin(@PathVariable("id") Player player){
+        playerService.increaseWin(player);
     }
 }

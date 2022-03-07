@@ -22,7 +22,17 @@ public class PlayerServiceImpl implements PlayerService{
     }
 
     @Override
-    public void resetGame() {
+    public void clearBoard() {
         // reset moves of both players
+    }
+
+    @Override
+    public void resetStats() {
+        // reset wins
+    }
+
+    @Override
+    public void increaseWin(Player player) {
+        // increment win of player by 1
     }
 }

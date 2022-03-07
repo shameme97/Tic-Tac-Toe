@@ -13,5 +13,6 @@ import java.util.ArrayList;
 public class Player {
     @Id
     private String id;
+    private int wins;
     public ArrayList<int[]> moves = new ArrayList<>();
 }

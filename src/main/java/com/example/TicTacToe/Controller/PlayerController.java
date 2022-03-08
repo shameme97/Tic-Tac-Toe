@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 public class PlayerController {
@@ -17,8 +20,8 @@ public class PlayerController {
     public PlayerService playerService;
 
     @PostMapping(value = "/{id}")
-    public boolean addMove(@PathVariable("id") Player player, @RequestBody int[] move){
-        return playerService.addMove(player, move);
+    public boolean addMove(@RequestBody ArrayList<String> moveSet){
+        return playerService.addMove(moveSet);
     }
 
     @PostMapping(value = "/clear")

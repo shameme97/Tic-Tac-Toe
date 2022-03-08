@@ -24,30 +24,61 @@ public class GameServiceImpl implements GameService {
         List<String[]> winStates_vertical = new ArrayList<>();
         List<String[]> winStates_rightDiagonal = new ArrayList<>();
         List<String[]> winStates_leftDiagonal = new ArrayList<>();
-        int row, col;
-        String[] populate;
-        for (int i=0; i<size; ++i){
-            populate = new String[size];
-            row = i;
-            col = 0;
-            for (int j=0; j<size; ++j){
-                populate[j] = row+""+col;
-                ++col;
-            }
-            winStates_horizontal.add(populate);
-        }
 
+        setWinStates(size, winStates_horizontal, winStates_vertical);
+        setWinStatesDiagonal(size, winStates_rightDiagonal, winStates_leftDiagonal);
+    }
+
+
+
+    @Override
+    public String addMove(ArrayList<String>  moveSet) {
+        // check if won
+        return "";
+    }
+
+    public String gameResults(List<int[]> player1moves, List<int[]> player2moves){
+
+        return null;
+    }
+
+    @Override
+    public void clearBoard() {
+        // reset moves of both players
+    }
+
+    @Override
+    public void resetStats() {
+        // reset wins
+    }
+
+    public void increaseWin(String player) {
+        // increment win of player by 1
+    }
+
+    public void setWinStates(int size, List<String[]> winStates_horizontal, List<String[]> winStates_vertical){
+        String[] populate;
+        String[] populate2;
+        int row, col;
         for (int i=0; i<size; ++i){
             populate = new String[size];
+            populate2 = new String[size];
             row = 0;
             col = i;
             for (int j=0; j<size; ++j){
                 populate[j] = row+""+col;
+                populate2[j] = col+""+row;
                 ++row;
             }
-            winStates_vertical.add(populate);
+            winStates_horizontal.add(populate);
+            winStates_vertical.add(populate2);
         }
+    }
+
+    public void setWinStatesDiagonal(int size, List<String[]> winStates_rightDiagonal, List<String[]> winStates_leftDiagonal){
+        String[] populate;
         String[] populate2;
+        int row, col;
         int len = (size-3)*2 + 1;
         for (int i=0; i<len; ++i){
             populate = new String[len];
@@ -80,33 +111,5 @@ public class GameServiceImpl implements GameService {
             winStates_rightDiagonal.add(populate);
             winStates_leftDiagonal.add(populate2);
         }
-
     }
-
-    @Override
-    public String addMove(ArrayList<String>  moveSet) {
-        // check if won
-        return "";
-    }
-
-    public String gameResults(List<int[]> player1moves, List<int[]> player2moves){
-
-        return null;
-    }
-
-    @Override
-    public void clearBoard() {
-        // reset moves of both players
-    }
-
-    @Override
-    public void resetStats() {
-        // reset wins
-    }
-
-    public void increaseWin(String player) {
-        // increment win of player by 1
-    }
-
-
 }

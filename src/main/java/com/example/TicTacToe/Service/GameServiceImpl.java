@@ -20,19 +20,25 @@ public class GameServiceImpl implements GameService {
     @Override
     public void beginGame(int size) {
         // create board object with size win_states
-        List<String[]> winStates_horizontal = new ArrayList<>();
-        List<String[]> winStates_vertical = new ArrayList<>();
-        List<String[]> winStates_rightDiagonal = new ArrayList<>();
-        List<String[]> winStates_leftDiagonal = new ArrayList<>();
-
-        setWinStates(size, winStates_horizontal, winStates_vertical);
-        setWinStatesDiagonal(size, winStates_rightDiagonal, winStates_leftDiagonal);
+        List<String[]> winStates = new ArrayList<>();
+        setWinStates(size, winStates);
+        setWinStatesDiagonal(size, winStates);
+        Board board = new Board(size, winStates);
+        gameRepository.save(board);
     }
 
 
 
     @Override
-    public String addMove(ArrayList<String>  moveSet) {
+    public String addMove(Board board, ArrayList<String> moveSet) {
+
+
+
+
+        for (String str: moveSet){
+            String[] move = str.split(" ", 2);
+
+        }
         // check if won
         return "";
     }
@@ -56,7 +62,7 @@ public class GameServiceImpl implements GameService {
         // increment win of player by 1
     }
 
-    public void setWinStates(int size, List<String[]> winStates_horizontal, List<String[]> winStates_vertical){
+    public void setWinStates(int size, List<String[]> winStates){
         String[] populate;
         String[] populate2;
         int row, col;
@@ -66,50 +72,54 @@ public class GameServiceImpl implements GameService {
             row = 0;
             col = i;
             for (int j=0; j<size; ++j){
-                populate[j] = row+""+col;
-                populate2[j] = col+""+row;
+                populate[j] = row+" "+col;
+                populate2[j] = col+" "+row;
                 ++row;
             }
-            winStates_horizontal.add(populate);
-            winStates_vertical.add(populate2);
+            winStates.add(populate2);
+            winStates.add(populate);
         }
     }
 
-    public void setWinStatesDiagonal(int size, List<String[]> winStates_rightDiagonal, List<String[]> winStates_leftDiagonal){
+    public void setWinStatesDiagonal(int size, List<String[]> winStates){
         String[] populate;
         String[] populate2;
         int row, col;
+        int arraySize = size;
         int len = (size-3)*2 + 1;
         for (int i=0; i<len; ++i){
-            populate = new String[len];
-            populate2 = new String[len];
+            populate = new String[arraySize];
+            populate2 = new String[arraySize];
             row = 0;
             col = i;
-            for (int j=0; j<len; ++j){
-                populate[j] = row+""+col;
-                populate2[j] = row+""+(len-1-col);
+            for (int j=0; j<arraySize; ++j){
+                populate[j] = row+" "+col;
+                populate2[j] = row+" "+(size-1-col);
                 ++row;
                 ++col;
             }
             --len;
-            winStates_rightDiagonal.add(populate);
-            winStates_leftDiagonal.add(populate2);
+            --arraySize;
+            winStates.add(populate);
+            winStates.add(populate2);
         }
         len = (size-3)*2 + 1;
+        arraySize = size - 1;
         for (int i=1; i<len; ++i){
-            populate = new String[len];
-            populate2 = new String[len];
+            populate = new String[arraySize];
+            populate2 = new String[arraySize];
             row = i;
             col = 0;
-            for (int j=0; j<len; ++j){
-                populate[j] = row+""+col;
-                populate2[j] = row+""+(len-1-col);
+            for (int j=0; j<arraySize; ++j){
+                populate[j] = row+" "+col;
+                populate2[j] = row+" "+(size-1-col);
                 ++row;
                 ++col;
             }
             --len;
-            winStates_rightDiagonal.add(populate);
-            winStates_leftDiagonal.add(populate2);
+            --arraySize;
+            winStates.add(populate);
+            winStates.add(populate2);
         }
     }
 }

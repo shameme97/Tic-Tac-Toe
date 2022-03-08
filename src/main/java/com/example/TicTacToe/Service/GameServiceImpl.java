@@ -22,7 +22,6 @@ public class GameServiceImpl implements GameService {
         // create board object with size win_states
         List<String[]> winStates = new ArrayList<>();
         setWinStates(size, winStates);
-        setWinStatesDiagonal(size, winStates);
         Board board = new Board(size, winStates);
         gameRepository.save(board);
     }
@@ -31,10 +30,7 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public String addMove(Board board, ArrayList<String> moveSet) {
-
-
-
-
+        // iterate through winStates and mark moves
         for (String str: moveSet){
             String[] move = str.split(" ", 2);
 
@@ -66,6 +62,8 @@ public class GameServiceImpl implements GameService {
         String[] populate;
         String[] populate2;
         int row, col;
+
+        // adding horizontal and vertical win states
         for (int i=0; i<size; ++i){
             populate = new String[size];
             populate2 = new String[size];
@@ -79,12 +77,8 @@ public class GameServiceImpl implements GameService {
             winStates.add(populate2);
             winStates.add(populate);
         }
-    }
 
-    public void setWinStatesDiagonal(int size, List<String[]> winStates){
-        String[] populate;
-        String[] populate2;
-        int row, col;
+        // adding diagonally right and left win states
         int arraySize = size;
         int len = (size-3)*2 + 1;
         for (int i=0; i<len; ++i){
@@ -105,14 +99,14 @@ public class GameServiceImpl implements GameService {
         }
         len = (size-3)*2 + 1;
         arraySize = size - 1;
-        for (int i=1; i<len; ++i){
+        for (int i=1; i<len; ++i) {
             populate = new String[arraySize];
             populate2 = new String[arraySize];
             row = i;
             col = 0;
-            for (int j=0; j<arraySize; ++j){
-                populate[j] = row+" "+col;
-                populate2[j] = row+" "+(size-1-col);
+            for (int j = 0; j < arraySize; ++j) {
+                populate[j] = row + " " + col;
+                populate2[j] = row + " " + (size - 1 - col);
                 ++row;
                 ++col;
             }
@@ -122,4 +116,5 @@ public class GameServiceImpl implements GameService {
             winStates.add(populate2);
         }
     }
+
 }

@@ -19,9 +19,4 @@ public class Board {
     private List<String[]> winStates;
     private String winner;
 
-    public Board(int size, List<String[]> winStates, String winner){
-        this.size = size;
-        this.winStates = winStates;
-        this.winner = winner;
-    }
 }

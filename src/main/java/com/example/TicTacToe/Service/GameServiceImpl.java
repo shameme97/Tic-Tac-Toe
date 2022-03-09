@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,17 +32,38 @@ public class GameServiceImpl implements GameService {
     @Override
     public String addMove(Board board, ArrayList<String> moveSet) {
         // iterate through winStates and mark moves
+        List<String[]> winStates = board.getWinStates();
         for (String str: moveSet){
             String[] move = str.split(" ", 2);
-
+            for (String[] arrayOfMoves: winStates){
+                if (Arrays.asList(arrayOfMoves).contains(move[1])){
+                    int index = Arrays.asList(arrayOfMoves).indexOf(move[1]);
+                    if (move[0].equals("CROSS")){
+                        arrayOfMoves[index] = "X";
+                    }
+                    else if (move[0].equals("CIRCLE")) {
+                        arrayOfMoves[index] = "O";
+                    }
+                    boolean foundWinner = checkForWinner(arrayOfMoves);
+                    if (foundWinner){
+                        board.setWinner(move[0]);
+                        gameRepository.save(board);
+                        return move[0] + " Wins!";
+                    }
+                }
+            }
         }
-        // check if won
+        // check if draw or match in progress
         return "";
     }
 
-    public String gameResults(List<int[]> player1moves, List<int[]> player2moves){
-
-        return null;
+    public boolean checkForWinner(String[] movesMade){
+        StringBuilder stringOfMoves = new StringBuilder();
+        for (String move: movesMade){
+            stringOfMoves.append(move);
+        }
+        String moves = String.valueOf(stringOfMoves);
+        return moves.contains("XXX") || moves.contains("OOO");
     }
 
     @Override

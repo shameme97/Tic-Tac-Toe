@@ -22,11 +22,11 @@ public class GameServiceImpl implements GameService {
     @Autowired
     public GameRepository gameRepository;
 
-    private static int newId = 0;
+    private static int newId = 1;
 
     @Override
     public void beginGame(int size) {
-        // create board object with size win_states
+        // create new board object with size & win_states
         List<String[]> winStates = new ArrayList<>();
         setWinStates(size, winStates);
         Board board = new Board(newId, size, winStates, "");
@@ -38,7 +38,6 @@ public class GameServiceImpl implements GameService {
     public String addMove(List<String> moveSet) {
         List<Board> allBoards = gameRepository.findAll();
         Board board = allBoards.get(allBoards.size() - 1);
-        log.info(String.valueOf(board));
         // iterate through winStates and mark moves
         List<String[]> winStates = board.getWinStates();
         for (String str: moveSet){
@@ -47,8 +46,7 @@ public class GameServiceImpl implements GameService {
                 if (Arrays.asList(arrayOfMoves).contains(move[1])){
                     int index = Arrays.asList(arrayOfMoves).indexOf(move[1]);
                     arrayOfMoves[index] = move[0].equals("CROSS") ? "X" : "O";
-                    boolean foundWinner = checkForWinner(arrayOfMoves);
-                    if (foundWinner){
+                    if (foundWinner(arrayOfMoves)){
                         board.setWinner(move[0]);
                         gameRepository.save(board);
                         return move[0] + " Wins!";
@@ -57,29 +55,28 @@ public class GameServiceImpl implements GameService {
             }
         }
         // check if draw or match in progress
-        if (moveSet.size() == pow(board.getSize(), 2)) {
-            board.setWinner("Draw");
-            gameRepository.save(board);
-            return "Draw";
-        }
-        return "Match In Progress!";
-
+        return (moveSet.size()==pow(board.getSize(), 2)) ? matchIsDraw(board) : "Match In Progress!";
     }
 
-    public boolean checkForWinner(String[] movesMade){
+    public boolean foundWinner(String[] movesMade){
         StringBuilder stringOfMoves = new StringBuilder();
         for (String move: movesMade){
             stringOfMoves.append(move);
         }
         String moves = String.valueOf(stringOfMoves);
-        log.info(moves);
         return moves.contains("XXX") || moves.contains("OOO");
     }
 
+    public String matchIsDraw(Board board){
+        board.setWinner("Draw");
+        gameRepository.save(board);
+        return "Draw";
+    }
 
     @Override
     public void resetStats() {
         // clear database
+        newId = 1;
         gameRepository.deleteAll();
     }
 
@@ -95,7 +92,6 @@ public class GameServiceImpl implements GameService {
         }
         return new int[]{crossWins, circleWins, draw};
     }
-
 
     public void setWinStates(int size, List<String[]> winStates){
         String[] populate;

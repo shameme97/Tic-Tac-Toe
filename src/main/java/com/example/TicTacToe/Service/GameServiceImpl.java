@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.pow;
+
 @Service
 @AllArgsConstructor
 public class GameServiceImpl implements GameService {
@@ -38,12 +41,7 @@ public class GameServiceImpl implements GameService {
             for (String[] arrayOfMoves: winStates){
                 if (Arrays.asList(arrayOfMoves).contains(move[1])){
                     int index = Arrays.asList(arrayOfMoves).indexOf(move[1]);
-                    if (move[0].equals("CROSS")){
-                        arrayOfMoves[index] = "X";
-                    }
-                    else if (move[0].equals("CIRCLE")) {
-                        arrayOfMoves[index] = "O";
-                    }
+                    arrayOfMoves[index] = move[0].equals("CROSS") ? "X" : "O";
                     boolean foundWinner = checkForWinner(arrayOfMoves);
                     if (foundWinner){
                         board.setWinner(move[0]);
@@ -54,7 +52,12 @@ public class GameServiceImpl implements GameService {
             }
         }
         // check if draw or match in progress
-        return "";
+        if (moveSet.size() == pow(board.getSize(), 2)) {
+            board.setWinner("draw");
+            gameRepository.save(board);
+            return "Draw";
+        }
+        return "Match In Progress!";
     }
 
     public boolean checkForWinner(String[] movesMade){

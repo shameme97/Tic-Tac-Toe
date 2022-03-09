@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -20,18 +21,18 @@ public class GameController {
         gameService.beginGame(size);
     }
 
-    @PostMapping(value = "/ongoing/{id}")
-    public String addMove(@PathVariable("id") Board board, @RequestBody ArrayList<String> moveSet){
-        return gameService.addMove(board, moveSet);
-    }
-
-    @PostMapping(value = "/rematch")
-    public void clearBoard(){
-        gameService.clearBoard();
+    @PostMapping(value = "/submitMoves")
+    public String addMove(@RequestBody List<String> moveSet){
+        return gameService.addMove(moveSet);
     }
 
     @PostMapping(value = "/reset")
     public void resetStats(){
+        gameService.resetStats();
+    }
+
+    @PostMapping(value = "/home")
+    public void home(){
         gameService.resetStats();
     }
 

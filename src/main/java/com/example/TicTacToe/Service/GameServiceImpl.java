@@ -3,6 +3,7 @@ package com.example.TicTacToe.Service;
 import com.example.TicTacToe.Model.Board;
 import com.example.TicTacToe.Repository.GameRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class GameServiceImpl implements GameService {
@@ -20,19 +22,23 @@ public class GameServiceImpl implements GameService {
     @Autowired
     public GameRepository gameRepository;
 
+    private static int newId = 0;
+
     @Override
     public void beginGame(int size) {
         // create board object with size win_states
         List<String[]> winStates = new ArrayList<>();
         setWinStates(size, winStates);
-        Board board = new Board(size, winStates);
-        gameRepository.save(board);
+        Board board = new Board(newId, size, winStates, "");
+        newId++;
+        gameRepository.insert(board);
     }
 
-
-
     @Override
-    public String addMove(Board board, ArrayList<String> moveSet) {
+    public String addMove(List<String> moveSet) {
+        List<Board> allBoards = gameRepository.findAll();
+        Board board = allBoards.get(allBoards.size() - 1);
+        log.info(String.valueOf(board));
         // iterate through winStates and mark moves
         List<String[]> winStates = board.getWinStates();
         for (String str: moveSet){
@@ -52,11 +58,12 @@ public class GameServiceImpl implements GameService {
         }
         // check if draw or match in progress
         if (moveSet.size() == pow(board.getSize(), 2)) {
-            board.setWinner("draw");
+            board.setWinner("Draw");
             gameRepository.save(board);
             return "Draw";
         }
         return "Match In Progress!";
+
     }
 
     public boolean checkForWinner(String[] movesMade){
@@ -65,17 +72,15 @@ public class GameServiceImpl implements GameService {
             stringOfMoves.append(move);
         }
         String moves = String.valueOf(stringOfMoves);
+        log.info(moves);
         return moves.contains("XXX") || moves.contains("OOO");
     }
 
-    @Override
-    public void clearBoard() {
-        // reset moves of both players
-    }
 
     @Override
     public void resetStats() {
-        // reset wins
+        // clear database
+        gameRepository.deleteAll();
     }
 
     @Override
@@ -86,7 +91,7 @@ public class GameServiceImpl implements GameService {
         for (Board board: allBoards){
             if (board.getWinner().equals("CROSS")) ++crossWins;
             else if (board.getWinner().equals("CIRCLE")) ++circleWins;
-            else ++draw;
+            else if (board.getWinner().equals("Draw")) ++draw;
         }
         return new int[]{crossWins, circleWins, draw};
     }

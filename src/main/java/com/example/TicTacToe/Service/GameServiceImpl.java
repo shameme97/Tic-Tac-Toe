@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.pow;
@@ -79,9 +78,19 @@ public class GameServiceImpl implements GameService {
         // reset wins
     }
 
-    public void increaseWin(String player) {
-        // increment win of player by 1
+    @Override
+    public int[] showResults() {
+        List<Board> allBoards = gameRepository.findAll();
+        int crossWins, circleWins, draw;
+        crossWins = circleWins = draw = 0;
+        for (Board board: allBoards){
+            if (board.getWinner().equals("CROSS")) ++crossWins;
+            else if (board.getWinner().equals("CIRCLE")) ++circleWins;
+            else ++draw;
+        }
+        return new int[]{crossWins, circleWins, draw};
     }
+
 
     public void setWinStates(int size, List<String[]> winStates){
         String[] populate;

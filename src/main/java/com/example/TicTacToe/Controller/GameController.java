@@ -4,10 +4,7 @@ import com.example.TicTacToe.Model.Board;
 import com.example.TicTacToe.Service.GameService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -23,12 +20,12 @@ public class GameController {
         gameService.beginGame(size);
     }
 
-    @PostMapping(value = "/{id}/result")
+    @PostMapping(value = "/ongoing/{id}")
     public String addMove(@PathVariable("id") Board board, @RequestBody ArrayList<String> moveSet){
         return gameService.addMove(board, moveSet);
     }
 
-    @PostMapping(value = "/clear")
+    @PostMapping(value = "/rematch")
     public void clearBoard(){
         gameService.clearBoard();
     }
@@ -37,5 +34,11 @@ public class GameController {
     public void resetStats(){
         gameService.resetStats();
     }
+
+    @GetMapping(value = "/results")
+    public int[] showResults(){
+        return gameService.showResults();
+    }
+
 
 }

@@ -10,5 +10,5 @@ public interface GameService {
     public String addMove(Board board, ArrayList<String> moveSet);
     public void clearBoard();
     public void resetStats();
-
+    public int[] showResults();
 }

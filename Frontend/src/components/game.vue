@@ -27,6 +27,11 @@
           {{ square.value }}
         </div>
       </div>
+      <div id="buttonsDiv">
+        <button v-on:click="submitMoves()">Submit</button>
+        &nbsp;
+        <button>Rematch</button>
+      </div>
     </div>
   </div>
 </template>
@@ -79,13 +84,24 @@ export default {
     },
 
     makeMove(i) {
+      var row = Math.floor(i / this.size);
+      var col = i % this.size;
+
       if (this.inProgress && this.items[i].value == "") {
         this.items[i].value = this.currentTurn;
+        var string = this.currentTurn == "X" ? "CROSS " : "CIRCLE ";
+        string += row + " " + col;
+        this.returnList[this.movesMade] = string;
+        this.movesMade++;
         this.currentTurn = this.currentTurn == "X" ? "O" : "X";
-
-        // this.returnList[this.movesMade] = "";
-        // this.movesMade++;
       }
+    },
+
+    submitMoves() {
+      let uri = "http://localhost:4023/submitMoves";
+      this.axios.post(uri, this.returnList).then((response) => {
+        this.message = response.data;
+      });
     },
   },
 };

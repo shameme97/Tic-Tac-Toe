@@ -30,7 +30,7 @@
       <div id="buttonsDiv">
         <button v-on:click="submitMoves()">Submit</button>
         &nbsp;
-        <button>Rematch</button>
+        <button v-on:click="resetBoard()">Rematch</button>
       </div>
     </div>
   </div>
@@ -58,6 +58,7 @@ export default {
   components: {},
 
   created: function () {
+    this.resetScore();
     this.createArray();
   },
 
@@ -102,6 +103,17 @@ export default {
       this.axios.post(uri, this.returnList).then((response) => {
         this.message = response.data;
       });
+    },
+
+    resetBoard() {
+      this.createArray();
+      let uri = "http://localhost:4023/begin/" + this.size;
+      this.axios.post(uri);
+    },
+
+    resetScore() {
+      let uri = "http://localhost:4023/reset";
+      this.axios.post(uri);
     },
   },
 };

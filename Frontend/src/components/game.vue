@@ -64,15 +64,6 @@ export default {
 
   methods: {
     createArray() {
-      console.log(this.firstLoad);
-      // this.items = new Array(this.size * this.size).fill(this.squares);
-
-      // for (let step = 0; step < this.size; step++) {
-      //   var array = new Array(this.size)
-      //     .fill()
-      //     .map((s) => ({ value: "", isHighlighted: false }));
-      //   this.items[step] = array;
-      // }
       this.items = new Array(this.size * this.size)
         .fill()
         .map((s) => ({ value: "", isHighlighted: false }));

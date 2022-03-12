@@ -32,11 +32,6 @@ public class GameController {
         gameService.resetStats();
     }
 
-//    @PostMapping(value = "/home")
-//    public void home(){
-//        gameService.resetStats();
-//    }
-
     @GetMapping(value = "/results")
     public int[] showResults(){
         return gameService.showResults();

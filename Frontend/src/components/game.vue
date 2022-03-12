@@ -1,6 +1,16 @@
 <template>
   <div>
     <h1>Tic Tac Toe</h1>
+
+    <div class="sidenav">
+      <h2>Scoreboard</h2>
+      <div class="scoreBoard">
+        Cross : {{ score[0] }} <br />
+        Circle : {{ score[1] }} <br />
+        Draw : {{ score[2] }}
+      </div>
+    </div>
+
     <div class="topdiv">
       <label for="selectBoard">Select board size:</label>
       <select class="selectBoard" name="selectBoard" v-model="size">
@@ -47,19 +57,19 @@ export default {
       // },
       items: [],
       sizeList: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      winner: "",
       currentTurn: "X",
       inProgress: true,
       message: "",
       returnList: [],
       movesMade: 0,
-      firstLoad: true,
+      score: [],
     };
   },
   components: {},
 
   created: function () {
     this.createArray();
+    this.getScore();
   },
 
   methods: {
@@ -98,6 +108,7 @@ export default {
         this.message = response.data;
         if (response.data != "Match In Progress!") {
           this.inProgress = false;
+          this.getScore();
         }
       });
     },
@@ -115,6 +126,13 @@ export default {
     resetScore() {
       let uri = "http://localhost:4023/reset";
       this.axios.post(uri);
+    },
+
+    getScore() {
+      let uri = "http://localhost:4023/results";
+      this.axios.get(uri).then((response) => {
+        this.score = response.data;
+      });
     },
   },
 };

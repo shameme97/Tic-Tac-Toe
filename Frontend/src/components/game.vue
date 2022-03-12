@@ -9,6 +9,7 @@
         Circle : {{ score[1] }} <br />
         Draw : {{ score[2] }}
       </div>
+      <button @click="resetScore()">Reset Game</button>
     </div>
 
     <div class="topdiv">
@@ -126,6 +127,8 @@ export default {
     resetScore() {
       let uri = "http://localhost:4023/reset";
       this.axios.post(uri);
+      this.getScore();
+      this.rematch();
     },
 
     getScore() {

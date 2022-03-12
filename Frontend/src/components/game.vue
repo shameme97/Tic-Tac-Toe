@@ -30,7 +30,7 @@
       <div id="buttonsDiv">
         <button v-on:click="submitMoves()">Submit</button>
         &nbsp;
-        <button v-on:click="resetBoard()">Rematch</button>
+        <button v-on:click="rematch()">Rematch</button>
       </div>
     </div>
   </div>
@@ -53,17 +53,18 @@ export default {
       message: "",
       returnList: [],
       movesMade: 0,
+      firstLoad: true,
     };
   },
   components: {},
 
   created: function () {
-    this.resetScore();
     this.createArray();
   },
 
   methods: {
     createArray() {
+      console.log(this.firstLoad);
       // this.items = new Array(this.size * this.size).fill(this.squares);
 
       // for (let step = 0; step < this.size; step++) {
@@ -85,16 +86,18 @@ export default {
     },
 
     makeMove(i) {
-      var row = Math.floor(i / this.size);
-      var col = i % this.size;
+      if (this.inProgress) {
+        var row = Math.floor(i / this.size);
+        var col = i % this.size;
 
-      if (this.inProgress && this.items[i].value == "") {
-        this.items[i].value = this.currentTurn;
-        var string = this.currentTurn == "X" ? "CROSS " : "CIRCLE ";
-        string += row + " " + col;
-        this.returnList[this.movesMade] = string;
-        this.movesMade++;
-        this.currentTurn = this.currentTurn == "X" ? "O" : "X";
+        if (this.inProgress && this.items[i].value == "") {
+          this.items[i].value = this.currentTurn;
+          var string = this.currentTurn == "X" ? "CROSS " : "CIRCLE ";
+          string += row + " " + col;
+          this.returnList[this.movesMade] = string;
+          this.movesMade++;
+          this.currentTurn = this.currentTurn == "X" ? "O" : "X";
+        }
       }
     },
 
@@ -102,11 +105,18 @@ export default {
       let uri = "http://localhost:4023/submitMoves";
       this.axios.post(uri, this.returnList).then((response) => {
         this.message = response.data;
+        if (response.data != "Match In Progress!") {
+          this.inProgress = false;
+        }
       });
     },
 
-    resetBoard() {
+    rematch() {
       this.createArray();
+      this.inProgress = true;
+      this.message = "";
+      this.returnList = [];
+      this.movesMade = 0;
       let uri = "http://localhost:4023/begin/" + this.size;
       this.axios.post(uri);
     },

@@ -37,15 +37,17 @@ public class GameServiceImpl implements GameService {
     @Override
     public String submitMove(int size, List<String> moveSet, boolean newGame) {
         Board board;
-        List<String[]> winStates;
         if (newGame){
             board = createBoard(size);
         }else{
             List<Board> allBoards = gameRepository.findAll();
             board = allBoards.get(allBoards.size() - 1);
         }
-        // iterate through winStates and mark moves
-        winStates = board.getWinStates();
+        return checkForWinner(board, moveSet);
+    }
+
+    public String checkForWinner(Board board, List<String> moveSet){
+        List<String[]> winStates = board.getWinStates();
         for (String str: moveSet){
             String[] move = str.split(" ", 2);
             for (String[] arrayOfMoves: winStates){

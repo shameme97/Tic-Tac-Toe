@@ -52,11 +52,8 @@ public class GameServiceImpl implements GameService {
                 if (Arrays.asList(arrayOfMoves).contains(move[1])){
                     int index = Arrays.asList(arrayOfMoves).indexOf(move[1]);
                     arrayOfMoves[index] = move[0].equals("CROSS") ? "X" : "O";
-                    if (foundWinner(arrayOfMoves)){
-                        board.setWinner(move[0]);
-                        gameRepository.save(board);
+                    if (foundWinner(board, arrayOfMoves))
                         return move[0] + " Wins!";
-                    }
                 }
             }
         }
@@ -64,13 +61,17 @@ public class GameServiceImpl implements GameService {
         return (moveSet.size()==pow(board.getSize(), 2)) ? matchIsDraw(board) : "Match In Progress!";
     }
 
-    public boolean foundWinner(String[] movesMade){
+    public boolean foundWinner(Board board, String[] movesMade){
         StringBuilder stringOfMoves = new StringBuilder();
         for (String move: movesMade){
             stringOfMoves.append(move);
         }
         String moves = String.valueOf(stringOfMoves);
-        return moves.contains("XXX") || moves.contains("OOO");
+        if (moves.contains("XXX")) board.setWinner("CROSS");
+        else if (moves.contains("OOO")) board.setWinner("CIRCLE");
+        else return false;
+        gameRepository.save(board);
+        return true;
     }
 
     public String matchIsDraw(Board board){

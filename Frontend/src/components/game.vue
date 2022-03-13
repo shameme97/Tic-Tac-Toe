@@ -94,12 +94,8 @@ export default {
     },
 
     submitMoves(size) {
-      console.log(size);
       this.size = size;
-      var newGame = true;
-      if (this.message == "Match In Progress!") {
-        newGame = false;
-      }
+      var newGame = this.message == "Match In Progress!" ? false : true;
       let uri = "http://localhost:4023/" + size + "/submitMoves/" + newGame;
       this.axios.post(uri, this.returnList).then((response) => {
         this.message = response.data;
@@ -121,8 +117,8 @@ export default {
     resetScore() {
       let uri = "http://localhost:4023/reset";
       this.axios.post(uri);
-      this.getScore();
       this.rematch();
+      this.getScore();
     },
 
     getScore() {

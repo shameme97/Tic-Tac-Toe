@@ -20,6 +20,7 @@
             {{ item }}
           </option>
         </select>
+        <button v-on:click="setBoard(size)">Set</button>
         <br /><br />
         <button v-on:click="submitMoves(size)">Submit</button>
         <br /><br />
@@ -126,6 +127,11 @@ export default {
       this.axios.get(uri).then((response) => {
         this.score = response.data;
       });
+    },
+
+    setBoard(size) {
+      this.size = size;
+      this.createArray();
     },
   },
 };

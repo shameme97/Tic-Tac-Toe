@@ -59,8 +59,7 @@ public class GameServiceImpl implements GameService {
                 }
             }
         }
-        // check if draw or match in progress
-        return (moveSet.size()==pow(board.getSize(), 2)) ? matchIsDraw(board) : "Match In Progress!";
+        return checkForDraw(board, moveSet.size());
     }
 
     public boolean foundWinner(Board board, String[] movesMade){
@@ -76,10 +75,13 @@ public class GameServiceImpl implements GameService {
         return true;
     }
 
-    public String matchIsDraw(Board board){
-        board.setWinner("Draw");
-        gameRepository.save(board);
-        return "Draw";
+    public String checkForDraw(Board board, int numberOfMoves){
+        if (numberOfMoves == pow(board.getSize(), 2)){
+            board.setWinner("Draw");
+            gameRepository.save(board);
+            return "Draw";
+        }
+        return "Match In Progress!";
     }
 
     @Override

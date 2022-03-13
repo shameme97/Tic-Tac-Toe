@@ -27,8 +27,8 @@
 }
 
 .game-view-square {
-  height: 20%;
-  width: 20%;
+  height: 33.33%;
+  width:  33.33%;
   display: flex;
   justify-content: center;
   align-items: center;

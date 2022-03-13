@@ -118,7 +118,7 @@ export default {
       let uri = "http://localhost:4023/reset";
       this.axios.post(uri);
       this.rematch();
-      this.getScore();
+      this.score = [0, 0, 0];
     },
 
     getScore() {

@@ -49,28 +49,31 @@
 .game-view-square:nth-child(3n+1),
 .game-view-square:nth-child(3n+2) { border-right: 10px saddlebrown;}
 
+
+#resultBoard{
+  padding: 15px;
+  font-family: cursive;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+
+  /* background-color: rgb(238, 236, 131); */
+}
+
 .topdiv
 {
-    width: 80%;
-    margin-left:auto;margin-right:auto;margin-top:5%;
-    text-align: center;
-    position: relative;
-  font-family: Arial;
-}
-
-.buttonsDiv {
   width: 80%;
-    margin-left:auto;margin-right:auto;
-    text-align: center;
-    position: relative;
+  margin-left:auto;margin-right:auto;margin-top:5%;
+  text-align: center;
+  position: relative;
   font-family: Arial;
+  font-size: 20px;
 }
-
 
 button {
   display: inline-block;
   padding: 5px 5px;
-  font-size: 10px;
+  font-size: 20px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -91,18 +94,6 @@ button:active
   transform: translateY(4px);
 }
 
-
-.addButton{
-  background-color: #081e81;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  margin-left:auto;margin-right:auto;
-}
-
 .beginButton{
   background-color: #081e81;
   color: white;
@@ -115,34 +106,6 @@ button:active
 }
 
 
-
-.addInput[type=text]{
-  width: 22%;
-  padding: 10px 10px;
-  margin: 2px 0;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-  outline: none;
-}
-
-
-.bt1
-{
-  background-color: #081e81;
-  color: white;
-  padding: 15px 19%;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin-left:auto;margin-right:auto;
-
-}
-
-
-
 h1 {
   text-align: center;
   font-family: "Arial", sans-serif;
@@ -152,13 +115,13 @@ h1 {
  }
  
  body{
-  background-image: url("abc.png");
+  background-image: url("pastel.png");
  }
 
 /* The sidebar menu */
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 250px; /* Set the width of the sidebar */
+  width: 220px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -167,10 +130,6 @@ h1 {
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 10px;
   padding-left: 50px;
-}
-
-/* The navigation menu links */
-.sidenav {
 
   text-decoration: none;
   font-size: 25px;
@@ -178,10 +137,18 @@ h1 {
   display: block;
 }
 
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-  color: #f1f1f1;
+.sidenav2 {
+  width: 300px;
+  height: 300px;
+  position: fixed;
+  z-index: 1;
+  top: 150px;
+  left: 70px;
+  background: #eee;
+  overflow-x: hidden;
+  padding: 8px 0;
 }
+
 
 /* Style page content */
 .main {

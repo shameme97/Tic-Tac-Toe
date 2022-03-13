@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1>Tic Tac Toe</h1>
-
     <div class="sidenav">
       <h2>Scoreboard</h2>
       <div class="scoreBoard">
@@ -9,24 +7,34 @@
         Circle : {{ score[1] }} <br />
         Draw : {{ score[2] }}
       </div>
+      <br /><br /><br /><br /><br />
+      &nbsp; &nbsp;
       <button @click="resetScore()">Reset Game</button>
     </div>
 
-    <div class="topdiv">
-      <label for="selectBoard">Select board size:</label>
-      <select class="selectBoard" name="selectBoard" v-model="size">
-        <option v-for="(item, index) in sizeList" v-bind:key="index">
-          {{ item }}
-        </option>
-      </select>
-      &nbsp;
-      <button @click="beginGame(size)">Begin</button>
-    </div>
-    <br />
-    <div id="game-view">
-      <div id="game-view-info">
-        {{ this.message }} <br />It is {{ this.currentTurn }}'s turn
+    <div class="sidenav2">
+      <div class="topdiv">
+        <label for="selectBoard">Select board size:</label>
+        <select class="selectBoard" name="selectBoard" v-model="size">
+          <option v-for="(item, index) in sizeList" v-bind:key="index">
+            {{ item }}
+          </option>
+        </select>
+        <br /><br />
+        <button @click="beginGame(size)">Begin</button>
+        <br /><br />
+        <button v-on:click="submitMoves()">Submit</button>
+        <br /><br />
+        <button v-on:click="rematch()">Rematch</button>
       </div>
+    </div>
+
+    <br />
+    <div id="resultBoard">
+      {{ this.message }}
+    </div>
+    <div id="game-view">
+      <div id="game-view-info">It is {{ this.currentTurn }}'s turn</div>
       <div id="game-view-squares">
         <div
           v-for="(square, i) in items"
@@ -38,11 +46,6 @@
           {{ square.value }}
         </div>
       </div>
-      <div id="buttonsDiv">
-        <button v-on:click="submitMoves()">Submit</button>
-        &nbsp;
-        <button v-on:click="rematch()">Rematch</button>
-      </div>
     </div>
   </div>
 </template>
@@ -52,10 +55,6 @@ export default {
   data() {
     return {
       size: 3,
-      // squares: {
-      //   value: "A",
-      //   isHightlighted: false,
-      // },
       items: [],
       sizeList: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       currentTurn: "X",
@@ -82,9 +81,10 @@ export default {
 
     beginGame(size) {
       this.size = size;
-      this.createArray();
-      let uri = "http://localhost:4023/begin/" + size;
-      this.axios.post(uri);
+      this.rematch();
+      // this.createArray();
+      // let uri = "http://localhost:4023/begin/" + size;
+      // this.axios.post(uri);
     },
 
     makeMove(i) {

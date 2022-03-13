@@ -21,9 +21,7 @@
           </option>
         </select>
         <br /><br />
-        <button @click="beginGame(size)">Begin</button>
-        <br /><br />
-        <button v-on:click="submitMoves()">Submit</button>
+        <button v-on:click="submitMoves(size)">Submit</button>
         <br /><br />
         <button v-on:click="rematch()">Rematch</button>
       </div>
@@ -79,14 +77,6 @@ export default {
         .map((s) => ({ value: "", isHighlighted: false }));
     },
 
-    beginGame(size) {
-      this.size = size;
-      this.rematch();
-      // this.createArray();
-      // let uri = "http://localhost:4023/begin/" + size;
-      // this.axios.post(uri);
-    },
-
     makeMove(i) {
       if (this.inProgress) {
         var row = Math.floor(i / this.size);
@@ -103,8 +93,14 @@ export default {
       }
     },
 
-    submitMoves() {
-      let uri = "http://localhost:4023/submitMoves";
+    submitMoves(size) {
+      console.log(size);
+      this.size = size;
+      var newGame = true;
+      if (this.message == "Match In Progress!") {
+        newGame = false;
+      }
+      let uri = "http://localhost:4023/" + size + "/submitMoves/" + newGame;
       this.axios.post(uri, this.returnList).then((response) => {
         this.message = response.data;
         if (response.data != "Match In Progress!") {
@@ -120,8 +116,6 @@ export default {
       this.message = "";
       this.returnList = [];
       this.movesMade = 0;
-      let uri = "http://localhost:4023/begin/" + this.size;
-      this.axios.post(uri);
     },
 
     resetScore() {

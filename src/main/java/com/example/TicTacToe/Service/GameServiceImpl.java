@@ -24,22 +24,28 @@ public class GameServiceImpl implements GameService {
 
     private static int newId = 1;
 
-    @Override
-    public void beginGame(int size) {
+    public Board createBoard(int size) {
         // create new board object with size & win_states
         List<String[]> winStates = new ArrayList<>();
         setWinStates(size, winStates);
         Board board = new Board(newId, size, winStates, "");
         newId++;
         gameRepository.insert(board);
+        return board;
     }
 
     @Override
-    public String addMove(List<String> moveSet) {
-        List<Board> allBoards = gameRepository.findAll();
-        Board board = allBoards.get(allBoards.size() - 1);
+    public String submitMove(int size, List<String> moveSet, boolean newGame) {
+        Board board;
+        List<String[]> winStates;
+        if (newGame){
+            board = createBoard(size);
+        }else{
+            List<Board> allBoards = gameRepository.findAll();
+            board = allBoards.get(allBoards.size() - 1);
+        }
         // iterate through winStates and mark moves
-        List<String[]> winStates = board.getWinStates();
+        winStates = board.getWinStates();
         for (String str: moveSet){
             String[] move = str.split(" ", 2);
             for (String[] arrayOfMoves: winStates){

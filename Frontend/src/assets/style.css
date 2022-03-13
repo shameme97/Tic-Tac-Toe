@@ -94,18 +94,6 @@ button:active
   transform: translateY(4px);
 }
 
-.beginButton{
-  background-color: #081e81;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  margin-left:auto;margin-right:auto;
-}
-
-
 h1 {
   text-align: center;
   font-family: "Arial", sans-serif;

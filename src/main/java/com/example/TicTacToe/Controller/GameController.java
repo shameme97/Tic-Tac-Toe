@@ -17,14 +17,9 @@ public class GameController {
     @Autowired
     public GameService gameService;
 
-    @PostMapping(value = "/begin/{size}")
-    public void beginGame(@PathVariable("size") int size){
-        gameService.beginGame(size);
-    }
-
-    @PostMapping(value = "/submitMoves")
-    public String addMove(@RequestBody List<String> moveSet){
-        return gameService.addMove(moveSet);
+    @PostMapping(value = "/{size}/submitMoves/{inProgress}")
+    public String submitMove(@PathVariable("size") int size,@PathVariable("inProgress") boolean inProgress, @RequestBody List<String> moveSet){
+        return gameService.submitMove(size, moveSet, inProgress);
     }
 
     @PostMapping(value = "/reset")

@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface GameService {
-    public void beginGame(int size);
-    public String addMove(List<String> moveSet);
+    public String submitMove(int size, List<String> moveSet, boolean inProgress);
     public void resetStats();
     public int[] showResults();
 }

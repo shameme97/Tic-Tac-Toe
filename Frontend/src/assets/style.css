@@ -23,7 +23,6 @@ body{
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
-  /* background-color: #eee; */
   background: transparent;
 }
 
@@ -55,21 +54,26 @@ body{
 
 
 #resultMessage{
-  padding: 3px;
-  font-family: cursive;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  width: 300px;
+  font-family: cursive;
+  font-size: 40px;
+  /* font-weight: bold; */
+  line-height: 50px;
+  text-align: center;
+  padding: 0 25px;
+
+  width: 250px;
   height: 150px;
   position: fixed;
-  z-index: 1;
+  /* z-index: 1; */
   top: 30px;
   left: 70px;
   background: #eee;
   overflow-x: hidden;
-  padding: 8px 0;
+
   
   border: 3px solid #05c7ce;
   border-radius: 10px;
@@ -115,16 +119,13 @@ button:active
 .sidenav {
   height: 400px; 
   width: 260px; 
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
+  position: fixed; 
+  z-index: 1; 
   top: 30px; 
   right: 70px;;
   background: #eee; 
-  overflow-x: hidden; /* Disable horizontal scroll */
-  /* padding-top: 10px;
-  padding-left: 30px; */
+  overflow-x: hidden; 
   text-align: center;
-  /* align-content: center; */
 
   border: 3px solid #05c7ce;
   border-radius: 10px;
@@ -166,29 +167,15 @@ button:active
 }
 
 h2 {
+  font-size: 30px;
   text-align: center;
 }
 
-table 
-{
-    
-    display: flex;
-    flex-flow: column;
-    border: 1px;
-    border-collapse: collapse;
-    margin: 25px 0;
-    /* margin-left:auto;margin-right:auto; */
-}
-
-table tbody {
-  
-    /* flex: 1 1 auto; */
-    display: block;
-    background-color:transparent;
-}
+table {
+    padding: 15px 20px;
+} 
 
 td {
-  text-align: center;
-  /* text-align: left; */
-    padding: 17px 25px;
+  padding: 10px 10px;
 }
+

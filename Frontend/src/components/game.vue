@@ -21,11 +21,8 @@
             <td>{{ score[2] }}</td>
           </tr>
         </table>
-        <!-- Cross : {{ score[0] }} <br />
-        Circle : {{ score[1] }} <br />
-        Draw : {{ score[2] }} -->
       </div>
-
+      <br />
       <button @click="resetScore()">Reset Score</button>
     </div>
 
@@ -44,11 +41,10 @@
       </div>
     </div>
 
-    <br />
     <div id="resultMessage">
-      <h2>Match Status</h2>
       {{ this.message }}
     </div>
+
     <div id="game-view" v-bind:style="{ width: computedBoard, height: computedBoard }">
       <div id="game-view-info">It is {{ this.currentTurn }}'s turn</div>
       <div
@@ -84,11 +80,12 @@ export default {
       currentTurn: "X",
       inProgress: true,
       message: "",
+      beginMessage: "Let's play tic-tac-toe!",
       movesList: [],
       movesMade: 0,
       score: [],
       squareSize: "33.33%",
-      boardSize: "565px",
+      boardSize: "580px",
       markSize: "75px",
     };
   },
@@ -110,6 +107,7 @@ export default {
   created: function () {
     this.createArray();
     this.getScore();
+    this.message = this.beginMessage;
   },
 
   methods: {
@@ -139,7 +137,7 @@ export default {
       this.size = size;
       var newGame = this.message == "Match In Progress!" ? false : true;
       let uri = "http://localhost:4023/" + size + "/submitMoves/" + newGame;
-      this.axios.post(uri, this.returnList).then((response) => {
+      this.axios.post(uri, this.movesList).then((response) => {
         this.message = response.data;
         if (response.data != "Match In Progress!") {
           this.inProgress = false;
@@ -151,7 +149,7 @@ export default {
     rematch() {
       this.createArray();
       this.inProgress = true;
-      this.message = "";
+      this.message = this.beginMessage;
       this.movesList = [];
       this.movesMade = 0;
     },

@@ -20,7 +20,6 @@
             {{ item }}
           </option>
         </select>
-        <button v-on:click="setBoard(size)">Set</button>
         <br /><br />
         <button v-on:click="submitMoves(size)">Submit</button>
         <br /><br />
@@ -44,7 +43,11 @@
           v-on:click="makeMove(i)"
           v-bind:class="{ hightlighted: square.isHighlighted }"
           class="game-view-square"
-          v-bind:style="{ width: computedSquare, height: computedSquare }"
+          v-bind:style="{
+            width: computedSquare,
+            height: computedSquare,
+            fontSize: computedMark,
+          }"
         >
           {{ square.value }}
         </div>
@@ -66,8 +69,9 @@ export default {
       returnList: [],
       movesMade: 0,
       score: [],
-      squareSize: "166px",
-      boardSize: "550px",
+      squareSize: "33.33%",
+      boardSize: "540px",
+      markSize: "75px",
     };
   },
   computed: {
@@ -78,6 +82,11 @@ export default {
     },
     computedBoard: function () {
       return this.boardSize;
+    },
+    computedMark: function () {
+      var mark = 300 / this.size;
+      this.markSize = mark + "px";
+      return this.markSize;
     },
   },
   created: function () {

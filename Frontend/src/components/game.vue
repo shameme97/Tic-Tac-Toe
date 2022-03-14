@@ -2,18 +2,36 @@
   <div>
     <div class="sidenav">
       <h2>Scoreboard</h2>
+
       <div class="scoreBoard">
-        Cross : {{ score[0] }} <br />
+        <table>
+          <tr>
+            <td>Cross</td>
+            <td>:</td>
+            <td>{{ score[0] }}</td>
+          </tr>
+          <tr>
+            <td>Circle</td>
+            <td>:</td>
+            <td>{{ score[1] }}</td>
+          </tr>
+          <tr>
+            <td>Draw</td>
+            <td>:</td>
+            <td>{{ score[2] }}</td>
+          </tr>
+        </table>
+        <!-- Cross : {{ score[0] }} <br />
         Circle : {{ score[1] }} <br />
-        Draw : {{ score[2] }}
+        Draw : {{ score[2] }} -->
       </div>
-      <br /><br /><br /><br /><br />
+
       <button @click="resetScore()">Reset Score</button>
     </div>
 
     <div class="sidenav2">
       <div class="topdiv">
-        <label for="selectBoard">Select board size:</label>
+        <label for="selectBoard">Select board size: </label>
         <select class="selectBoard" name="selectBoard" v-model="size">
           <option v-for="(item, index) in sizeList" v-bind:key="index">
             {{ item }}

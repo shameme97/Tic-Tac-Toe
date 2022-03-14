@@ -1,3 +1,7 @@
+body{
+  background-image: url("bnw2.png");
+ }
+
 #game-view {
   margin: 0 auto;
   border: 1px #000;
@@ -9,8 +13,9 @@
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  background-color: #eee;
-  border: 3px solid white;
+  background-color: rgb(156, 243, 243);
+  border: 3px solid #05c7ce;
+  border-radius: 10px;
   /* border-bottom: transparent; */
 }
 
@@ -18,7 +23,7 @@
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
-  /* background-color: rgb(241, 219, 237); */
+  background-color: #eee;
 }
 
 .game-view-square {
@@ -26,21 +31,21 @@
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  border: 2px solid white;
-  /* border: transparent; */
+  border: 3px solid #05c7ce;
+  border-radius: 5px;
 
   font-family: cursive;
   font-size: 75px;
   text-transform: uppercase;
-  color: white;
+  color: rgb(0, 0, 0);
 
   cursor: pointer;
   user-select: none;
 
 }
 
-.game-view-square.highlighted { color: green; }
-.game-view-square:hover{ color: #eee; }
+.game-view-square.highlighted { color: #05c7ce; }
+.game-view-square:hover{ color: #05c7ce; }
 
 /* .game-view-square:nth-child(-n+6) { border-bottom: 10px saddlebrown;}
 .game-view-square:nth-child(3n+1),
@@ -55,7 +60,7 @@
   text-align: center;
 
   width: 300px;
-  height: 200px;
+  height: 150px;
   position: fixed;
   z-index: 1;
   top: 30px;
@@ -63,7 +68,10 @@
   background: #eee;
   overflow-x: hidden;
   padding: 8px 0;
-  /* background-color: rgb(238, 236, 131); */
+  
+  border: 3px solid #05c7ce;
+  border-radius: 10px;
+
 }
 
 .topdiv
@@ -78,17 +86,17 @@
 
 button {
   display: inline-block;
-  padding: 5px 5px;
+  width: 210px;
   font-size: 20px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #4CAF50;
+  background-color: #05c7ce;
   border: none;
   border-radius: 5px;
-  box-shadow: 0 2px #999;
+  box-shadow: 0 2px rgb(140, 181, 189);
   font-family: cursive;
 }
 
@@ -109,23 +117,24 @@ h1 {
   text-transform: uppercase;
  }
  
- body{
-  /* background-image: url("pastel.png"); */
-  background-color: #000;
- }
+ 
+
 
 /* The sidebar menu */
 .sidenav {
-  height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 200px; /* Set the width of the sidebar */
+  height: 400px; /* Full-height: remove this if you want "auto" height */
+  width: 250px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  right: 0;
-  background-color: rgb(117, 192, 241); /* Black */
+  top: 30px; 
+  right: 70px;;
+  background: #eee; 
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 10px;
   padding-left: 30px;
+
+  border: 3px solid #05c7ce;
+  border-radius: 10px;
 
   text-decoration: none;
   font-size: 20px;
@@ -139,11 +148,14 @@ h1 {
   height: 200px;
   position: fixed;
   z-index: 1;
-  top: 300px;
+  top: 225px;
   left: 70px;
   background: #eee;
   overflow-x: hidden;
   padding: 8px 0;
+
+  border: 3px solid #05c7ce;
+  border-radius: 10px;
 }
 
 

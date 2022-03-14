@@ -8,8 +8,7 @@
         Draw : {{ score[2] }}
       </div>
       <br /><br /><br /><br /><br />
-      &nbsp; &nbsp;
-      <button @click="resetScore()">Reset Game</button>
+      <button @click="resetScore()">Reset Score</button>
     </div>
 
     <div class="sidenav2">
@@ -29,7 +28,7 @@
 
     <br />
     <div id="resultMessage">
-      <h2>Result Board</h2>
+      <h2>Match Status</h2>
       {{ this.message }}
     </div>
     <div id="game-view" v-bind:style="{ width: computedBoard, height: computedBoard }">
@@ -71,7 +70,7 @@ export default {
       movesMade: 0,
       score: [],
       squareSize: "33.33%",
-      boardSize: "570px",
+      boardSize: "565px",
       markSize: "75px",
     };
   },

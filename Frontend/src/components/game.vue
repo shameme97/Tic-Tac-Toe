@@ -28,7 +28,8 @@
     </div>
 
     <br />
-    <div id="resultBoard">
+    <div id="resultMessage">
+      <h2>Result Board</h2>
       {{ this.message }}
     </div>
     <div id="game-view" v-bind:style="{ width: computedBoard, height: computedBoard }">
@@ -66,11 +67,11 @@ export default {
       currentTurn: "X",
       inProgress: true,
       message: "",
-      returnList: [],
+      movesList: [],
       movesMade: 0,
       score: [],
       squareSize: "33.33%",
-      boardSize: "540px",
+      boardSize: "570px",
       markSize: "75px",
     };
   },
@@ -110,7 +111,7 @@ export default {
           this.items[i].value = this.currentTurn;
           var string = this.currentTurn == "X" ? "CROSS " : "CIRCLE ";
           string += row + " " + col;
-          this.returnList[this.movesMade] = string;
+          this.movesList[this.movesMade] = string;
           this.movesMade++;
           this.currentTurn = this.currentTurn == "X" ? "O" : "X";
         }
@@ -134,7 +135,7 @@ export default {
       this.createArray();
       this.inProgress = true;
       this.message = "";
-      this.returnList = [];
+      this.movesList = [];
       this.movesMade = 0;
     },
 
@@ -155,6 +156,7 @@ export default {
     setBoard(size) {
       this.size = size;
       this.createArray();
+      this.rematch();
     },
   },
 };

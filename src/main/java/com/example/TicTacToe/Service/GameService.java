@@ -10,4 +10,5 @@ public interface GameService {
     public String submitMove(int size, List<String> moveSet, boolean inProgress);
     public void resetStats();
     public int[] showResults();
+    public String[] getWinningMoves();
 }

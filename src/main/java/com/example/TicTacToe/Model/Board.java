@@ -18,5 +18,6 @@ public class Board {
     private int size;
     private List<String[]> winStates;
     private String winner;
+    private String[] winningMove;
 
 }

@@ -28,7 +28,7 @@ public class GameServiceImpl implements GameService {
         // create new board object with size & win_states
         List<String[]> winStates = new ArrayList<>();
         setWinStates(size, winStates);
-        Board board = new Board(newId, size, winStates, "");
+        Board board = new Board(newId, size, winStates, "", new String[3]);
         newId++;
         gameRepository.insert(board);
         return board;
@@ -48,14 +48,20 @@ public class GameServiceImpl implements GameService {
 
     public String checkForWinner(Board board, List<String> moveSet){
         List<String[]> winStates = board.getWinStates();
+        List<String[]> copyOfWinStates = new ArrayList<>();
+        for (String[] winMoves: winStates){
+            copyOfWinStates.add(Arrays.copyOf(winMoves, winMoves.length));
+        }
         for (String str: moveSet){
             String[] move = str.split(" ", 2);
             for (String[] arrayOfMoves: winStates){
                 if (Arrays.asList(arrayOfMoves).contains(move[1])){
                     int index = Arrays.asList(arrayOfMoves).indexOf(move[1]);
                     arrayOfMoves[index] = move[0].equals("CROSS") ? "X" : "O";
-                    if (foundWinner(board, arrayOfMoves))
+                    if (foundWinner(board, arrayOfMoves)) {
+                        setWinningMoves(board, copyOfWinStates);
                         return move[0] + " Wins!";
+                    }
                 }
             }
         }
@@ -73,6 +79,23 @@ public class GameServiceImpl implements GameService {
         else return false;
         gameRepository.save(board);
         return true;
+    }
+
+    public void setWinningMoves(Board board, List<String[]> copyOfWinStates){
+        List<String[]> movesMade = board.getWinStates();
+        String[] winMove = new String[3];
+        for (int i=0; i<movesMade.size(); ++i){
+            String[] move = movesMade.get(i);
+            for (int j=1; j<board.getSize()-1; ++j){
+                if (move[j-1].equals(move[j]) && move[j].equals(move[j+1])){
+                    String[] found = copyOfWinStates.get(i);
+                    winMove = new String[]{ found[j-1], found[j], found[j+1]};
+                    break;
+                }
+            }
+        }
+        board.setWinningMove(winMove);
+        gameRepository.save(board);
     }
 
     public String checkForDraw(Board board, int numberOfMoves){
@@ -104,6 +127,13 @@ public class GameServiceImpl implements GameService {
             }
         }
         return new int[]{crossWins, circleWins, draw};
+    }
+
+    @Override
+    public String[] getWinningMoves() {
+        List<Board> allBoards = gameRepository.findAll();
+        Board board = allBoards.get(allBoards.size() - 1);
+        return board.getWinningMove();
     }
 
     public void setWinStates(int size, List<String[]> winStates){

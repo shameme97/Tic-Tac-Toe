@@ -32,5 +32,8 @@ public class GameController {
         return gameService.showResults();
     }
 
-
+    @GetMapping(value = "/winningMoves")
+    public String[] getWinningMoves(){
+        return gameService.getWinningMoves();
+    }
 }

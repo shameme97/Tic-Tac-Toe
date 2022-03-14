@@ -55,13 +55,13 @@
           v-for="(square, i) in items"
           v-bind:key="i"
           v-on:click="makeMove(i)"
-          v-bind:class="{ hightlighted: square.isHighlighted }"
-          class="game-view-square"
           v-bind:style="{
             width: computedSquare,
             height: computedSquare,
             fontSize: computedMark,
           }"
+          v-bind:class="{ highlighted: square.isHighlighted }"
+          class="game-view-square"
         >
           {{ square.value }}
         </div>
@@ -142,6 +142,7 @@ export default {
         if (response.data != "Match In Progress!") {
           this.inProgress = false;
           this.getScore();
+          this.getWinningMoves();
         }
       });
     },
@@ -172,6 +173,20 @@ export default {
       this.size = size;
       this.createArray();
       this.rematch();
+    },
+
+    getWinningMoves() {
+      let uri = "http://localhost:4023/winningMoves";
+      var winningMoves = [];
+      this.axios.get(uri).then((response) => {
+        winningMoves = response.data;
+        console.log(winningMoves);
+        for (let i = 0; i < winningMoves.length; i++) {
+          var move = winningMoves[i].split(" ", 2);
+          var index = parseInt(move[0]) * this.size + parseInt(move[1]);
+          this.items[index].isHighlighted = true;
+        }
+      });
     },
   },
 };

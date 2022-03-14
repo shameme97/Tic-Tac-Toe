@@ -32,15 +32,19 @@
     <div id="resultBoard">
       {{ this.message }}
     </div>
-    <div id="game-view">
+    <div id="game-view" v-bind:style="{ width: computedBoard, height: computedBoard }">
       <div id="game-view-info">It is {{ this.currentTurn }}'s turn</div>
-      <div id="game-view-squares">
+      <div
+        id="game-view-squares"
+        v-bind:style="{ width: computedBoard, height: computedBoard }"
+      >
         <div
           v-for="(square, i) in items"
           v-bind:key="i"
           v-on:click="makeMove(i)"
           v-bind:class="{ hightlighted: square.isHighlighted }"
           class="game-view-square"
+          v-bind:style="{ width: computedSquare, height: computedSquare }"
         >
           {{ square.value }}
         </div>
@@ -62,10 +66,20 @@ export default {
       returnList: [],
       movesMade: 0,
       score: [],
+      squareSize: "166px",
+      boardSize: "550px",
     };
   },
-  components: {},
-
+  computed: {
+    computedSquare: function () {
+      this.squareSize = 100 / this.size + "%";
+      this.setBoard(this.size);
+      return this.squareSize;
+    },
+    computedBoard: function () {
+      return this.boardSize;
+    },
+  },
   created: function () {
     this.createArray();
     this.getScore();

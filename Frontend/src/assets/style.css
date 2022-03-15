@@ -1,3 +1,8 @@
+:root{
+  --color: #05c7ce;
+  --background-color: #eee;
+}
+
 body{
   background-image: url("bnw2.png");
  }
@@ -5,16 +10,17 @@ body{
 #game-view {
   margin: 0 auto;
   border: 1px #000;
+  align-content: center;
 }
 
 #game-view-info {
   padding: 8px;
-  font-family: sans-serif;
+  font-family: cursive;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
   background-color: rgb(156, 243, 243);
-  border: 3px solid #05c7ce;
+  border: 3px solid var(--color);
   border-radius: 10px;
   /* border-bottom: transparent; */
 }
@@ -31,9 +37,9 @@ body{
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  border: 3px solid #05c7ce;
+  border: 3px solid var(--color);
   border-radius: 5px;
-  background-color: #eee;
+  background-color: var(--background-color);
 
   font-family: cursive;
   font-size: 75px;
@@ -45,12 +51,8 @@ body{
 
 }
 
-.game-view-square.highlighted { color: #05c7ce; }
-.game-view-square:hover{ color: #05c7ce; }
-
-/* .game-view-square:nth-child(-n+6) { border-bottom: 10px saddlebrown;}
-.game-view-square:nth-child(3n+1),
-.game-view-square:nth-child(3n+2) { border-right: 10px saddlebrown;} */
+.game-view-square.highlighted { color: var(--color); }
+.game-view-square:hover{ color: var(--color); }
 
 
 #resultMessage{
@@ -71,11 +73,11 @@ body{
   /* z-index: 1; */
   top: 30px;
   left: 70px;
-  background: #eee;
+  background: var(--background-color);
   overflow-x: hidden;
 
   
-  border: 3px solid #05c7ce;
+  border: 3px solid var(--color);
   border-radius: 10px;
 
 }
@@ -99,7 +101,7 @@ button {
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #05c7ce;
+  background-color: var(--color);
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px rgb(140, 181, 189);
@@ -117,17 +119,17 @@ button:active
 
 
 .sidenav {
-  height: 400px; 
+  height: 410px; 
   width: 260px; 
   position: fixed; 
   z-index: 1; 
   top: 30px; 
   right: 70px;;
-  background: #eee; 
+  background: var(--background-color);
   overflow-x: hidden; 
   text-align: center;
 
-  border: 3px solid #05c7ce;
+  border: 3px solid var(--color);
   border-radius: 10px;
 
   text-decoration: none;
@@ -148,18 +150,18 @@ button:active
   z-index: 1;
   top: 225px;
   left: 70px;
-  background: #eee;
+  background: var(--background-color);
   overflow-x: hidden;
   padding: 8px 0;
 
-  border: 3px solid #05c7ce;
+  border: 3px solid var(--color);
   border-radius: 10px;
 }
 
 .selectBoard {
   overflow: hidden;
   overflow: -moz-hidden-unscrollable;
-  border: 3px solid #05c7ce;
+  border: 3px solid var(--color);
   border-radius: 10px;
   display: inline-block;
   position: relative;
@@ -167,12 +169,12 @@ button:active
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 35px;
   text-align: center;
 }
 
 table {
-    padding: 15px 20px;
+    padding: 12px 20px;
 } 
 
 td {

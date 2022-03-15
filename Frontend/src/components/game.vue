@@ -6,17 +6,17 @@
       <div class="scoreBoard">
         <table>
           <tr>
-            <td>Cross</td>
+            <td>CROSS</td>
             <td>:</td>
             <td>{{ score[0] }}</td>
           </tr>
           <tr>
-            <td>Circle</td>
+            <td>CIRCLE</td>
             <td>:</td>
             <td>{{ score[1] }}</td>
           </tr>
           <tr>
-            <td>Draw</td>
+            <td>DRAW</td>
             <td>:</td>
             <td>{{ score[2] }}</td>
           </tr>
@@ -171,7 +171,6 @@ export default {
 
     setBoard(size) {
       this.size = size;
-      this.createArray();
       this.rematch();
     },
 
@@ -180,7 +179,6 @@ export default {
       var winningMoves = [];
       this.axios.get(uri).then((response) => {
         winningMoves = response.data;
-        console.log(winningMoves);
         for (let i = 0; i < winningMoves.length; i++) {
           var move = winningMoves[i].split(" ", 2);
           var index = parseInt(move[0]) * this.size + parseInt(move[1]);

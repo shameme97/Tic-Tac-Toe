@@ -86,7 +86,7 @@ public class GameServiceImpl implements GameService {
         String[] winMove = new String[3];
         for (int i=0; i<movesMade.size(); ++i){
             String[] move = movesMade.get(i);
-            for (int j=1; j<board.getSize()-1; ++j){
+            for (int j=1; j<move.length-1; ++j){
                 if (move[j-1].equals(move[j]) && move[j].equals(move[j+1])){
                     String[] found = copyOfWinStates.get(i);
                     winMove = new String[]{ found[j-1], found[j], found[j+1]};

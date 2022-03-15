@@ -120,11 +120,14 @@ public class GameServiceImpl implements GameService {
         int crossWins, circleWins, draw;
         crossWins = circleWins = draw = 0;
         for (Board board: allBoards){
-            switch (board.getWinner()) {
-                case "CROSS" -> ++crossWins;
-                case "CIRCLE" -> ++circleWins;
-                case "Draw" -> ++draw;
-            }
+//            switch (board.getWinner()) {
+//                case "CROSS" -> ++crossWins;
+//                case "CIRCLE" -> ++circleWins;
+//                case "Draw" -> ++draw;
+//            }
+            if (board.getWinner().equals("CROSS")) ++crossWins;
+            else if (board.getWinner().equals("CIRCLE")) ++circleWins;
+            else if (board.getWinner().equals("Draw")) ++draw;
         }
         return new int[]{crossWins, circleWins, draw};
     }

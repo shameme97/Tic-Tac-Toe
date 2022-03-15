@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>password_manager</artifactId>
+	<artifactId>tic_tac_toe</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>TicTacToe</name>
 	<description>TicTacToe using Spring Boot</description>

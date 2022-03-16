@@ -65,6 +65,21 @@ class GameServiceImplTest {
 
         List<String> moveSet3 = Arrays.asList("CROSS 2 0","CIRCLE 0 2","CROSS 2 1","CIRCLE 2 1");
         assertEquals("Match In Progress!", gameService.submitMove(5, moveSet3, true));
+
+        List<String[]> winStates = new ArrayList<>();
+        winStates.add(new String[]{"0 0", "0 1", "0 2"});
+        winStates.add(new String[]{"1 0", "1 1", "1 2"});
+        winStates.add(new String[]{"2 0", "2 1", "2 2"});
+        winStates.add(new String[]{"0 0", "1 0", "2 0"});
+        winStates.add(new String[]{"0 1", "1 1", "2 1"});
+        winStates.add(new String[]{"0 2", "1 2", "2 2"});
+        winStates.add(new String[]{"0 0", "1 1", "2 2"});
+        winStates.add(new String[]{"0 2", "1 1", "2 0"});
+
+        Board board = new Board(1, 3, winStates, "", new String[3]);
+        gameRepository.insert(board);
+        List<String> moveSet4 = Arrays.asList("CIRCLE 2 0","CROSS 0 0","CIRCLE 2 1","CROSS 1 1","CIRCLE 2 2");
+//        assertEquals("CIRCLE Wins!", gameService.submitMove(3, moveSet4, false));
     }
 
     @Test

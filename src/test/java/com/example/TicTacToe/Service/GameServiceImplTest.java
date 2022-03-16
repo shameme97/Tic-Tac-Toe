@@ -61,10 +61,10 @@ class GameServiceImplTest {
         assertEquals("CIRCLE Wins!", gameService.submitMove(3, moveSet, true));
 
         List<String> moveSet2 = Arrays.asList("CROSS 2 0","CIRCLE 0 2","CROSS 2 1","CIRCLE 2 1","CROSS 2 2");
-        assertEquals("CROSS Wins!", gameService.submitMove(3, moveSet2, true));
+        assertEquals("CROSS Wins!", gameService.submitMove(4, moveSet2, true));
 
         List<String> moveSet3 = Arrays.asList("CROSS 2 0","CIRCLE 0 2","CROSS 2 1","CIRCLE 2 1");
-        assertEquals("Match In Progress!", gameService.submitMove(3, moveSet3, true));
+        assertEquals("Match In Progress!", gameService.submitMove(5, moveSet3, true));
     }
 
     @Test
@@ -82,6 +82,10 @@ class GameServiceImplTest {
         Board board = new Board(1, 3, winStates, "", new String[3]);
         List<String> moveSet = Arrays.asList("CROSS 2 0","CIRCLE 0 0","CROSS 2 1","CIRCLE 1 1","CROSS 2 2");
         assertEquals("CROSS Wins!", gameService.checkForWinner(board, moveSet));
+
+        List<String> moveSet2 = Arrays.asList("CIRCLE 0 0" ,"CROSS 0 2","CIRCLE 0 1","CROSS 1 0",
+                "CIRCLE 1 2","CROSS 1 1", "CIRCLE 2 0" ,"CROSS 2 2","CIRCLE 2 1");
+        assertEquals("Draw", gameService.checkForWinner(board, moveSet2));
     }
 
     @Test
@@ -133,19 +137,22 @@ class GameServiceImplTest {
     }
 
     @Test
-    void checkForDraw() {
-    }
-
-    @Test
-    void resetStats() {
-    }
-
-    @Test
     void showResults() {
-    }
+        List<String[]> winStates = new ArrayList<>();
+        winStates.add(new String[]{"O", "0 1", "0 2"});
+        winStates.add(new String[]{"1 0", "O", "1 2"});
+        winStates.add(new String[]{"X", "X", "X"});
+        winStates.add(new String[]{"O", "1 0", "X"});
+        winStates.add(new String[]{"0 1", "O", "X"});
+        winStates.add(new String[]{"0 2", "1 2", "X"});
+        winStates.add(new String[]{"O", "O", "X"});
+        winStates.add(new String[]{"0 2", "O", "X"});
 
-    @Test
-    void getWinningMoves() {
+        Board board = new Board(1, 3, winStates, "CROSS", new String[3]);
+        gameRepository.insert(board);
+        Board board2 = new Board(2, 3, winStates, "CROSS", new String[3]);
+        gameRepository.insert(board2);
+//        assertArrayEquals(new int[]{1, 0, 0}, gameService.showResults());
     }
 
 }

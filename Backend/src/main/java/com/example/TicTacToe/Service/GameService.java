@@ -1,9 +1,6 @@
 package com.example.TicTacToe.Service;
 
 
-import com.example.TicTacToe.Model.Board;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public interface GameService {

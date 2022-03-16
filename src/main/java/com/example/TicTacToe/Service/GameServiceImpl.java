@@ -87,6 +87,7 @@ public class GameServiceImpl implements GameService {
         for (int i=0; i<movesMade.size(); ++i){
             String[] move = movesMade.get(i);
             for (int j=1; j<move.length-1; ++j){
+                // checking if 3 consecutive moves are XXX or OOO
                 if (move[j-1].equals(move[j]) && move[j].equals(move[j+1])){
                     String[] found = copyOfWinStates.get(i);
                     winMove = new String[]{ found[j-1], found[j], found[j+1]};

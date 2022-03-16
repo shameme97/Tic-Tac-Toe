@@ -33,7 +33,6 @@ class GameServiceImplTest {
 
     @Test
     void createBoard() {
-        int size = 3;
         List<String[]> winStates = new ArrayList<>();
         winStates.add(new String[]{"0 0", "0 1", "0 2"});
         winStates.add(new String[]{"1 0", "1 1", "1 2"});
@@ -44,7 +43,7 @@ class GameServiceImplTest {
         winStates.add(new String[]{"0 0", "1 1", "2 2"});
         winStates.add(new String[]{"0 2", "1 1", "2 0"});
 
-        Board board = gameService.createBoard(size);
+        Board board = gameService.createBoard(3);
         List<String[]> boardWinStates = board.getWinStates();
         int found = 0;
         for (String[] winState: winStates){
@@ -58,18 +57,79 @@ class GameServiceImplTest {
 
     @Test
     void submitMove() {
+        List<String> moveSet = Arrays.asList("CIRCLE 2 0","CROSS 0 0","CIRCLE 2 1","CROSS 1 1","CIRCLE 2 2");
+        assertEquals("CIRCLE Wins!", gameService.submitMove(3, moveSet, true));
+
+        List<String> moveSet2 = Arrays.asList("CROSS 2 0","CIRCLE 0 2","CROSS 2 1","CIRCLE 2 1","CROSS 2 2");
+        assertEquals("CROSS Wins!", gameService.submitMove(3, moveSet2, true));
+
+        List<String> moveSet3 = Arrays.asList("CROSS 2 0","CIRCLE 0 2","CROSS 2 1","CIRCLE 2 1");
+        assertEquals("Match In Progress!", gameService.submitMove(3, moveSet3, true));
     }
 
     @Test
     void checkForWinner() {
+        List<String[]> winStates = new ArrayList<>();
+        winStates.add(new String[]{"0 0", "0 1", "0 2"});
+        winStates.add(new String[]{"1 0", "1 1", "1 2"});
+        winStates.add(new String[]{"2 0", "2 1", "2 2"});
+        winStates.add(new String[]{"0 0", "1 0", "2 0"});
+        winStates.add(new String[]{"0 1", "1 1", "2 1"});
+        winStates.add(new String[]{"0 2", "1 2", "2 2"});
+        winStates.add(new String[]{"0 0", "1 1", "2 2"});
+        winStates.add(new String[]{"0 2", "1 1", "2 0"});
+
+        Board board = new Board(1, 3, winStates, "", new String[3]);
+        List<String> moveSet = Arrays.asList("CROSS 2 0","CIRCLE 0 0","CROSS 2 1","CIRCLE 1 1","CROSS 2 2");
+        assertEquals("CROSS Wins!", gameService.checkForWinner(board, moveSet));
     }
 
     @Test
     void foundWinner() {
+        List<String[]> winStates = new ArrayList<>();
+        winStates.add(new String[]{"X", "0 1", "0 2"});
+        winStates.add(new String[]{"1 0", "X", "1 2"});
+        winStates.add(new String[]{"O", "O", "O"});
+        winStates.add(new String[]{"X", "1 0", "O"});
+        winStates.add(new String[]{"0 1", "X", "O"});
+        winStates.add(new String[]{"0 2", "1 2", "O"});
+        winStates.add(new String[]{"X", "X", "O"});
+        winStates.add(new String[]{"0 2", "X", "O"});
+
+        Board board = new Board(1, 3, winStates, "", new String[3]);
+        String[] movesMade1 = {"O", "O", "O"};
+        String[] movesMade2 = {"X", "X", "O"};
+        assertTrue(gameService.foundWinner(board, movesMade1));
+        assertFalse(gameService.foundWinner(board, movesMade2));
     }
 
     @Test
     void setWinningMoves() {
+        List<String[]> copyOfWinStates = new ArrayList<>();
+        copyOfWinStates.add(new String[]{"0 0", "0 1", "0 2"});
+        copyOfWinStates.add(new String[]{"1 0", "1 1", "1 2"});
+        copyOfWinStates.add(new String[]{"2 0", "2 1", "2 2"});
+        copyOfWinStates.add(new String[]{"0 0", "1 0", "2 0"});
+        copyOfWinStates.add(new String[]{"0 1", "1 1", "2 1"});
+        copyOfWinStates.add(new String[]{"0 2", "1 2", "2 2"});
+        copyOfWinStates.add(new String[]{"0 0", "1 1", "2 2"});
+        copyOfWinStates.add(new String[]{"0 2", "1 1", "2 0"});
+
+        List<String[]> winStates = new ArrayList<>();
+        winStates.add(new String[]{"O", "0 1", "0 2"});
+        winStates.add(new String[]{"1 0", "O", "1 2"});
+        winStates.add(new String[]{"X", "X", "X"});
+        winStates.add(new String[]{"O", "1 0", "X"});
+        winStates.add(new String[]{"0 1", "O", "X"});
+        winStates.add(new String[]{"0 2", "1 2", "X"});
+        winStates.add(new String[]{"O", "O", "X"});
+        winStates.add(new String[]{"0 2", "O", "X"});
+
+        Board board = new Board(1, 3, winStates, "CROSS", new String[3]);
+        gameService.setWinningMoves(board, copyOfWinStates);
+
+        String[] expectedWinningMove = {"2 0", "2 1", "2 2"};
+        assertArrayEquals(expectedWinningMove, board.getWinningMove());
     }
 
     @Test

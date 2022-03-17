@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -43,8 +44,10 @@ class GameServiceImplTest {
         winStates.add(new String[]{"0 0", "1 1", "2 2"});
         winStates.add(new String[]{"0 2", "1 1", "2 0"});
 
-        Board board = gameService.createBoard(3);
-        List<String[]> boardWinStates = board.getWinStates();
+        Board board = new Board(1, 3, winStates, "", new String[3]);
+        when(gameRepository.insert(board)).thenReturn(board);
+        Board result = gameService.createBoard(3);
+        List<String[]> boardWinStates = result.getWinStates();
         int found = 0;
         for (String[] winState: winStates){
             for (String[] boardWinState: boardWinStates){
@@ -53,6 +56,7 @@ class GameServiceImplTest {
             }
         }
         assertEquals(8, found);
+        assertEquals(3, result.getSize());
     }
 
     @Test
@@ -77,9 +81,12 @@ class GameServiceImplTest {
         winStates.add(new String[]{"0 2", "1 1", "2 0"});
 
         Board board = new Board(1, 3, winStates, "", new String[3]);
-        gameRepository.insert(board);
         List<String> moveSet4 = Arrays.asList("CIRCLE 2 0","CROSS 0 0","CIRCLE 2 1","CROSS 1 1","CIRCLE 2 2");
-//        assertEquals("CIRCLE Wins!", gameService.submitMove(3, moveSet4, false));
+        List<Board> allBoards = new ArrayList<>();
+        allBoards.add(board);
+
+        when(gameRepository.findAll()).thenReturn(allBoards);
+        assertEquals("CIRCLE Wins!", gameService.submitMove(3, moveSet4, false));
     }
 
     @Test
@@ -116,6 +123,8 @@ class GameServiceImplTest {
         winStates.add(new String[]{"0 2", "X", "O"});
 
         Board board = new Board(1, 3, winStates, "", new String[3]);
+        when(gameRepository.save(board)).thenReturn(board);
+
         String[] movesMade1 = {"O", "O", "O"};
         String[] movesMade2 = {"X", "X", "O"};
         assertTrue(gameService.foundWinner(board, movesMade1));
@@ -145,10 +154,32 @@ class GameServiceImplTest {
         winStates.add(new String[]{"0 2", "O", "X"});
 
         Board board = new Board(1, 3, winStates, "CROSS", new String[3]);
+        when(gameRepository.save(board)).thenReturn(board);
         gameService.setWinningMoves(board, copyOfWinStates);
 
         String[] expectedWinningMove = {"2 0", "2 1", "2 2"};
         assertArrayEquals(expectedWinningMove, board.getWinningMove());
+    }
+
+    @Test
+    void checkForDraw() {
+        List<String[]> winStates = new ArrayList<>();
+        winStates.add(new String[]{"O", "X", "O"});
+        winStates.add(new String[]{"X", "O", "X"});
+        winStates.add(new String[]{"X", "O", "X"});
+        winStates.add(new String[]{"O", "X", "X"});
+        winStates.add(new String[]{"X", "O", "O"});
+        winStates.add(new String[]{"O", "X", "X"});
+        winStates.add(new String[]{"O", "O", "X"});
+        winStates.add(new String[]{"O", "O", "X"});
+
+        Board board = new Board(1, 3, winStates, "", new String[3]);
+        when(gameRepository.save(board)).thenReturn(board);
+
+        gameService.checkForDraw(board, 9);
+        assertEquals("Draw", board.getWinner());
+
+        assertEquals("Match In Progress!", gameService.checkForDraw(board, 7));
     }
 
     @Test
@@ -165,9 +196,14 @@ class GameServiceImplTest {
 
         Board board = new Board(1, 3, winStates, "CROSS", new String[3]);
         gameRepository.insert(board);
-        Board board2 = new Board(2, 3, winStates, "CROSS", new String[3]);
+        Board board2 = new Board(2, 3, winStates, "Draw", new String[3]);
         gameRepository.insert(board2);
-//        assertArrayEquals(new int[]{1, 0, 0}, gameService.showResults());
+        List<Board> allBoards = new ArrayList<>();
+        allBoards.add(board);
+        allBoards.add(board2);
+
+        when(gameRepository.findAll()).thenReturn(allBoards);
+        assertArrayEquals(new int[]{1, 0, 1}, gameService.showResults());
     }
 
 }

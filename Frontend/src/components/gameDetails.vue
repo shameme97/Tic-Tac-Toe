@@ -19,11 +19,17 @@
     </table>
 
     <table class="winStats">
+      <thead>
+        <tr>
+          <th>Turn</th>
+          <th>Winner</th>
+          <th>Winning Percentage</th>
+        </tr>
+      </thead>
       <tbody>
         <tr>
-          <td>1st Turn:</td>
+          <td>1st</td>
           <td>CROSS</td>
-          <td>Winner: CROSS</td>
           <td>
             <div class="container">
               <div
@@ -36,9 +42,8 @@
           </td>
         </tr>
         <tr>
-          <td>1st Turn:</td>
+          <td>1st</td>
           <td>CIRCLE</td>
-          <td>Winner: CIRCLE</td>
           <td>
             <div class="container">
               <div
@@ -51,9 +56,8 @@
           </td>
         </tr>
         <tr>
-          <td>2nd Turn:</td>
+          <td>2nd</td>
           <td>CROSS</td>
-          <td>Winner: CROSS</td>
           <td>
             <div class="container">
               <div
@@ -66,9 +70,8 @@
           </td>
         </tr>
         <tr>
-          <td>2nd Turn:</td>
+          <td>2nd</td>
           <td>CIRCLE</td>
-          <td>Winner: CIRCLE</td>
           <td>
             <div class="container">
               <div

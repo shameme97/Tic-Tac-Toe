@@ -185,7 +185,7 @@ td {
 {
     display: flex;
     flex-flow: column;
-    height: 400px;
+    height: 350px;
     width: 90%;
     border: 1px;
     border-collapse: collapse;
@@ -233,7 +233,7 @@ tbody tr {
 .winStats {
     display: flex;
     flex-flow: column;
-    height: 400px;
+    height: 200px;
     width: 90%;
     border: 1px;
     border-collapse: collapse;
@@ -248,23 +248,14 @@ tbody tr {
   padding: 2px 2px;
 }
 
-.writing {
-  float: left;
-  margin: 0 1.5%;
-  font-size: 20px;
-}
-
 /* Make sure that padding behaves as expected */
 * {box-sizing:border-box}
 
 /* Container for skill bars */
 .container {
   border: 1px;
-  float: right;
-  margin: 0 1.5%;
-  width: 50%;
+  width: 100%;
   background-color: var(--background-color);
-  /* margin-left: auto;  */
   /* outline: solid 1px black; */
 
 }
@@ -276,7 +267,7 @@ tbody tr {
   color: white; /* White text color */
 }
 
-.x-1st-x-win {width: 0.1%; background-color: #044f72;} /* Green */
-.x-2nd-x-win {width: 0.1%; background-color: #0f6e9b;} /* Blue */
-.o-1st-o-win {width: 0.1%; background-color: #1b8cc0;} /* Red */
-.o-2nd-o-win {width: 0.1%; background-color: #11a3e7;} /* Dark Grey */
+.x-1st-x-win {width: 0.1%; background-color: #044f72;} 
+.x-2nd-x-win {width: 0.1%; background-color: #1b8cc0;} 
+.o-1st-o-win {width: 0.1%; background-color: #0f6e9b;} 
+.o-2nd-o-win {width: 0.1%; background-color: #11a3e7;} 

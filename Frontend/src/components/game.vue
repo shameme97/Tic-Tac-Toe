@@ -140,12 +140,12 @@ export default {
       this.size = size;
       var newGame = this.message == "Match In Progress!" ? false : true;
 
-      // let uri =
-      //   "https://tictactoe-shameme-backend.herokuapp.com/" +
-      //   size +
-      //   "/submitMoves/" +
-      //   newGame;
-      let uri = "http://localhost:4023/" + size + "/submitMoves/" + newGame;
+      let uri =
+        "https://tictactoe-shameme-backend.herokuapp.com/" +
+        size +
+        "/submitMoves/" +
+        newGame;
+      // let uri = "http://localhost:4023/" + size + "/submitMoves/" + newGame;
       this.axios.post(uri, this.movesList).then((response) => {
         this.message = response.data;
         if (response.data != "Match In Progress!") {
@@ -166,16 +166,16 @@ export default {
     },
 
     resetScore() {
-      let uri = "http://localhost:4023/reset";
-      // let uri = "https://tictactoe-shameme-backend.herokuapp.com/reset";
+      // let uri = "http://localhost:4023/reset";
+      let uri = "https://tictactoe-shameme-backend.herokuapp.com/reset";
       this.axios.post(uri);
       this.rematch();
       this.score = [0, 0, 0];
     },
 
     getScore() {
-      let uri = "http://localhost:4023/results";
-      // let uri = "https://tictactoe-shameme-backend.herokuapp.com/results";
+      // let uri = "http://localhost:4023/results";
+      let uri = "https://tictactoe-shameme-backend.herokuapp.com/results";
       this.axios.get(uri).then((response) => {
         this.score = response.data;
       });
@@ -187,8 +187,8 @@ export default {
     },
 
     getWinningMoves() {
-      let uri = "http://localhost:4023/winningMoves";
-      // let uri = "https://tictactoe-shameme-backend.herokuapp.com/winningMoves";
+      // let uri = "http://localhost:4023/winningMoves";
+      let uri = "https://tictactoe-shameme-backend.herokuapp.com/winningMoves";
       var winningMoves = [];
       this.axios.get(uri).then((response) => {
         winningMoves = response.data;
@@ -201,7 +201,8 @@ export default {
     },
 
     setFirstTurn() {
-      let uri = "http://localhost:4023/lastFirstTurn";
+      // let uri = "http://localhost:4023/lastFirstTurn";
+      let uri = "https://tictactoe-shameme-backend.herokuapp.com/lastFirstTurn";
       this.axios.get(uri).then((response) => {
         var lastFirstTurn = response.data;
         this.firstTurn = lastFirstTurn == "CROSS" ? "O" : "X";

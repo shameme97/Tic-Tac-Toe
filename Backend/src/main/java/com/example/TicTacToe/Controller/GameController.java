@@ -47,4 +47,9 @@ public class GameController {
     public String getLastValueOfFirstTurn(){
         return gameService.getLastValueOfFirstTurn();
     }
+
+    @GetMapping(value = "/winStats")
+    public double[] getWinStats(){
+        return gameService.getWinStats();
+    }
 }

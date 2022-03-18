@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table>
+    <table class="gameDetails">
       <thead>
         <tr>
           <th>Game no.</th>
@@ -17,6 +17,37 @@
         </tr>
       </tbody>
     </table>
+
+    <div class="winStats">
+      <div class="writing">1st Turn: CROSS Winner: CROSS</div>
+
+      <div class="container">
+        <div class="skills x-1st-x-win" v-bind:style="{ width: computedWidth_bar0 }">
+          {{ winStats[0] }}%
+        </div>
+      </div>
+
+      <div class="writing">1st Turn: CIRCLE Winner: CIRCLE</div>
+      <div class="container">
+        <div class="skills x-2nd-x-win" v-bind:style="{ width: computedWidth_bar2 }">
+          {{ winStats[2] }}%
+        </div>
+      </div>
+
+      <div class="writing">2nd Turn: CROSS Winner: CROSS</div>
+      <div class="container">
+        <div class="skills o-1st-o-win" v-bind:style="{ width: computedWidth_bar1 }">
+          {{ winStats[1] }}%
+        </div>
+      </div>
+
+      <div class="writing">2nd Turn: CIRCLE Winner: CIRCLE</div>
+      <div class="container">
+        <div class="skills o-2nd-o-win" v-bind:style="{ width: computedWidth_bar3 }">
+          {{ winStats[3] }}%
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -26,16 +57,39 @@ export default {
   data() {
     return {
       gameDetails: [],
+      winStats: [],
     };
   },
   created: function () {
     this.getGameDetails();
+    this.getWinStats();
+  },
+  computed: {
+    computedWidth_bar0: function () {
+      if (this.winStats[0] != 0) return this.winStats[0] + "%";
+    },
+    computedWidth_bar1: function () {
+      if (this.winStats[1] != 0) return this.winStats[1] + "%";
+    },
+    computedWidth_bar2: function () {
+      if (this.winStats[2] != 0) return this.winStats[2] + "%";
+    },
+    computedWidth_bar3: function () {
+      if (this.winStats[3] != 0) return this.winStats[3] + "%";
+    },
   },
   methods: {
     getGameDetails() {
       let uri = "http://localhost:4023/gameDetails";
       this.axios.get(uri).then((response) => {
         this.gameDetails = response.data;
+      });
+    },
+
+    getWinStats() {
+      let uri = "http://localhost:4023/winStats";
+      this.axios.get(uri).then((response) => {
+        this.winStats = response.data;
       });
     },
   },

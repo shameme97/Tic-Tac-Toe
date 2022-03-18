@@ -12,8 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.pow;
+import static java.lang.Math.*;
 
 @Slf4j
 @Service
@@ -144,8 +143,8 @@ public class GameServiceImpl implements GameService {
         List<String[]> gameDetails = new ArrayList<>();
 
         for (Board board: allBoards){
-            String[] boardDetails = {String.valueOf(board.getId()), String.valueOf(board.getSize()),
-                    board.getFirstTurn(), board.getWinner()};
+            String[] boardDetails = {String.valueOf(board.getId()),
+                    board.getSize()+"x"+board.getSize(), board.getFirstTurn(), board.getWinner()};
             gameDetails.add(boardDetails);
         }
         return gameDetails;
@@ -156,6 +155,39 @@ public class GameServiceImpl implements GameService {
         List<Board> allBoards = gameRepository.findAll();
         Board board = allBoards.get(allBoards.size() - 1);
         return board.getFirstTurn();
+    }
+
+    @Override
+    public double[] getWinStats() {
+        List<Board> allBoards = gameRepository.findAll();
+        int totalGames = allBoards.size();
+        double[] winStats = calculateWinStats(allBoards);
+        for (int i=0; i<winStats.length; ++i){
+
+            winStats[i] = (float) round((winStats[i]/totalGames)*100) ; // calculating percentage
+            log.info(String.valueOf(winStats[i]));
+        }
+        return winStats;
+    }
+
+    public double[] calculateWinStats(List<Board> allBoards){
+        int cross1stTurn, cross2ndTurn, circle1stTurn, circle2ndTurn;
+        cross1stTurn = cross2ndTurn = circle1stTurn = circle2ndTurn = 0;
+        for (Board board: allBoards){
+            if (board.getWinner().equals("CROSS")){
+                if (board.getFirstTurn().equals("CROSS"))
+                    ++cross1stTurn;
+                else
+                    ++cross2ndTurn;
+            }
+            else if (board.getWinner().equals("CIRCLE")){
+                if (board.getFirstTurn().equals("CIRCLE"))
+                    ++circle1stTurn;
+                else
+                    ++circle2ndTurn;
+            }
+        }
+        return new double[]{cross1stTurn, cross2ndTurn, circle1stTurn, circle2ndTurn};
     }
 
     public void setWinStates(int size, List<String[]> winStates){

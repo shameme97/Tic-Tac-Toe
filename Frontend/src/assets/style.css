@@ -67,7 +67,7 @@ body{
   text-align: center;
   padding: 0 25px;
 
-  width: 250px;
+  width: 300px;
   height: 150px;
   position: fixed;
   /* z-index: 1; */
@@ -181,3 +181,91 @@ td {
   padding: 10px 10px;
 }
 
+.gameDetails 
+{
+    display: flex;
+    flex-flow: column;
+    height: 400px;
+    width: 90%;
+    border: 1px;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(61, 28, 28, 0.15);
+    margin-left:auto;margin-right:auto;
+}
+table thead {
+    flex: 0 0 auto;
+    width: calc(100% );
+}
+table tbody {
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+    background-color: whitesmoke;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+table tbody tr {
+    width: 100%;
+}
+table thead, table tbody tr {
+    display: table;
+    table-layout: fixed;
+}
+table thead tr {
+    background-color: #0C343D;
+    color: #ffffff;
+    text-align: left;
+}
+.gameDetails.td {
+    padding: 12px 15px;
+}
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.winStats {
+  width: 80%; /* Full width */
+  margin-left: auto; margin-right: auto;
+
+  height: 95px;
+  background: var(--background-color);
+}
+.writing {
+  float: left;
+  margin: 0 1.5%;
+  font-size: 20px;
+}
+
+/* Make sure that padding behaves as expected */
+* {box-sizing:border-box}
+
+/* Container for skill bars */
+.container {
+  border: 1px;
+  float: right;
+  margin: 0 1.5%;
+  width: 50%;
+  background-color: var(--background-color);
+  /* margin-left: auto;  */
+  /* outline: solid 1px black; */
+
+}
+
+.skills {
+  text-align: right; /* Right-align text */
+  padding-top: 0.6%; /* Add top padding */
+  padding-bottom: 0.6%; /* Add bottom padding */
+  color: white; /* White text color */
+}
+
+.x-1st-x-win {width: 0.1%; background-color: #044f72;} /* Green */
+.x-2nd-x-win {width: 0.1%; background-color: #0f6e9b;} /* Blue */
+.o-1st-o-win {width: 0.1%; background-color: #1b8cc0;} /* Red */
+.o-2nd-o-win {width: 0.1%; background-color: #11a3e7;} /* Dark Grey */

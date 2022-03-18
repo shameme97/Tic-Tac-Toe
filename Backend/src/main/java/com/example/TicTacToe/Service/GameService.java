@@ -10,4 +10,5 @@ public interface GameService {
     public String[] getWinningMoves();
     public List<String[]> getGameDetails();
     public String getLastValueOfFirstTurn();
+    public double[] getWinStats();
 }

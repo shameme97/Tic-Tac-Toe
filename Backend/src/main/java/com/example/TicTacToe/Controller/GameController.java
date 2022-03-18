@@ -37,4 +37,14 @@ public class GameController {
     public String[] getWinningMoves(){
         return gameService.getWinningMoves();
     }
+
+    @GetMapping(value = "/gameDetails")
+    public List<String[]> getGameDetails(){
+        return gameService.getGameDetails();
+    }
+
+    @GetMapping(value = "/lastFirstTurn")
+    public String getLastValueOfFirstTurn(){
+        return gameService.getLastValueOfFirstTurn();
+    }
 }

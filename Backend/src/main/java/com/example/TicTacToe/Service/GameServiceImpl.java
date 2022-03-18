@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static java.lang.Math.abs;
@@ -22,14 +23,11 @@ public class GameServiceImpl implements GameService {
     @Autowired
     public GameRepository gameRepository;
 
-    private static int newId = 1;
-
     public Board createBoard(int size) {
         // create new board object with size & win_states
         List<String[]> winStates = new ArrayList<>();
         setWinStates(size, winStates);
-        Board board = new Board(newId, size, winStates,"", "", new String[3]);
-        newId++;
+        Board board = new Board(gameRepository.findAll().size()+1, size, winStates,"", "", new String[3]);
         gameRepository.insert(board);
         return board;
     }
@@ -112,7 +110,6 @@ public class GameServiceImpl implements GameService {
     @Override
     public void resetStats() {
         // clear database
-        newId = 1;
         gameRepository.deleteAll();
     }
 
@@ -139,6 +136,26 @@ public class GameServiceImpl implements GameService {
         List<Board> allBoards = gameRepository.findAll();
         Board board = allBoards.get(allBoards.size() - 1);
         return board.getWinningMove();
+    }
+
+    @Override
+    public List<String[]> getGameDetails() {
+        List<Board> allBoards = gameRepository.findAll();
+        List<String[]> gameDetails = new ArrayList<>();
+
+        for (Board board: allBoards){
+            String[] boardDetails = {String.valueOf(board.getId()), String.valueOf(board.getSize()),
+                    board.getFirstTurn(), board.getWinner()};
+            gameDetails.add(boardDetails);
+        }
+        return gameDetails;
+    }
+
+    @Override
+    public String getLastValueOfFirstTurn() {
+        List<Board> allBoards = gameRepository.findAll();
+        Board board = allBoards.get(allBoards.size() - 1);
+        return board.getFirstTurn();
     }
 
     public void setWinStates(int size, List<String[]> winStates){

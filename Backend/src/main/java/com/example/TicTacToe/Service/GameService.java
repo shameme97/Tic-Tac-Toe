@@ -8,4 +8,6 @@ public interface GameService {
     public void resetStats();
     public int[] showResults();
     public String[] getWinningMoves();
+    public List<String[]> getGameDetails();
+    public String getLastValueOfFirstTurn();
 }

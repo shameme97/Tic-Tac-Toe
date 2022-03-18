@@ -80,6 +80,7 @@ export default {
       items: [],
       sizeList: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       currentTurn: "X",
+      firstTurn: "O",
       inProgress: true,
       message: "",
       beginMessage: "Let's play tic-tac-toe!",
@@ -161,6 +162,8 @@ export default {
       this.message = this.beginMessage;
       this.movesList = [];
       this.movesMade = 0;
+      this.firstTurn = this.firstTurn == "X" ? "O" : "X";
+      this.currentTurn = this.firstTurn;
     },
 
     resetScore() {

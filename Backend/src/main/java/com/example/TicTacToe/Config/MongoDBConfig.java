@@ -9,12 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 @Configuration
-public class MongoDBConfig
-{
+public class MongoDBConfig {
     @Bean
-    public MongoClient mongo()
-    {
-        //ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/TicTacToeDB");
+    public MongoClient mongo() {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://samiha_shameme:a1b2c3@cluster0.ednu7.mongodb.net/TicTacToeDB");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
@@ -24,8 +21,7 @@ public class MongoDBConfig
     }
 
     @Bean
-    public MongoTemplate mongoTemplate() throws Exception
-    {
+    public MongoTemplate mongoTemplate() throws Exception {
         return new MongoTemplate(mongo(), "TicTacToeDB");
     }
 }

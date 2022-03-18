@@ -117,14 +117,16 @@ export default {
   },
   methods: {
     getGameDetails() {
-      let uri = "http://localhost:4023/gameDetails";
+      // let uri = "http://localhost:4023/gameDetails";
+      let uri = "https://tictactoe-shameme-backend.herokuapp.com/gameDetails";
       this.axios.get(uri).then((response) => {
         this.gameDetails = response.data;
       });
     },
 
     getWinStats() {
-      let uri = "http://localhost:4023/winStats";
+      // let uri = "http://localhost:4023/winStats";
+      let uri = "https://tictactoe-shameme-backend.herokuapp.com/winStats";
       this.axios.get(uri).then((response) => {
         this.winStats = response.data;
       });

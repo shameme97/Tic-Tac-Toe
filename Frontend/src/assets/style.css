@@ -231,12 +231,23 @@ tbody tr {
 }
 
 .winStats {
-  width: 80%; /* Full width */
-  margin-left: auto; margin-right: auto;
-
-  height: 95px;
-  background: var(--background-color);
+    display: flex;
+    flex-flow: column;
+    height: 400px;
+    width: 90%;
+    border: 1px;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(61, 28, 28, 0.15);
+    margin-left:auto;margin-right:auto;
 }
+.winStats.td {
+  padding: 2px 2px;
+}
+
 .writing {
   float: left;
   margin: 0 1.5%;

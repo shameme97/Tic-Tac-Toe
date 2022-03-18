@@ -18,36 +18,70 @@
       </tbody>
     </table>
 
-    <div class="winStats">
-      <div class="writing">1st Turn: CROSS Winner: CROSS</div>
-
-      <div class="container">
-        <div class="skills x-1st-x-win" v-bind:style="{ width: computedWidth_bar0 }">
-          {{ winStats[0] }}%
-        </div>
-      </div>
-
-      <div class="writing">1st Turn: CIRCLE Winner: CIRCLE</div>
-      <div class="container">
-        <div class="skills x-2nd-x-win" v-bind:style="{ width: computedWidth_bar2 }">
-          {{ winStats[2] }}%
-        </div>
-      </div>
-
-      <div class="writing">2nd Turn: CROSS Winner: CROSS</div>
-      <div class="container">
-        <div class="skills o-1st-o-win" v-bind:style="{ width: computedWidth_bar1 }">
-          {{ winStats[1] }}%
-        </div>
-      </div>
-
-      <div class="writing">2nd Turn: CIRCLE Winner: CIRCLE</div>
-      <div class="container">
-        <div class="skills o-2nd-o-win" v-bind:style="{ width: computedWidth_bar3 }">
-          {{ winStats[3] }}%
-        </div>
-      </div>
-    </div>
+    <table class="winStats">
+      <tbody>
+        <tr>
+          <td>1st Turn:</td>
+          <td>CROSS</td>
+          <td>Winner: CROSS</td>
+          <td>
+            <div class="container">
+              <div
+                class="skills x-1st-x-win"
+                v-bind:style="{ width: computedWidth_bar0 }"
+              >
+                {{ winStats[0] }}%
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>1st Turn:</td>
+          <td>CIRCLE</td>
+          <td>Winner: CIRCLE</td>
+          <td>
+            <div class="container">
+              <div
+                class="skills o-1st-o-win"
+                v-bind:style="{ width: computedWidth_bar2 }"
+              >
+                {{ winStats[2] }}%
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>2nd Turn:</td>
+          <td>CROSS</td>
+          <td>Winner: CROSS</td>
+          <td>
+            <div class="container">
+              <div
+                class="skills x-2nd-x-win"
+                v-bind:style="{ width: computedWidth_bar1 }"
+              >
+                {{ winStats[1] }}%
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>2nd Turn:</td>
+          <td>CIRCLE</td>
+          <td>Winner: CIRCLE</td>
+          <td>
+            <div class="container">
+              <div
+                class="skills o-2nd-o-win"
+                v-bind:style="{ width: computedWidth_bar3 }"
+              >
+                {{ winStats[3] }}%
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 

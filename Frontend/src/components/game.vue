@@ -24,6 +24,8 @@
       </div>
       <br />
       <button @click="resetScore()">Reset Score</button>
+      <br /><br />
+      <button @click="showGameStats()">Game Stats</button>
     </div>
 
     <div class="sidenav2">
@@ -194,6 +196,12 @@ export default {
           this.items[index].isHighlighted = true;
         }
       });
+    },
+
+    showGameStats() {
+      // this.$router.push("game-details");
+      let routeData = this.$router.resolve({ name: "game-details" });
+      window.open(routeData.href, "_blank");
     },
   },
 };

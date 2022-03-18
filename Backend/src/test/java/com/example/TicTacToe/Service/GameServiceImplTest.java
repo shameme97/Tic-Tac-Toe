@@ -44,7 +44,7 @@ class GameServiceImplTest {
         winStates.add(new String[]{"0 0", "1 1", "2 2"});
         winStates.add(new String[]{"0 2", "1 1", "2 0"});
 
-        Board board = new Board(1, 3, winStates, "", new String[3]);
+        Board board = new Board(1, 3, winStates,"", "", new String[3]);
         when(gameRepository.insert(board)).thenReturn(board);
         Board result = gameService.createBoard(3);
         List<String[]> boardWinStates = result.getWinStates();
@@ -80,7 +80,7 @@ class GameServiceImplTest {
         winStates.add(new String[]{"0 0", "1 1", "2 2"});
         winStates.add(new String[]{"0 2", "1 1", "2 0"});
 
-        Board board = new Board(1, 3, winStates, "", new String[3]);
+        Board board = new Board(1, 3, winStates,"", "", new String[3]);
         List<String> moveSet4 = Arrays.asList("CIRCLE 2 0","CROSS 0 0","CIRCLE 2 1","CROSS 1 1","CIRCLE 2 2");
         List<Board> allBoards = new ArrayList<>();
         allBoards.add(board);
@@ -101,7 +101,7 @@ class GameServiceImplTest {
         winStates.add(new String[]{"0 0", "1 1", "2 2"});
         winStates.add(new String[]{"0 2", "1 1", "2 0"});
 
-        Board board = new Board(1, 3, winStates, "", new String[3]);
+        Board board = new Board(1, 3, winStates,"", "", new String[3]);
         List<String> moveSet = Arrays.asList("CROSS 2 0","CIRCLE 0 0","CROSS 2 1","CIRCLE 1 1","CROSS 2 2");
         assertEquals("CROSS Wins!", gameService.checkForWinner(board, moveSet));
 
@@ -122,7 +122,7 @@ class GameServiceImplTest {
         winStates.add(new String[]{"X", "X", "O"});
         winStates.add(new String[]{"0 2", "X", "O"});
 
-        Board board = new Board(1, 3, winStates, "", new String[3]);
+        Board board = new Board(1, 3, winStates,"", "", new String[3]);
         when(gameRepository.save(board)).thenReturn(board);
 
         String[] movesMade1 = {"O", "O", "O"};
@@ -153,7 +153,7 @@ class GameServiceImplTest {
         winStates.add(new String[]{"O", "O", "X"});
         winStates.add(new String[]{"0 2", "O", "X"});
 
-        Board board = new Board(1, 3, winStates, "CROSS", new String[3]);
+        Board board = new Board(1, 3, winStates,"CROSS", "CROSS", new String[3]);
         when(gameRepository.save(board)).thenReturn(board);
         gameService.setWinningMoves(board, copyOfWinStates);
 
@@ -173,7 +173,7 @@ class GameServiceImplTest {
         winStates.add(new String[]{"O", "O", "X"});
         winStates.add(new String[]{"O", "O", "X"});
 
-        Board board = new Board(1, 3, winStates, "", new String[3]);
+        Board board = new Board(1, 3, winStates,"", "", new String[3]);
         when(gameRepository.save(board)).thenReturn(board);
 
         gameService.checkForDraw(board, 9);
@@ -194,9 +194,9 @@ class GameServiceImplTest {
         winStates.add(new String[]{"O", "O", "X"});
         winStates.add(new String[]{"0 2", "O", "X"});
 
-        Board board = new Board(1, 3, winStates, "CROSS", new String[3]);
+        Board board = new Board(1, 3, winStates,"CROSS", "CROSS", new String[3]);
         gameRepository.insert(board);
-        Board board2 = new Board(2, 3, winStates, "Draw", new String[3]);
+        Board board2 = new Board(2, 3, winStates,"CIRCLE", "Draw", new String[3]);
         gameRepository.insert(board2);
         List<Board> allBoards = new ArrayList<>();
         allBoards.add(board);

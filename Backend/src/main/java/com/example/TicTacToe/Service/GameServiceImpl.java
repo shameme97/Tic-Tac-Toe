@@ -28,7 +28,7 @@ public class GameServiceImpl implements GameService {
         // create new board object with size & win_states
         List<String[]> winStates = new ArrayList<>();
         setWinStates(size, winStates);
-        Board board = new Board(newId, size, winStates, "", new String[3]);
+        Board board = new Board(newId, size, winStates,"", "", new String[3]);
         newId++;
         gameRepository.insert(board);
         return board;
@@ -52,6 +52,7 @@ public class GameServiceImpl implements GameService {
         for (String[] winMoves: winStates){
             copyOfWinStates.add(Arrays.copyOf(winMoves, winMoves.length));
         }
+        board.setFirstTurn(moveSet.get(0).split(" ", 2)[0]);
         for (String str: moveSet){
             String[] move = str.split(" ", 2);
             for (String[] arrayOfMoves: winStates){

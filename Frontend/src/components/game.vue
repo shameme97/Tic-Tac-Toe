@@ -80,7 +80,7 @@ export default {
       items: [],
       sizeList: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       currentTurn: "X",
-      firstTurn: "O",
+      firstTurn: "X",
       inProgress: true,
       message: "",
       beginMessage: "Let's play tic-tac-toe!",
@@ -162,8 +162,7 @@ export default {
       this.message = this.beginMessage;
       this.movesList = [];
       this.movesMade = 0;
-      this.firstTurn = this.firstTurn == "X" ? "O" : "X";
-      this.currentTurn = this.firstTurn;
+      this.setFirstTurn();
     },
 
     resetScore() {
@@ -198,6 +197,15 @@ export default {
           var index = parseInt(move[0]) * this.size + parseInt(move[1]);
           this.items[index].isHighlighted = true;
         }
+      });
+    },
+
+    setFirstTurn() {
+      let uri = "http://localhost:4023/lastFirstTurn";
+      this.axios.get(uri).then((response) => {
+        var lastFirstTurn = response.data;
+        this.firstTurn = lastFirstTurn == "CROSS" ? "O" : "X";
+        this.currentTurn = this.firstTurn;
       });
     },
 

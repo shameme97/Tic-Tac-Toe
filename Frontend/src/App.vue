@@ -12,10 +12,8 @@ export default {
   name: "App",
   data() {
     return {
-      board: {
-        size: 3,
-        winner: "",
-      },
+      player1: "CROSS",
+      player2: "CIRCLE",
     };
   },
   methods: {},

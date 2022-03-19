@@ -139,6 +139,8 @@ export default {
       squareSize: "33.33%",
       boardSize: "580px",
       markSize: "75px",
+      player1_name: "",
+      player2_name: "",
       player1: "CROSS",
       player2: "CIRCLE",
 
@@ -167,6 +169,8 @@ export default {
     this.createArray();
     this.getScore();
     this.message = this.beginMessage;
+    this.savePlayer1(this.player1);
+    this.savePlayer2(this.player2);
   },
 
   methods: {
@@ -180,9 +184,13 @@ export default {
 
     savePlayer1(player1_name) {
       this.player1 = player1_name;
+      let uri = this.uriInUse + "setCrossName/" + player1_name;
+      this.axios.post(uri);
     },
     savePlayer2(player2_name) {
       this.player2 = player2_name;
+      let uri = this.uriInUse + "setCircleName/" + player2_name;
+      this.axios.post(uri);
     },
 
     createArray() {
@@ -221,6 +229,8 @@ export default {
             else if (response.data == "CIRCLE") this.message = this.player2 + " Wins!";
             this.confettiStart();
           }
+          this.savePlayer1(this.player1);
+          this.savePlayer2(this.player2);
           this.inProgress = false;
           this.getScore();
           this.getWinningMoves();

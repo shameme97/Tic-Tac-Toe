@@ -90,7 +90,7 @@
 
 <script>
 export default {
-  name: "game-details",
+  name: "gameDetails",
   data() {
     return {
       gameDetails: [],
@@ -106,6 +106,7 @@ export default {
     this.uriInUse = this.localUri;
     this.getGameDetails();
     this.getWinStats();
+    this.setPlayers();
   },
   computed: {
     computedWidth_bar0: function () {
@@ -133,6 +134,17 @@ export default {
       let uri = this.uriInUse + "winStats";
       this.axios.get(uri).then((response) => {
         this.winStats = response.data;
+      });
+    },
+
+    setPlayers() {
+      let uri = this.uriInUse + "crossName";
+      this.axios.get(uri).then((response) => {
+        this.player1 = response.data;
+      });
+      uri = this.uriInUse + "circleName";
+      this.axios.get(uri).then((response) => {
+        this.player2 = response.data;
       });
     },
   },

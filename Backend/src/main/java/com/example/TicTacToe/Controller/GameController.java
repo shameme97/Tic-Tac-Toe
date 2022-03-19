@@ -19,7 +19,9 @@ public class GameController {
     public GameService gameService;
 
     @PostMapping(value = "/{size}/submitMoves/{inProgress}")
-    public String submitMove(@PathVariable("size") int size,@PathVariable("inProgress") boolean inProgress, @RequestBody List<String> moveSet){
+    public String submitMove(@PathVariable("size") int size,
+                             @PathVariable("inProgress") boolean inProgress,
+                             @RequestBody List<String> moveSet){
         return gameService.submitMove(size, moveSet, inProgress);
     }
 
@@ -51,5 +53,25 @@ public class GameController {
     @GetMapping(value = "/winStats")
     public double[] getWinStats(){
         return gameService.getWinStats();
+    }
+
+    @PostMapping(value = "/setCrossName/{newName}")
+    public void setCrossName(@PathVariable("newName") String newName){
+        gameService.setCrossName(newName);
+    }
+
+    @PostMapping(value = "/setCircleName/{newName}")
+    public void setCircleName(@PathVariable("newName") String newName){
+        gameService.setCircleName(newName);
+    }
+
+    @GetMapping(value = "/crossName")
+    public String getCrossName(){
+        return gameService.getCrossName();
+    }
+
+    @GetMapping(value = "/circleName")
+    public String getCircleName(){
+        return gameService.getCircleName();
     }
 }

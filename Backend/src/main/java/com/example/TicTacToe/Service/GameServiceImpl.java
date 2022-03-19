@@ -26,7 +26,7 @@ public class GameServiceImpl implements GameService {
         // create new board object with size & win_states
         List<String[]> winStates = new ArrayList<>();
         setWinStates(size, winStates);
-        Board board = new Board(gameRepository.findAll().size()+1, size, winStates,"", "", new String[3]);
+        Board board = new Board(gameRepository.findAll().size()+1, size, winStates,"", "", new String[3], "", "");
         gameRepository.insert(board);
         return board;
     }
@@ -107,6 +107,7 @@ public class GameServiceImpl implements GameService {
     public String checkForDraw(Board board, int numberOfMoves){
         if (numberOfMoves == pow(board.getSize(), 2)){
             board.setWinner("Draw");
+            board.setWinner_name("DRAW");
             gameRepository.save(board);
             return "Draw";
         }
@@ -145,6 +146,12 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public String getLastValueOfFirstTurn() {
+        List<Board> allBoards = gameRepository.findAll();
+        return (allBoards.size()==0) ? "" : allBoards.get(allBoards.size() - 1).getFirstTurn();
+    }
+
+    @Override
     public List<String[]> getGameDetails() {
         List<Board> allBoards = gameRepository.findAll();
         List<String[]> gameDetails = new ArrayList<>();
@@ -152,7 +159,7 @@ public class GameServiceImpl implements GameService {
         for (Board board: allBoards){
             if (!board.getWinner().equals("")){
                 String[] boardDetails = {String.valueOf(gameNo),
-                    board.getSize()+" x "+board.getSize(), board.getFirstTurn(), board.getWinner()};
+                    board.getSize()+" x "+board.getSize(), board.getFirstTurn_name(), board.getWinner_name()};
                 gameDetails.add(boardDetails);
                 ++gameNo;
             }
@@ -162,18 +169,11 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public String getLastValueOfFirstTurn() {
-        List<Board> allBoards = gameRepository.findAll();
-        return (allBoards.size()==0) ? "" : allBoards.get(allBoards.size() - 1).getFirstTurn();
-    }
-
-    @Override
     public double[] getWinStats() {
         List<Board> allBoards = gameRepository.findAll();
-        int totalGames = allBoards.size();
         double[] winStats = calculateWinStats(allBoards);
-        for (int i=0; i<winStats.length; ++i){
-            winStats[i] = (float) round((winStats[i]/totalGames)*100) ; // calculating percentage
+        for (int i=0; i<winStats.length-1; ++i){
+            winStats[i] = (float) round((winStats[i]/winStats[4])*100) ; // calculating percentage
         }
         return winStats;
     }
@@ -181,21 +181,68 @@ public class GameServiceImpl implements GameService {
     public double[] calculateWinStats(List<Board> allBoards){
         int cross1stTurn, cross2ndTurn, circle1stTurn, circle2ndTurn;
         cross1stTurn = cross2ndTurn = circle1stTurn = circle2ndTurn = 0;
+        int totalGames = 0;
         for (Board board: allBoards){
             if (board.getWinner().equals("CROSS")){
                 if (board.getFirstTurn().equals("CROSS"))
                     ++cross1stTurn;
                 else
                     ++cross2ndTurn;
+                ++totalGames;
             }
             else if (board.getWinner().equals("CIRCLE")){
                 if (board.getFirstTurn().equals("CIRCLE"))
                     ++circle1stTurn;
                 else
                     ++circle2ndTurn;
+                ++totalGames;
             }
         }
-        return new double[]{cross1stTurn, cross2ndTurn, circle1stTurn, circle2ndTurn};
+        return new double[]{cross1stTurn, cross2ndTurn, circle1stTurn, circle2ndTurn, totalGames};
+    }
+
+    @Override
+    public void setCrossName(String newName) {
+        List<Board> allBoards = gameRepository.findAll();
+        for (Board board: allBoards){
+            if (board.getWinner().equals("CROSS"))
+                board.setWinner_name(newName);
+            if (board.getFirstTurn().equals("CROSS"))
+                board.setFirstTurn_name(newName);
+            gameRepository.save(board);
+        }
+    }
+
+    @Override
+    public void setCircleName(String newName) {
+        List<Board> allBoards = gameRepository.findAll();
+        for (Board board: allBoards){
+            if (board.getWinner().equals("CIRCLE"))
+                board.setWinner_name(newName);
+            if (board.getFirstTurn().equals("CIRCLE"))
+                board.setFirstTurn_name(newName);
+            gameRepository.save(board);
+        }
+    }
+
+    @Override
+    public String getCrossName() {
+        List<Board> allBoards = gameRepository.findAll();
+        for (Board board: allBoards){
+            if (board.getFirstTurn().equals("CROSS"))
+                return board.getFirstTurn_name();
+        }
+        return "CROSS";
+    }
+
+    @Override
+    public String getCircleName() {
+        List<Board> allBoards = gameRepository.findAll();
+        for (Board board: allBoards){
+            if (board.getFirstTurn().equals("CIRCLE"))
+                return board.getFirstTurn_name();
+        }
+        return "CIRCLE";
     }
 
     public void setWinStates(int size, List<String[]> winStates){

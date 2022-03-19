@@ -20,5 +20,12 @@ public class Board {
     private String firstTurn;
     private String winner;
     private String[] winningMove;
+    private String firstTurn_name;
+    private String winner_name;
 
+    public Board(int id, int size, List<String[]> winStates){
+        this.id = id;
+        this.size = size;
+        this.winStates = winStates;
+    }
 }

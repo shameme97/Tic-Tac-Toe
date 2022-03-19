@@ -81,6 +81,7 @@ export default {
       sizeList: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       currentTurn: "X",
       firstTurn: "X",
+      lastFirstTurn: "O",
       inProgress: true,
       message: "",
       beginMessage: "Let's play tic-tac-toe!",
@@ -143,9 +144,10 @@ export default {
 
     submitMoves(size) {
       this.size = size;
-      var newGame = this.message == "Match In Progress!" ? false : true;
+      var newGame = this.inProgress;
       let uri = this.uriInUse + size + "/submitMoves/" + newGame;
       this.axios.post(uri, this.movesList).then((response) => {
+        if (response.data == "") return;
         this.message = response.data;
         if (response.data != "Match In Progress!") {
           this.inProgress = false;
@@ -197,11 +199,15 @@ export default {
     },
 
     setFirstTurn() {
+      this.getLastFirstTurn();
+      this.firstTurn = this.lastFirstTurn == "X" ? "O" : "X";
+      this.currentTurn = this.firstTurn;
+    },
+
+    getLastFirstTurn() {
       let uri = this.uriInUse + "lastFirstTurn";
       this.axios.get(uri).then((response) => {
-        var lastFirstTurn = response.data;
-        this.firstTurn = lastFirstTurn == "CROSS" ? "O" : "X";
-        this.currentTurn = this.firstTurn;
+        this.lastFirstTurn = response.data == "CROSS" ? "X" : "O";
       });
     },
 

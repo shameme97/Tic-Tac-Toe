@@ -31,14 +31,22 @@ public class GameServiceImpl implements GameService {
         return board;
     }
 
+    public boolean checkIfEmpty(List<String> moveSet){
+        return moveSet.isEmpty();
+    }
+
     @Override
     public String submitMove(int size, List<String> moveSet, boolean newGame) {
+        checkIfEmpty(moveSet);
+        if (moveSet.isEmpty()) return "";
         Board board;
         if (newGame){
             board = createBoard(size);
         }else{
             List<Board> allBoards = gameRepository.findAll();
             board = allBoards.get(allBoards.size() - 1);
+            if (!board.getWinner().equals("")) return ""; // to handle multiple submits after win
+
         }
         return checkForWinner(board, moveSet);
     }
@@ -141,11 +149,15 @@ public class GameServiceImpl implements GameService {
     public List<String[]> getGameDetails() {
         List<Board> allBoards = gameRepository.findAll();
         List<String[]> gameDetails = new ArrayList<>();
-
+        int gameNo = 1;
         for (Board board: allBoards){
-            String[] boardDetails = {String.valueOf(board.getId()),
+            if (!board.getWinner().equals("")){
+                String[] boardDetails = {String.valueOf(gameNo),
                     board.getSize()+"x"+board.getSize(), board.getFirstTurn(), board.getWinner()};
-            gameDetails.add(boardDetails);
+                gameDetails.add(boardDetails);
+                ++gameNo;
+            }
+
         }
         return gameDetails;
     }
@@ -153,8 +165,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public String getLastValueOfFirstTurn() {
         List<Board> allBoards = gameRepository.findAll();
-        Board board = allBoards.get(allBoards.size() - 1);
-        return board.getFirstTurn();
+        return (allBoards.size()==0) ? "" : allBoards.get(allBoards.size() - 1).getFirstTurn();
     }
 
     @Override
@@ -163,9 +174,7 @@ public class GameServiceImpl implements GameService {
         int totalGames = allBoards.size();
         double[] winStats = calculateWinStats(allBoards);
         for (int i=0; i<winStats.length; ++i){
-
             winStats[i] = (float) round((winStats[i]/totalGames)*100) ; // calculating percentage
-            log.info(String.valueOf(winStats[i]));
         }
         return winStats;
     }

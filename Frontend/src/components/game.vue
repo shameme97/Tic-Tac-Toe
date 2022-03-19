@@ -1,16 +1,20 @@
 <template>
   <div>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <div class="sidenav">
       <h2>Scoreboard</h2>
       <div class="scoreBoard">
         <table>
           <tr>
-            <td>CROSS</td>
+            <td>{{ player1 }}</td>
             <td>:</td>
             <td>{{ score[0] }}</td>
           </tr>
           <tr>
-            <td>CIRCLE</td>
+            <td>{{ player2 }}</td>
             <td>:</td>
             <td>{{ score[1] }}</td>
           </tr>
@@ -40,6 +44,46 @@
         <br /><br />
         <button v-on:click="rematch()">Rematch</button>
       </div>
+    </div>
+
+    <div class="changeName">
+      Customize your name!
+      <table>
+        <tr>
+          <td>X</td>
+          <td>
+            <input
+              class="addInput"
+              type="text"
+              v-model="player1_name"
+              placeholder="CROSS"
+              onfocus="this.player1_name=''"
+            />
+          </td>
+          <td>
+            <button class="saveButton" v-on:click="savePlayer1(player1_name)">
+              <i class="fa fa-save"></i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>O</td>
+          <td>
+            <input
+              class="addInput"
+              type="text"
+              v-model="player2_name"
+              placeholder="CIRCLE"
+              onfocus="this.player2_name=''"
+            />
+          </td>
+          <td>
+            <button class="saveButton" v-on:click="savePlayer2(player2_name)">
+              <i class="fa fa-save"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
     </div>
 
     <div id="resultMessage">
@@ -95,6 +139,8 @@ export default {
       squareSize: "33.33%",
       boardSize: "580px",
       markSize: "75px",
+      player1: "CROSS",
+      player2: "CIRCLE",
 
       herokuUri: "https://tictactoe-shameme-backend.herokuapp.com/",
       localUri: "http://localhost:4023/",
@@ -132,6 +178,13 @@ export default {
       this.$confetti.stop();
     },
 
+    savePlayer1(player1_name) {
+      this.player1 = player1_name;
+    },
+    savePlayer2(player2_name) {
+      this.player2 = player2_name;
+    },
+
     createArray() {
       this.items = new Array(this.size * this.size)
         .fill()
@@ -160,12 +213,17 @@ export default {
       let uri = this.uriInUse + size + "/submitMoves/" + newGame;
       this.axios.post(uri, this.movesList).then((response) => {
         if (response.data == "") return;
-        this.message = response.data;
-        if (response.data != "Match In Progress!") {
+        if (response.data == "Match In Progress!") this.message = response.data;
+        else {
+          if (response.data == "Draw") this.message = response.data;
+          else {
+            if (response.data == "CROSS") this.message = this.player1 + " Wins!";
+            else if (response.data == "CIRCLE") this.message = this.player2 + " Wins!";
+            this.confettiStart();
+          }
           this.inProgress = false;
           this.getScore();
           this.getWinningMoves();
-          this.confettiStart();
         }
       });
     },

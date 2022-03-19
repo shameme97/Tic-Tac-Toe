@@ -1,6 +1,6 @@
 :root{
   --color: #05c7ce;
-  --background-color: #eee;
+  --background-color: whitesmoke;
 }
 
 body{
@@ -158,6 +158,7 @@ button:active
   border-radius: 10px;
 }
 
+
 .selectBoard {
   overflow: hidden;
   overflow: -moz-hidden-unscrollable;
@@ -166,6 +167,48 @@ button:active
   display: inline-block;
   position: relative;
   outline: none;
+}
+
+.changeName {
+  width: 300px;
+  height: 200px;
+  position: fixed;
+  z-index: 1;
+  bottom: 20px;
+  left: 70px;
+  background: var(--background-color);
+  overflow-x: hidden;
+  padding: 20px 5px;
+  /* padding-top: 50px; */
+  font-family: cursive;
+  font-size: 20px;
+  text-align: center;
+  
+
+  border: 3px solid var(--color);
+  border-radius: 10px;
+}
+.addInput[type=text]{
+  width: 100%;
+  padding: 10px 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+  /* font-family: cursive; */
+}
+
+.saveButton{
+  background-color: var(--color);
+  height: 30px;
+  width: 30px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin-left:auto;margin-right:auto;
 }
 
 h2 {

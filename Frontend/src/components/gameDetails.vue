@@ -29,7 +29,7 @@
       <tbody>
         <tr>
           <td>1st</td>
-          <td>CROSS</td>
+          <td>{{ player1 }}</td>
           <td>
             <div class="container">
               <div
@@ -43,7 +43,7 @@
         </tr>
         <tr>
           <td>1st</td>
-          <td>CIRCLE</td>
+          <td>{{ player2 }}</td>
           <td>
             <div class="container">
               <div
@@ -57,7 +57,7 @@
         </tr>
         <tr>
           <td>2nd</td>
-          <td>CROSS</td>
+          <td>{{ player1 }}</td>
           <td>
             <div class="container">
               <div
@@ -71,7 +71,7 @@
         </tr>
         <tr>
           <td>2nd</td>
-          <td>CIRCLE</td>
+          <td>{{ player2 }}</td>
           <td>
             <div class="container">
               <div
@@ -95,6 +95,8 @@ export default {
     return {
       gameDetails: [],
       winStats: [],
+      player1: "CROSS",
+      player2: "CIRCLE",
       herokuUri: "https://tictactoe-shameme-backend.herokuapp.com/",
       localUri: "http://localhost:4023/",
       uriInUse: "",

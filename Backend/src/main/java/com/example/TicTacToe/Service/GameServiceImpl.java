@@ -46,7 +46,6 @@ public class GameServiceImpl implements GameService {
             List<Board> allBoards = gameRepository.findAll();
             board = allBoards.get(allBoards.size() - 1);
             if (!board.getWinner().equals("")) return ""; // to handle multiple submits after win
-
         }
         return checkForWinner(board, moveSet);
     }
@@ -66,7 +65,7 @@ public class GameServiceImpl implements GameService {
                     arrayOfMoves[index] = move[0].equals("CROSS") ? "X" : "O";
                     if (foundWinner(board, arrayOfMoves)) {
                         setWinningMoves(board, copyOfWinStates);
-                        return move[0] + " Wins!";
+                        return move[0];
                     }
                 }
             }

@@ -153,7 +153,7 @@ class GameServiceImplTest {
         winStates.add(new String[]{"O", "O", "X"});
         winStates.add(new String[]{"0 2", "O", "X"});
 
-        Board board = new Board(1, 3, winStates,"CROSS", "CROSS", new String[3], "", "");
+        Board board = new Board(1, 3, winStates,"CROSS", "CROSS", new String[3],5, "", "");
         when(gameRepository.save(board)).thenReturn(board);
         gameService.setWinningMoves(board, copyOfWinStates);
 
@@ -194,9 +194,9 @@ class GameServiceImplTest {
         winStates.add(new String[]{"O", "O", "X"});
         winStates.add(new String[]{"0 2", "O", "X"});
 
-        Board board = new Board(1, 3, winStates,"CROSS", "CROSS", new String[3], "", "");
+        Board board = new Board(1, 3, winStates,"CROSS", "CROSS", new String[3],7, "", "");
         gameRepository.insert(board);
-        Board board2 = new Board(2, 3, winStates,"CIRCLE", "Draw", new String[3], "", "");
+        Board board2 = new Board(2, 3, winStates,"CIRCLE", "Draw", new String[3],9, "", "");
         gameRepository.insert(board2);
         List<Board> allBoards = new ArrayList<>();
         allBoards.add(board);

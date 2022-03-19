@@ -183,13 +183,13 @@ export default {
     },
 
     savePlayer1(player1_name) {
-      this.player1 = player1_name;
-      let uri = this.uriInUse + "setCrossName/" + player1_name;
+      this.player1 = player1_name == "" ? this.player1 : player1_name;
+      let uri = this.uriInUse + "setCrossName/" + this.player1;
       this.axios.post(uri);
     },
     savePlayer2(player2_name) {
-      this.player2 = player2_name;
-      let uri = this.uriInUse + "setCircleName/" + player2_name;
+      this.player2 = player2_name == "" ? this.player2 : player2_name;
+      let uri = this.uriInUse + "setCircleName/" + this.player2;
       this.axios.post(uri);
     },
 
@@ -294,7 +294,8 @@ export default {
     },
 
     showGameStats() {
-      // this.$router.push("game-details");
+      this.savePlayer1(this.player1);
+      this.savePlayer2(this.player2);
       let routeData = this.$router.resolve({ name: "game-details" });
       window.open(routeData.href, "_blank");
     },

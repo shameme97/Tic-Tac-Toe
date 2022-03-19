@@ -54,34 +54,6 @@ body{
 .game-view-square.highlighted { color: var(--color); }
 .game-view-square:hover{ color: var(--color); }
 
-
-#resultMessage{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-family: cursive;
-  font-size: 40px;
-  /* font-weight: bold; */
-  line-height: 50px;
-  text-align: center;
-  padding: 0 25px;
-
-  width: 300px;
-  height: 150px;
-  position: fixed;
-  /* z-index: 1; */
-  top: 30px;
-  left: 70px;
-  background: var(--background-color);
-  overflow-x: hidden;
-
-  
-  border: 3px solid var(--color);
-  border-radius: 10px;
-
-}
-
 .topdiv
 {
   width: 80%;
@@ -119,11 +91,11 @@ button:active
 
 
 .sidenav {
-  height: 420px; 
+  height: 440px; 
   width: 260px; 
   position: fixed; 
   z-index: 1; 
-  top: 30px; 
+  top: 100px; 
   right: 70px;;
   background: var(--background-color);
   overflow-x: hidden; 
@@ -143,12 +115,37 @@ button:active
   font-size: 20px;
 }
 
+#resultMessage{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: cursive;
+  font-size: 40px;
+  /* font-weight: bold; */
+  line-height: 50px;
+  text-align: center;
+  padding: 0 20px;
+
+  width: 300px;
+  height: 130px;
+  position: fixed;
+  /* z-index: 1; */
+  top: 30px;
+  left: 70px;
+  background: var(--background-color);
+  overflow-x: hidden;
+
+  border: 3px solid var(--color);
+  border-radius: 10px;
+}
+
 .sidenav2 {
   width: 300px;
   height: 200px;
   position: fixed;
   z-index: 1;
-  top: 225px;
+  top: 180px;
   left: 70px;
   background: var(--background-color);
   overflow-x: hidden;
@@ -174,7 +171,7 @@ button:active
   height: 200px;
   position: fixed;
   z-index: 1;
-  bottom: 20px;
+  bottom: 40px;
   left: 70px;
   background: var(--background-color);
   overflow-x: hidden;
@@ -310,7 +307,7 @@ tbody tr {
   color: white; /* White text color */
 }
 
-.x-1st-x-win {width: 0.1%; background-color: #044f72;} 
+.x-1st-x-win {width: 0.1%; background-color: #06a5aa;} 
 .x-2nd-x-win {width: 0.1%; background-color: #1b8cc0;} 
 .o-1st-o-win {width: 0.1%; background-color: #0f6e9b;} 
 .o-2nd-o-win {width: 0.1%; background-color: #11a3e7;} 

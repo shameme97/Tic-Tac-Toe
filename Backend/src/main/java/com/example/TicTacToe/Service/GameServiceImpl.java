@@ -26,7 +26,8 @@ public class GameServiceImpl implements GameService {
         // create new board object with size & win_states
         List<String[]> winStates = new ArrayList<>();
         setWinStates(size, winStates);
-        Board board = new Board(gameRepository.findAll().size()+1, size, winStates,"", "", new String[3], "", "");
+        Board board = new Board(gameRepository.findAll().size()+1, size, winStates,
+                "", "", new String[3], 0, "", "");
         gameRepository.insert(board);
         return board;
     }
@@ -56,14 +57,18 @@ public class GameServiceImpl implements GameService {
         for (String[] winMoves: winStates){
             copyOfWinStates.add(Arrays.copyOf(winMoves, winMoves.length));
         }
+        int numberOfMovesMade = 0;
         board.setFirstTurn(moveSet.get(0).split(" ", 2)[0]);
+        board.setFirstTurn_name(board.getFirstTurn());
         for (String str: moveSet){
+            ++numberOfMovesMade;
             String[] move = str.split(" ", 2);
             for (String[] arrayOfMoves: winStates){
                 if (Arrays.asList(arrayOfMoves).contains(move[1])){
                     int index = Arrays.asList(arrayOfMoves).indexOf(move[1]);
                     arrayOfMoves[index] = move[0].equals("CROSS") ? "X" : "O";
                     if (foundWinner(board, arrayOfMoves)) {
+                        board.setNumberOfMoves(numberOfMovesMade);
                         setWinningMoves(board, copyOfWinStates);
                         return move[0];
                     }
@@ -79,8 +84,14 @@ public class GameServiceImpl implements GameService {
             stringOfMoves.append(move);
         }
         String moves = String.valueOf(stringOfMoves);
-        if (moves.contains("XXX")) board.setWinner("CROSS");
-        else if (moves.contains("OOO")) board.setWinner("CIRCLE");
+        if (moves.contains("XXX")) {
+            board.setWinner("CROSS");
+            board.setWinner_name("CROSS");
+        }
+        else if (moves.contains("OOO")) {
+            board.setWinner("CIRCLE");
+            board.setWinner_name("CIRCLE");
+        }
         else return false;
         gameRepository.save(board);
         return true;
@@ -108,6 +119,7 @@ public class GameServiceImpl implements GameService {
         if (numberOfMoves == pow(board.getSize(), 2)){
             board.setWinner("Draw");
             board.setWinner_name("DRAW");
+            board.setNumberOfMoves(numberOfMoves);
             gameRepository.save(board);
             return "Draw";
         }
@@ -158,8 +170,11 @@ public class GameServiceImpl implements GameService {
         int gameNo = 1;
         for (Board board: allBoards){
             if (!board.getWinner().equals("")){
-                String[] boardDetails = {String.valueOf(gameNo),
-                    board.getSize()+" x "+board.getSize(), board.getFirstTurn_name(), board.getWinner_name()};
+                String symbol = (board.getWinner().equals("CROSS")) ? "X" : "O";
+                if (board.getWinner().equals("Draw")) symbol = "-";
+                String[] boardDetails = {String.valueOf(gameNo), board.getSize()+" x "+board.getSize(),
+                        board.getFirstTurn_name(), board.getWinner_name(), symbol,
+                        String.valueOf(board.getNumberOfMoves())};
                 gameDetails.add(boardDetails);
                 ++gameNo;
             }

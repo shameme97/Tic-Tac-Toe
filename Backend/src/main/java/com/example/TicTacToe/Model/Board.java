@@ -20,6 +20,7 @@ public class Board {
     private String firstTurn;
     private String winner;
     private String[] winningMove;
+    private int numberOfMoves;
     private String firstTurn_name;
     private String winner_name;
 

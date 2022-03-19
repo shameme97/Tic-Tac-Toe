@@ -7,6 +7,8 @@
           <th>Board Size</th>
           <th>1st Turn</th>
           <th>Winner</th>
+          <th>Winner's Symbol</th>
+          <th>Number of Moves</th>
         </tr>
       </thead>
       <tbody>

@@ -1,6 +1,8 @@
 :root{
   --color: #05c7ce;
   --background-color: whitesmoke;
+  --leftsidenav-width: 290px;
+  --celebrate-color: #f35fc7;
 }
 
 body{
@@ -14,15 +16,14 @@ body{
 }
 
 #game-view-info {
-  padding: 8px;
+  padding: 5px;
   font-family: cursive;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   text-align: center;
   background-color: rgb(156, 243, 243);
   border: 3px solid var(--color);
   border-radius: 10px;
-  /* border-bottom: transparent; */
 }
 
 #game-view-squares {
@@ -48,10 +49,10 @@ body{
 
   cursor: pointer;
   user-select: none;
-
+  /* z-index: 1; */
 }
 
-.game-view-square.highlighted { color: var(--color); }
+.game-view-square.highlighted { color: var(--celebrate-color); }
 .game-view-square:hover{ color: var(--color); }
 
 .topdiv
@@ -122,15 +123,13 @@ button:active
 
   font-family: cursive;
   font-size: 40px;
-  /* font-weight: bold; */
   line-height: 50px;
   text-align: center;
   padding: 0 20px;
-
-  width: 300px;
+  width: var(--leftsidenav-width);
   height: 130px;
   position: fixed;
-  /* z-index: 1; */
+  z-index: 1;
   top: 30px;
   left: 70px;
   background: var(--background-color);
@@ -139,9 +138,16 @@ button:active
   border: 3px solid var(--color);
   border-radius: 10px;
 }
+#resultMessage.highlighted { 
+  color: var(--celebrate-color); 
+  border: 3px solid var(--celebrate-color);
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: rgb(160, 3, 108);
+  font-weight: bold;
+}
 
 .sidenav2 {
-  width: 300px;
+  width: var(--leftsidenav-width);
   height: 200px;
   position: fixed;
   z-index: 1;
@@ -167,7 +173,7 @@ button:active
 }
 
 .changeName {
-  width: 300px;
+  width: var(--leftsidenav-width);
   height: 200px;
   position: fixed;
   z-index: 1;
@@ -227,11 +233,14 @@ td {
     flex-flow: column;
     height: 350px;
     width: 90%;
-    border: 1px;
+
+    border: 3px solid var(--color);
+    border-radius: 20px;
     border-collapse: collapse;
+    font-size: 1em;
+    font-family: cursive;
+    
     margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(61, 28, 28, 0.15);
     margin-left:auto;margin-right:auto;
@@ -239,6 +248,7 @@ td {
 table thead {
     flex: 0 0 auto;
     width: calc(100% );
+    
 }
 table tbody {
     flex: 1 1 auto;
@@ -253,15 +263,18 @@ table tbody {
 
 table tbody tr {
     width: 100%;
+    
 }
 table thead, table tbody tr {
     display: table;
     table-layout: fixed;
+    text-align: center;
 }
 table thead tr {
     background-color: var(--color);
     color: #ffffff;
-    text-align: left;
+    /* text-align: left; */
+    text-align: center;
 }
 .gameDetails.td {
     padding: 12px 15px;
@@ -273,13 +286,16 @@ tbody tr {
 .winStats {
     display: flex;
     flex-flow: column;
-    height: 200px;
+    height: 250px;
     width: 90%;
-    border: 1px;
+
+    border: 3px solid var(--color);
+    border-radius: 20px;
     border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
+    font-size: 1em;
+    font-family: cursive;
+
+    /* margin: 25px 0; */
     min-width: 400px;
     box-shadow: 0 0 20px rgba(61, 28, 28, 0.15);
     margin-left:auto;margin-right:auto;
@@ -291,7 +307,7 @@ tbody tr {
 /* Make sure that padding behaves as expected */
 * {box-sizing:border-box}
 
-/* Container for skill bars */
+/* Container for percentage bars */
 .container {
   border: 1px;
   width: 100%;
@@ -300,14 +316,14 @@ tbody tr {
 
 }
 
-.skills {
+.percentage {
   text-align: right; /* Right-align text */
   padding-top: 0.6%; /* Add top padding */
   padding-bottom: 0.6%; /* Add bottom padding */
   color: white; /* White text color */
 }
 
-.x-1st-x-win {width: 0.1%; background-color: #06a5aa;} 
+.x-1st-x-win {width: 0.1%; background-color: #1b8cc0;} 
 .x-2nd-x-win {width: 0.1%; background-color: #1b8cc0;} 
 .o-1st-o-win {width: 0.1%; background-color: #0f6e9b;} 
-.o-2nd-o-win {width: 0.1%; background-color: #11a3e7;} 
+.o-2nd-o-win {width: 0.1%; background-color: #0f6e9b;} 

@@ -35,7 +35,7 @@
           <td>
             <div class="container">
               <div
-                class="skills x-1st-x-win"
+                class="percentage x-1st-x-win"
                 v-bind:style="{ width: computedWidth_bar0 }"
               >
                 {{ winStats[0] }}%
@@ -49,7 +49,7 @@
           <td>
             <div class="container">
               <div
-                class="skills o-1st-o-win"
+                class="percentage o-1st-o-win"
                 v-bind:style="{ width: computedWidth_bar2 }"
               >
                 {{ winStats[2] }}%
@@ -63,7 +63,7 @@
           <td>
             <div class="container">
               <div
-                class="skills x-2nd-x-win"
+                class="percentage x-2nd-x-win"
                 v-bind:style="{ width: computedWidth_bar1 }"
               >
                 {{ winStats[1] }}%
@@ -77,7 +77,7 @@
           <td>
             <div class="container">
               <div
-                class="skills o-2nd-o-win"
+                class="percentage o-2nd-o-win"
                 v-bind:style="{ width: computedWidth_bar3 }"
               >
                 {{ winStats[3] }}%

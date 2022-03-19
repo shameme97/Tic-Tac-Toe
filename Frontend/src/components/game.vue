@@ -86,7 +86,7 @@
       </table>
     </div>
 
-    <div id="resultMessage">
+    <div id="resultMessage" v-bind:class="{ highlighted: gameWon }" class="resultMessage">
       {{ this.message }}
     </div>
 
@@ -131,13 +131,14 @@ export default {
       firstTurn: "X",
       lastFirstTurn: "O",
       inProgress: true,
+      gameWon: false,
       message: "",
       beginMessage: "Let's play tic-tac-toe!",
       movesList: [],
       movesMade: 0,
       score: [],
       squareSize: "33.33%",
-      boardSize: "580px",
+      boardSize: "560px",
       markSize: "75px",
       player1_name: "",
       player2_name: "",
@@ -175,7 +176,16 @@ export default {
 
   methods: {
     confettiStart() {
-      this.$confetti.start();
+      this.$confetti.start({
+        particles: [
+          {
+            type: "rect",
+            size: 7,
+            dropRate: 7,
+          },
+        ],
+        defaultColors: ["DodgerBlue", "#f35fc7", "#11d9c5"],
+      });
     },
 
     confettiStop() {
@@ -228,6 +238,7 @@ export default {
             if (response.data == "CROSS") this.message = this.player1 + " Wins!";
             else if (response.data == "CIRCLE") this.message = this.player2 + " Wins!";
             this.confettiStart();
+            this.gameWon = true;
           }
           this.savePlayer1(this.player1);
           this.savePlayer2(this.player2);
@@ -246,6 +257,7 @@ export default {
       this.movesMade = 0;
       this.setFirstTurn();
       this.confettiStop();
+      this.gameWon = false;
     },
 
     resetScore() {

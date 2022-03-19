@@ -95,9 +95,13 @@ export default {
     return {
       gameDetails: [],
       winStats: [],
+      herokuUri: "https://tictactoe-shameme-backend.herokuapp.com/",
+      localUri: "http://localhost:4023/",
+      uriInUse: "",
     };
   },
   created: function () {
+    this.uriInUse = this.localUri;
     this.getGameDetails();
     this.getWinStats();
   },
@@ -117,16 +121,14 @@ export default {
   },
   methods: {
     getGameDetails() {
-      // let uri = "http://localhost:4023/gameDetails";
-      let uri = "https://tictactoe-shameme-backend.herokuapp.com/gameDetails";
+      let uri = this.uriInUse + "gameDetails";
       this.axios.get(uri).then((response) => {
         this.gameDetails = response.data;
       });
     },
 
     getWinStats() {
-      // let uri = "http://localhost:4023/winStats";
-      let uri = "https://tictactoe-shameme-backend.herokuapp.com/winStats";
+      let uri = this.uriInUse + "winStats";
       this.axios.get(uri).then((response) => {
         this.winStats = response.data;
       });

@@ -17,6 +17,7 @@
     "nprogress": "^0.2.0",
     "vue": "^2.5.16",
     "vue-axios": "^2.1.1",
+    "vue-confetti": "^2.3.0",
     "vue-cryptojs": "^2.2.1",
     "vue-router": "^3.0.1"
   },

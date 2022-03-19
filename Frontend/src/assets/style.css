@@ -219,7 +219,7 @@ table thead, table tbody tr {
     table-layout: fixed;
 }
 table thead tr {
-    background-color: #0C343D;
+    background-color: var(--color);
     color: #ffffff;
     text-align: left;
 }
@@ -255,7 +255,7 @@ tbody tr {
 .container {
   border: 1px;
   width: 100%;
-  background-color: var(--background-color);
+  background-color: rgb(190, 205, 207);
   /* outline: solid 1px black; */
 
 }

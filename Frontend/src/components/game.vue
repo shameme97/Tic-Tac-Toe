@@ -2,7 +2,6 @@
   <div>
     <div class="sidenav">
       <h2>Scoreboard</h2>
-
       <div class="scoreBoard">
         <table>
           <tr>
@@ -73,6 +72,11 @@
 </template>
 
 <script>
+import Vue from "vue";
+import VueConfetti from "vue-confetti";
+
+Vue.use(VueConfetti);
+
 export default {
   data() {
     return {
@@ -120,6 +124,14 @@ export default {
   },
 
   methods: {
+    confettiStart() {
+      this.$confetti.start();
+    },
+
+    confettiStop() {
+      this.$confetti.stop();
+    },
+
     createArray() {
       this.items = new Array(this.size * this.size)
         .fill()
@@ -153,6 +165,7 @@ export default {
           this.inProgress = false;
           this.getScore();
           this.getWinningMoves();
+          this.confettiStart();
         }
       });
     },
@@ -164,6 +177,7 @@ export default {
       this.movesList = [];
       this.movesMade = 0;
       this.setFirstTurn();
+      this.confettiStop();
     },
 
     resetScore() {

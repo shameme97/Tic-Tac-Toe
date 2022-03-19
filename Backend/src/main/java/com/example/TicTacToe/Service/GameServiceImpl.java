@@ -153,7 +153,7 @@ public class GameServiceImpl implements GameService {
         for (Board board: allBoards){
             if (!board.getWinner().equals("")){
                 String[] boardDetails = {String.valueOf(gameNo),
-                    board.getSize()+"x"+board.getSize(), board.getFirstTurn(), board.getWinner()};
+                    board.getSize()+" x "+board.getSize(), board.getFirstTurn(), board.getWinner()};
                 gameDetails.add(boardDetails);
                 ++gameNo;
             }

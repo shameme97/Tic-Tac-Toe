@@ -9,7 +9,7 @@ Table of Contents
 
 * [About the project](#about-the-project)
 * [Features](#features)
-* [Usage](#usage)
+* [Functionalities](#functionalities)
   * [REST Service Endpoints](#rest-service-endpoints)
   * [UI](#ui)
 * [Structure](#structure)
@@ -58,8 +58,8 @@ Some features have been added to the game to make it more user-friendly.
   ![image](https://user-images.githubusercontent.com/61234823/159158494-414a59f7-1ca7-48fd-b702-125cc21f2ac6.png)
 
 
-<a name="usage"></a>
-## Usage
+<a name="functionalities"></a>
+## Functionalities
 
 <a name="rest-service-endpoints"></a>
 - REST Service Endpoints:

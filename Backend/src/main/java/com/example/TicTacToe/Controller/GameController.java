@@ -50,6 +50,11 @@ public class GameController {
         return gameService.getLastValueOfFirstTurn();
     }
 
+    @GetMapping(value = "/winStats-based-on-turn")
+    public double[] getWinStatsTurn(){
+        return gameService.getWinStatsTurn();
+    }
+
     @GetMapping(value = "/winStats")
     public double[] getWinStats(){
         return gameService.getWinStats();

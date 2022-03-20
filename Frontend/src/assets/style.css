@@ -117,6 +117,7 @@ button:active {
 
 .scoreBoard{
   font-size: 20px;
+  padding: 5px 30px;
 }
 
 /* Contains result-message-display, select-board, customize-name box */
@@ -223,7 +224,7 @@ h2 {
 
 
 table {
-    padding: 12px 20px;
+    padding: 10px 10px;
 } 
 td {
   padding: 10px 10px;
@@ -263,7 +264,7 @@ tbody tr {
 .gameDetails {
     display: flex;
     flex-flow: column;
-    height: 350px;
+    height: 340px;
     width: 90%;
 
     border: 3px solid var(--color);
@@ -282,25 +283,39 @@ tbody tr {
 }
 
 /* Design of win-stats table */
-.winStats {
+.winStatsTurn {
     display: flex;
     flex-flow: column;
-    height: 250px;
-    width: 90%;
+    height: 230px;
+    width: 60%;
 
     border: 3px solid var(--color);
-    border-radius: 20px;
+    border-radius: 10px;
     border-collapse: collapse;
     font-size: 1em;
     font-family: cursive;
 
     /* margin: 25px 0; */
-    min-width: 400px;
+    /* min-width: 200px; */
     box-shadow: 0 0 20px rgba(61, 28, 28, 0.15);
-    margin-left:auto;margin-right:auto;
+    margin-left:50px;
 }
-.winStats.td {
+.winStatsTurn.td {
   padding: 2px 2px;
+}
+
+/* Design for pie-chart of win percentage */
+.pieChart {
+  height: 235px; 
+  width: 280px;
+  display: flex; 
+  position: fixed; 
+  bottom: 20px; 
+  right: 250px;
+  background: var(--background-color);
+
+  border: 3px solid var(--color);
+  border-radius: 20px;
 }
 
 /* Make sure that padding behaves as expected */

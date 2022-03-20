@@ -20,17 +20,17 @@
       </tbody>
     </table>
 
-    <table class="winStats">
+    <table class="winStatsTurn">
       <thead>
         <tr>
-          <th>Turn</th>
+          <th width="20%">Turn</th>
           <th>Winner</th>
           <th>Winning Percentage</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>1st</td>
+          <td width="20%">1st</td>
           <td>{{ player1 }}</td>
           <td>
             <div class="container">
@@ -38,13 +38,13 @@
                 class="percentage x-1st-x-win"
                 v-bind:style="{ width: computedWidth_bar0 }"
               >
-                {{ winStats[0] }}%
+                {{ winStatsTurn[0] }}%
               </div>
             </div>
           </td>
         </tr>
         <tr>
-          <td>1st</td>
+          <td width="20%">1st</td>
           <td>{{ player2 }}</td>
           <td>
             <div class="container">
@@ -52,13 +52,13 @@
                 class="percentage o-1st-o-win"
                 v-bind:style="{ width: computedWidth_bar2 }"
               >
-                {{ winStats[2] }}%
+                {{ winStatsTurn[2] }}%
               </div>
             </div>
           </td>
         </tr>
         <tr>
-          <td>2nd</td>
+          <td width="20%">2nd</td>
           <td>{{ player1 }}</td>
           <td>
             <div class="container">
@@ -66,13 +66,13 @@
                 class="percentage x-2nd-x-win"
                 v-bind:style="{ width: computedWidth_bar1 }"
               >
-                {{ winStats[1] }}%
+                {{ winStatsTurn[1] }}%
               </div>
             </div>
           </td>
         </tr>
         <tr>
-          <td>2nd</td>
+          <td width="20%">2nd</td>
           <td>{{ player2 }}</td>
           <td>
             <div class="container">
@@ -80,23 +80,73 @@
                 class="percentage o-2nd-o-win"
                 v-bind:style="{ width: computedWidth_bar3 }"
               >
-                {{ winStats[3] }}%
+                {{ winStatsTurn[3] }}%
               </div>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
+    <div class="pieChart">
+      <apexchart
+        type="pie"
+        width="260"
+        :options="chartOptions"
+        :series="series"
+      ></apexchart>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "gameDetails",
   data() {
     return {
+      series: [0, 0, 0],
+      chartOptions: {
+        chart: {
+          width: "100%",
+          type: "pie",
+        },
+
+        labels: ["CROSS", "CIRCLE", "DRAW"],
+        theme: {
+          monochrome: {
+            enabled: true,
+          },
+        },
+        fill: {
+          colors: ["#0f6e9b", "#00b3ff", "#23b7c4"],
+        },
+        plotOptions: {
+          pie: {
+            dataLabels: {
+              offset: -10,
+            },
+          },
+        },
+        title: {
+          text: "Winning Percentage of All Games",
+          style: {
+            fontSize: "15px",
+            fontWeight: "bold",
+            fontFamily: "cursive",
+            color: "#0258a8",
+          },
+        },
+        dataLabels: {
+          formatter(val, opts) {
+            const name = opts.w.globals.labels[opts.seriesIndex];
+            return [name, val.toFixed(1) + "%"];
+          },
+        },
+        legend: {
+          show: false,
+        },
+      },
+
       gameDetails: [],
-      winStats: [],
+      winStatsTurn: [],
       player1: "CROSS",
       player2: "CIRCLE",
       herokuUri: "https://tictactoe-shameme-backend.herokuapp.com/",
@@ -107,21 +157,22 @@ export default {
   created: function () {
     this.uriInUse = this.localUri;
     this.getGameDetails();
+    this.getWinStatsTurn();
     this.getWinStats();
     this.setPlayers();
   },
   computed: {
     computedWidth_bar0: function () {
-      if (this.winStats[0] != 0) return this.winStats[0] + "%";
+      if (this.winStatsTurn[0] != 0) return this.winStatsTurn[0] + "%";
     },
     computedWidth_bar1: function () {
-      if (this.winStats[1] != 0) return this.winStats[1] + "%";
+      if (this.winStatsTurn[1] != 0) return this.winStatsTurn[1] + "%";
     },
     computedWidth_bar2: function () {
-      if (this.winStats[2] != 0) return this.winStats[2] + "%";
+      if (this.winStatsTurn[2] != 0) return this.winStatsTurn[2] + "%";
     },
     computedWidth_bar3: function () {
-      if (this.winStats[3] != 0) return this.winStats[3] + "%";
+      if (this.winStatsTurn[3] != 0) return this.winStatsTurn[3] + "%";
     },
   },
   methods: {
@@ -132,10 +183,17 @@ export default {
       });
     },
 
+    getWinStatsTurn() {
+      let uri = this.uriInUse + "winStats-based-on-turn";
+      this.axios.get(uri).then((response) => {
+        this.winStatsTurn = response.data;
+      });
+    },
+
     getWinStats() {
       let uri = this.uriInUse + "winStats";
       this.axios.get(uri).then((response) => {
-        this.winStats = response.data;
+        this.series = response.data;
       });
     },
 

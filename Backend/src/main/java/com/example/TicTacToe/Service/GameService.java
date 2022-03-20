@@ -10,6 +10,7 @@ public interface GameService {
     public String[] getWinningMoves();
     public List<String[]> getGameDetails();
     public String getLastValueOfFirstTurn();
+    public double[] getWinStatsTurn();
     public double[] getWinStats();
     public void setPlayerNames(String player1Name, String player2Name);
     public String getCrossName();

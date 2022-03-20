@@ -180,7 +180,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public double[] getWinStats() {
+    public double[] getWinStatsTurn() {
         List<Board> allBoards = gameRepository.findAll();
         double[] winStats = calculateWinStats(allBoards);
         double totalGames = winStats[4];
@@ -190,24 +190,34 @@ public class GameServiceImpl implements GameService {
         return winStats;
     }
 
+    @Override
+    public double[] getWinStats() {
+        List<Board> allBoards = gameRepository.findAll();
+        double[] winStats = calculateWinStats(allBoards);
+        double totalGames = winStats[4];
+        double crossWinsPercentage = round(((winStats[0] + winStats[1])/totalGames)*100);
+        double circleWinsPercentage = round(((winStats[2] + winStats[3])/totalGames)*100);
+        double drawPercentage = round(100 - crossWinsPercentage - circleWinsPercentage);
+        return new double[]{crossWinsPercentage, circleWinsPercentage, drawPercentage};
+    }
+
     public double[] calculateWinStats(List<Board> allBoards){
         int cross1stTurn, cross2ndTurn, circle1stTurn, circle2ndTurn;
         cross1stTurn = cross2ndTurn = circle1stTurn = circle2ndTurn = 0;
         int totalGames = 0;
         for (Board board: allBoards){
+            if (!board.getWinner().equals("")) ++totalGames;
             if (board.getWinner().equals("CROSS")){
                 if (board.getFirstTurn().equals("CROSS"))
                     ++cross1stTurn;
                 else
                     ++cross2ndTurn;
-                ++totalGames;
             }
             else if (board.getWinner().equals("CIRCLE")){
                 if (board.getFirstTurn().equals("CIRCLE"))
                     ++circle1stTurn;
                 else
                     ++circle2ndTurn;
-                ++totalGames;
             }
         }
         return new double[]{cross1stTurn, cross2ndTurn, circle1stTurn, circle2ndTurn, totalGames};

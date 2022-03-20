@@ -4,6 +4,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <div class="note">Click on Reset Score to Start a New Tournament!</div>
     <div class="sidenav">
       <h2>Scoreboard</h2>
       <div class="scoreBoard">
@@ -40,7 +41,7 @@
           </option>
         </select>
         <br /><br />
-        <button v-on:click="submitMoves(size)">Submit</button>
+        <button v-on:click="submitMoves(size)">Submit Moves</button>
         <br /><br />
         <button v-on:click="rematch()">Rematch</button>
       </div>
@@ -165,7 +166,7 @@ export default {
   },
 
   created: function () {
-    this.uriInUse = this.localUri;
+    this.uriInUse = this.herokuUri;
     this.createArray();
     this.getScore();
     this.message = this.beginMessage;

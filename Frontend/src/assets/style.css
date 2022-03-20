@@ -99,7 +99,7 @@ button:active {
   width: 260px; 
   position: fixed; 
   z-index: 1; 
-  top: 100px; 
+  top: 150px; 
   right: 70px;;
   background: var(--background-color);
   overflow-x: hidden; 
@@ -117,7 +117,30 @@ button:active {
 
 .scoreBoard{
   font-size: 20px;
-  padding: 5px 30px;
+  padding: 5px 5px;
+}
+
+.note {
+  height: 100px; 
+  width: 260px; 
+  position: fixed; 
+  z-index: 1; 
+  top: 30px;
+  right: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: cursive;
+  font-size: 20px;
+  text-align: center;
+
+  background: var(--background-color);
+  overflow-x: hidden;
+
+  border: 3px solid var(--color);
+  border-radius: 10px;
 }
 
 /* Contains result-message-display, select-board, customize-name box */

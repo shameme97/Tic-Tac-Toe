@@ -55,14 +55,9 @@ public class GameController {
         return gameService.getWinStats();
     }
 
-    @PostMapping(value = "/setCrossName/{newName}")
-    public void setCrossName(@PathVariable("newName") String newName){
-        gameService.setCrossName(newName);
-    }
-
-    @PostMapping(value = "/setCircleName/{newName}")
-    public void setCircleName(@PathVariable("newName") String newName){
-        gameService.setCircleName(newName);
+    @PostMapping(value = "/setPlayerNames/{player1}/{player2}")
+    public void setPlayerNames(@PathVariable("player1") String player1, @PathVariable("player2") String player2){
+        gameService.setPlayerNames(player1, player2);
     }
 
     @GetMapping(value = "/crossName")

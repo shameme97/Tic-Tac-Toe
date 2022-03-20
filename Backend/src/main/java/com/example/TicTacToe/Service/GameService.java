@@ -11,8 +11,7 @@ public interface GameService {
     public List<String[]> getGameDetails();
     public String getLastValueOfFirstTurn();
     public double[] getWinStats();
-    public void setCrossName(String newName);
-    public void setCircleName(String newName);
+    public void setPlayerNames(String player1Name, String player2Name);
     public String getCrossName();
     public String getCircleName();
 }

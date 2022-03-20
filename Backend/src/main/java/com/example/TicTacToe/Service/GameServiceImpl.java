@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static java.lang.Math.*;
@@ -27,26 +26,21 @@ public class GameServiceImpl implements GameService {
         List<String[]> winStates = new ArrayList<>();
         setWinStates(size, winStates);
         Board board = new Board(gameRepository.findAll().size()+1, size, winStates,
-                "", "", new String[3], 0, "", "");
+                "", "", new String[3], 0,"CROSS", "CIRCLE");
         gameRepository.insert(board);
         return board;
     }
 
-    public boolean checkIfEmpty(List<String> moveSet){
-        return moveSet.isEmpty();
-    }
-
     @Override
     public String submitMove(int size, List<String> moveSet, boolean newGame) {
-        checkIfEmpty(moveSet);
-        if (moveSet.isEmpty()) return "";
+        if (moveSet.isEmpty()) return ""; // to handle empty submits
         Board board;
         if (newGame){
             board = createBoard(size);
         }else{
             List<Board> allBoards = gameRepository.findAll();
             board = allBoards.get(allBoards.size() - 1);
-            if (!board.getWinner().equals("")) return ""; // to handle multiple submits after win
+            if (!board.getWinner().equals("")) return ""; // to handle multiple of same submits after win
         }
         return checkForWinner(board, moveSet);
     }
@@ -59,7 +53,6 @@ public class GameServiceImpl implements GameService {
         }
         int numberOfMovesMade = 0;
         board.setFirstTurn(moveSet.get(0).split(" ", 2)[0]);
-        board.setFirstTurn_name(board.getFirstTurn());
         for (String str: moveSet){
             ++numberOfMovesMade;
             String[] move = str.split(" ", 2);
@@ -84,14 +77,8 @@ public class GameServiceImpl implements GameService {
             stringOfMoves.append(move);
         }
         String moves = String.valueOf(stringOfMoves);
-        if (moves.contains("XXX")) {
-            board.setWinner("CROSS");
-            board.setWinner_name("CROSS");
-        }
-        else if (moves.contains("OOO")) {
-            board.setWinner("CIRCLE");
-            board.setWinner_name("CIRCLE");
-        }
+        if (moves.contains("XXX")) board.setWinner("CROSS");
+        else if (moves.contains("OOO")) board.setWinner("CIRCLE");
         else return false;
         gameRepository.save(board);
         return true;
@@ -118,7 +105,6 @@ public class GameServiceImpl implements GameService {
     public String checkForDraw(Board board, int numberOfMoves){
         if (numberOfMoves == pow(board.getSize(), 2)){
             board.setWinner("Draw");
-            board.setWinner_name("DRAW");
             board.setNumberOfMoves(numberOfMoves);
             gameRepository.save(board);
             return "Draw";
@@ -153,14 +139,15 @@ public class GameServiceImpl implements GameService {
     @Override
     public String[] getWinningMoves() {
         List<Board> allBoards = gameRepository.findAll();
-        Board board = allBoards.get(allBoards.size() - 1);
-        return board.getWinningMove();
+        Board currentBoard = allBoards.get(allBoards.size() - 1);
+        return currentBoard.getWinningMove();
     }
 
     @Override
     public String getLastValueOfFirstTurn() {
         List<Board> allBoards = gameRepository.findAll();
-        return (allBoards.size()==0) ? "" : allBoards.get(allBoards.size() - 1).getFirstTurn();
+        Board currentBoard = allBoards.get(allBoards.size() - 1);
+        return (allBoards.size()==0) ? "" : currentBoard.getFirstTurn();
     }
 
     @Override
@@ -170,11 +157,7 @@ public class GameServiceImpl implements GameService {
         int gameNo = 1;
         for (Board board: allBoards){
             if (!board.getWinner().equals("")){
-                String symbol = (board.getWinner().equals("CROSS")) ? "X" : "O";
-                if (board.getWinner().equals("Draw")) symbol = "-";
-                String[] boardDetails = {String.valueOf(gameNo), board.getSize()+" x "+board.getSize(),
-                        board.getFirstTurn_name(), board.getWinner_name(), symbol,
-                        String.valueOf(board.getNumberOfMoves())};
+                String[] boardDetails = getBoardDetails(board, gameNo);
                 gameDetails.add(boardDetails);
                 ++gameNo;
             }
@@ -183,12 +166,26 @@ public class GameServiceImpl implements GameService {
         return gameDetails;
     }
 
+    public String[] getBoardDetails(Board board, int gameNo){
+        String firstPlayer = (board.getFirstTurn().equals("CROSS")) ? board.getPlayer1() : board.getPlayer2();
+        String winningPlayer = (board.getWinner().equals("CROSS")) ? board.getPlayer1() : board.getPlayer2();
+        String symbol = (board.getWinner().equals("CROSS")) ? "X" : "O";
+        if (board.getWinner().equals("Draw")) {
+            symbol = "-";
+            winningPlayer = "DRAW";
+        }
+        String boardSize = board.getSize()+" x "+board.getSize();
+        return new String[]{String.valueOf(gameNo), boardSize, firstPlayer, winningPlayer, symbol,
+                String.valueOf(board.getNumberOfMoves())};
+    }
+
     @Override
     public double[] getWinStats() {
         List<Board> allBoards = gameRepository.findAll();
         double[] winStats = calculateWinStats(allBoards);
+        double totalGames = winStats[4];
         for (int i=0; i<winStats.length-1; ++i){
-            winStats[i] = (float) round((winStats[i]/winStats[4])*100) ; // calculating percentage
+            winStats[i] = (float) round((winStats[i]/totalGames)*100) ; // calculating percentage
         }
         return winStats;
     }
@@ -217,25 +214,11 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void setCrossName(String newName) {
+    public void setPlayerNames(String player1Name, String player2Name) {
         List<Board> allBoards = gameRepository.findAll();
         for (Board board: allBoards){
-            if (board.getWinner().equals("CROSS"))
-                board.setWinner_name(newName);
-            if (board.getFirstTurn().equals("CROSS"))
-                board.setFirstTurn_name(newName);
-            gameRepository.save(board);
-        }
-    }
-
-    @Override
-    public void setCircleName(String newName) {
-        List<Board> allBoards = gameRepository.findAll();
-        for (Board board: allBoards){
-            if (board.getWinner().equals("CIRCLE"))
-                board.setWinner_name(newName);
-            if (board.getFirstTurn().equals("CIRCLE"))
-                board.setFirstTurn_name(newName);
+            board.setPlayer1(player1Name);
+            board.setPlayer2(player2Name);
             gameRepository.save(board);
         }
     }
@@ -245,7 +228,7 @@ public class GameServiceImpl implements GameService {
         List<Board> allBoards = gameRepository.findAll();
         for (Board board: allBoards){
             if (board.getFirstTurn().equals("CROSS"))
-                return board.getFirstTurn_name();
+                return board.getPlayer1();
         }
         return "CROSS";
     }
@@ -255,7 +238,7 @@ public class GameServiceImpl implements GameService {
         List<Board> allBoards = gameRepository.findAll();
         for (Board board: allBoards){
             if (board.getFirstTurn().equals("CIRCLE"))
-                return board.getFirstTurn_name();
+                return board.getPlayer2();
         }
         return "CIRCLE";
     }

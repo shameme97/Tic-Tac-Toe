@@ -9,12 +9,14 @@ body{
   background-image: url("bnw2.png");
  }
 
+ /* Design of tictactoe-board */
 #game-view {
   margin: 0 auto;
   border: 1px #000;
   align-content: center;
 }
 
+/* Design of turn-display atop tictactoe board */
 #game-view-info {
   padding: 5px;
   font-family: cursive;
@@ -55,16 +57,6 @@ body{
 .game-view-square.highlighted { color: var(--celebrate-color); }
 .game-view-square:hover{ color: var(--color); }
 
-.topdiv
-{
-  width: 80%;
-  margin-left:auto;margin-right:auto;margin-top:5%;
-  text-align: center;
-  position: relative;
-  font-family: cursive;
-  font-size: 20px;
-}
-
 button {
   display: inline-block;
   width: 210px;
@@ -83,14 +75,25 @@ button {
 
 button:hover {background-color: black}
 
-button:active 
-{
+button:active {
   background-color: #111111;
   box-shadow: 0 px #666;
   transform: translateY(4px);
 }
 
+.saveButton{
+  background-color: var(--color);
+  height: 30px;
+  width: 30px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin-left:auto;margin-right:auto;
+}
 
+/* Contains design of scoreboard  */
 .sidenav {
   height: 440px; 
   width: 260px; 
@@ -116,6 +119,73 @@ button:active
   font-size: 20px;
 }
 
+/* Contains result-message-display, select-board, customize-name box */
+.sidenav2 {
+  width: var(--leftsidenav-width);
+  height: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 180px;
+  left: 70px;
+  background: var(--background-color);
+  overflow-x: hidden;
+  padding: 8px 0;
+
+  border: 3px solid var(--color);
+  border-radius: 10px;
+}
+
+/* Design of selectBoard */
+.topdiv
+{
+  width: 80%;
+  margin-left:auto;margin-right:auto;margin-top:5%;
+  text-align: center;
+  position: relative;
+  font-family: cursive;
+  font-size: 20px;
+}
+.selectBoard {
+  overflow: hidden;
+  overflow: -moz-hidden-unscrollable;
+  border: 3px solid var(--color);
+  border-radius: 10px;
+  display: inline-block;
+  position: relative;
+  outline: none;
+}
+
+/* Design of customize-user-name box */
+.changeName {
+  width: var(--leftsidenav-width);
+  height: 200px;
+  position: fixed;
+  z-index: 1;
+  bottom: 40px;
+  left: 70px;
+  background: var(--background-color);
+  overflow-x: hidden;
+  padding: 20px 5px;
+
+  font-family: cursive;
+  font-size: 20px;
+  text-align: center;
+  
+  border: 3px solid var(--color);
+  border-radius: 10px;
+}
+.addInput[type=text]{
+  width: 100%;
+  padding: 10px 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+  /* font-family: cursive; */
+}
+
+/* Design of result-message-display */
 #resultMessage{
   display: flex;
   justify-content: center;
@@ -146,89 +216,51 @@ button:active
   font-weight: bold;
 }
 
-.sidenav2 {
-  width: var(--leftsidenav-width);
-  height: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 180px;
-  left: 70px;
-  background: var(--background-color);
-  overflow-x: hidden;
-  padding: 8px 0;
-
-  border: 3px solid var(--color);
-  border-radius: 10px;
-}
-
-
-.selectBoard {
-  overflow: hidden;
-  overflow: -moz-hidden-unscrollable;
-  border: 3px solid var(--color);
-  border-radius: 10px;
-  display: inline-block;
-  position: relative;
-  outline: none;
-}
-
-.changeName {
-  width: var(--leftsidenav-width);
-  height: 200px;
-  position: fixed;
-  z-index: 1;
-  bottom: 40px;
-  left: 70px;
-  background: var(--background-color);
-  overflow-x: hidden;
-  padding: 20px 5px;
-  /* padding-top: 50px; */
-  font-family: cursive;
-  font-size: 20px;
-  text-align: center;
-  
-
-  border: 3px solid var(--color);
-  border-radius: 10px;
-}
-.addInput[type=text]{
-  width: 100%;
-  padding: 10px 10px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-  outline: none;
-  /* font-family: cursive; */
-}
-
-.saveButton{
-  background-color: var(--color);
-  height: 30px;
-  width: 30px;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 20px;
-  margin-left:auto;margin-right:auto;
-}
-
 h2 {
   font-size: 35px;
   text-align: center;
 }
 
+
 table {
     padding: 12px 20px;
 } 
-
 td {
   padding: 10px 10px;
 }
+table thead {
+  flex: 0 0 auto;
+  width: calc(100% );
+}
+table tbody {
+  flex: 1 1 auto;
+  display: block;
+  overflow-y: scroll;
+  background-color: whitesmoke;
+}
+::-webkit-scrollbar {
+display: none;
+}
+table tbody tr {
+  width: 100%;
+}
+table thead, table tbody tr {
+  display: table;
+  table-layout: fixed;
+  text-align: center;
+}
+table thead tr {
+  background-color: var(--color);
+  color: #ffffff;
+  /* text-align: left; */
+  text-align: center;
+}
+tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
 
-.gameDetails 
-{
+/* Design of game-details table */
+.gameDetails {
     display: flex;
     flex-flow: column;
     height: 350px;
@@ -245,44 +277,11 @@ td {
     box-shadow: 0 0 20px rgba(61, 28, 28, 0.15);
     margin-left:auto;margin-right:auto;
 }
-table thead {
-    flex: 0 0 auto;
-    width: calc(100% );
-    
-}
-table tbody {
-    flex: 1 1 auto;
-    display: block;
-    overflow-y: scroll;
-    background-color: whitesmoke;
-}
-
-::-webkit-scrollbar {
-  display: none;
-}
-
-table tbody tr {
-    width: 100%;
-    
-}
-table thead, table tbody tr {
-    display: table;
-    table-layout: fixed;
-    text-align: center;
-}
-table thead tr {
-    background-color: var(--color);
-    color: #ffffff;
-    /* text-align: left; */
-    text-align: center;
-}
 .gameDetails.td {
     padding: 12px 15px;
 }
-tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
 
+/* Design of win-stats table */
 .winStats {
     display: flex;
     flex-flow: column;
@@ -315,14 +314,12 @@ tbody tr {
   /* outline: solid 1px black; */
 
 }
-
 .percentage {
-  text-align: right; /* Right-align text */
-  padding-top: 0.6%; /* Add top padding */
-  padding-bottom: 0.6%; /* Add bottom padding */
-  color: white; /* White text color */
+  text-align: right; 
+  padding-top: 0.6%; 
+  padding-bottom: 0.6%; 
+  color: white; 
 }
-
 .x-1st-x-win {width: 0.1%; background-color: #1b8cc0;} 
 .x-2nd-x-win {width: 0.1%; background-color: #1b8cc0;} 
 .o-1st-o-win {width: 0.1%; background-color: #0f6e9b;} 

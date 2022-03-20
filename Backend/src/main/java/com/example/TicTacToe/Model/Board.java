@@ -3,6 +3,7 @@ package com.example.TicTacToe.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,12 +22,14 @@ public class Board {
     private String winner;
     private String[] winningMove;
     private int numberOfMoves;
-    private String firstTurn_name;
-    private String winner_name;
+    private String player1;
+    private String player2;
 
-    public Board(int id, int size, List<String[]> winStates){
+    public Board(int id, int size, List<String[]> winStates, String player1, String player2){
         this.id = id;
         this.size = size;
         this.winStates = winStates;
+        this.player1 = player1;
+        this.player2 = player2;
     }
 }

@@ -137,19 +137,22 @@ export default {
       movesList: [],
       movesMade: 0,
       score: [],
-      squareSize: "33.33%",
-      boardSize: "560px",
-      markSize: "75px",
+
       player1_name: "",
       player2_name: "",
       player1: "CROSS",
       player2: "CIRCLE",
+
+      squareSize: "33.33%",
+      boardSize: "560px",
+      markSize: "75px",
 
       herokuUri: "https://tictactoe-shameme-backend.herokuapp.com/",
       localUri: "http://localhost:4023/",
       uriInUse: "",
     };
   },
+
   computed: {
     computedSquare: function () {
       this.squareSize = 100 / this.size + "%";
@@ -165,44 +168,17 @@ export default {
       return this.markSize;
     },
   },
+
   created: function () {
     this.uriInUse = this.localUri;
     this.createArray();
     this.getScore();
     this.message = this.beginMessage;
-    this.savePlayer1(this.player1);
-    this.savePlayer2(this.player2);
+    this.getPlayer1Name();
+    this.getPlayer2Name();
   },
 
   methods: {
-    confettiStart() {
-      this.$confetti.start({
-        particles: [
-          {
-            type: "rect",
-            size: 7,
-            dropRate: 7,
-          },
-        ],
-        defaultColors: ["DodgerBlue", "#f35fc7", "#11d9c5"],
-      });
-    },
-
-    confettiStop() {
-      this.$confetti.stop();
-    },
-
-    savePlayer1(player1_name) {
-      this.player1 = player1_name == "" ? this.player1 : player1_name;
-      let uri = this.uriInUse + "setCrossName/" + this.player1;
-      this.axios.post(uri);
-    },
-    savePlayer2(player2_name) {
-      this.player2 = player2_name == "" ? this.player2 : player2_name;
-      let uri = this.uriInUse + "setCircleName/" + this.player2;
-      this.axios.post(uri);
-    },
-
     createArray() {
       this.items = new Array(this.size * this.size)
         .fill()
@@ -230,19 +206,18 @@ export default {
       var newGame = this.inProgress;
       let uri = this.uriInUse + size + "/submitMoves/" + newGame;
       this.axios.post(uri, this.movesList).then((response) => {
-        if (response.data == "") return;
+        if (response.data == "") return; // for empty or multiple submits of same board
         if (response.data == "Match In Progress!") this.message = response.data;
         else {
-          if (response.data == "Draw") this.message = response.data;
+          if (response.data == "Draw") this.message = "Draw!";
           else {
             if (response.data == "CROSS") this.message = this.player1 + " Wins!";
             else if (response.data == "CIRCLE") this.message = this.player2 + " Wins!";
             this.confettiStart();
             this.gameWon = true;
           }
-          this.savePlayer1(this.player1);
-          this.savePlayer2(this.player2);
           this.inProgress = false;
+          this.setPlayerNames();
           this.getScore();
           this.getWinningMoves();
         }
@@ -305,11 +280,52 @@ export default {
       });
     },
 
+    savePlayer1(player1_name) {
+      this.player1 = player1_name == "" ? this.player1 : player1_name;
+      this.setPlayerNames();
+    },
+    savePlayer2(player2_name) {
+      this.player2 = player2_name == "" ? this.player2 : player2_name;
+      this.setPlayerNames();
+    },
+
+    setPlayerNames() {
+      let uri = this.uriInUse + "setPlayerNames/" + this.player1 + "/" + this.player2;
+      this.axios.post(uri);
+    },
+
+    getPlayer1Name() {
+      let uri = this.uriInUse + "crossName";
+      this.axios.get(uri).then((response) => {
+        this.player1 = response.data;
+      });
+    },
+    getPlayer2Name() {
+      let uri = this.uriInUse + "circleName";
+      this.axios.get(uri).then((response) => {
+        this.player2 = response.data;
+      });
+    },
+
     showGameStats() {
-      this.savePlayer1(this.player1);
-      this.savePlayer2(this.player2);
       let routeData = this.$router.resolve({ name: "game-details" });
       window.open(routeData.href, "_blank");
+    },
+
+    confettiStart() {
+      this.$confetti.start({
+        particles: [
+          {
+            type: "rect",
+            size: 7,
+            dropRate: 7,
+          },
+        ],
+        defaultColors: ["DodgerBlue", "#f35fc7", "#11d9c5"],
+      });
+    },
+    confettiStop() {
+      this.$confetti.stop();
     },
   },
 };

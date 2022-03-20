@@ -1,6 +1,7 @@
-# Tic-Tac-Toe
-A full-stack REST API application for a game of tic tac toe with backend working with Spring Boot and frontend with Vue.js and MongoDB NoSQL as its database. This app has been integrated with Swagger and tested using JUnit. The project has been hosted on Heroku at the following link: https://tictactoe-shameme.herokuapp.com/ [NOTE: In case of overlapping items, kindly zoom out a little in your browser for a better experience. Thank you.]
 <a name="go-to-top"></a>
+# Tic-Tac-Toe
+A full-stack REST API application for a game of tic tac toe with backend working with Spring Boot and frontend with Vue.js and MongoDB NoSQL as its database. This app has been integrated with Swagger and tested using JUnit. The project has been hosted on Heroku at the following link: https://tictactoe-shameme.herokuapp.com/ [**NOTE:** In case of overlapping items, kindly zoom out a little in your browser for a better experience. Thank you.]
+
 
 Table of Contents
 =================
@@ -53,10 +54,12 @@ The following image shows one instance of such case. The number indicates the i-
 Some features have been added to the game to make it more user-friendly.
   * Users can change their player name to their preference. 
     ![image](https://user-images.githubusercontent.com/61234823/159158444-16112dae-b1b8-4d5e-9c07-24f72e222c7b.png)
+    
   * After a winner is declared, the winning move is highlighted, 
     and any extra moves submitted after that are removed from the
     board.
     ![image](https://user-images.githubusercontent.com/61234823/159158379-bebb6e67-077a-45fc-917d-da2b273662cb.png)
+    
   * When clicked on "Game Stats" button, a new tab is opened which
     shows some details and statistics of the previous games.
     ![image](https://user-images.githubusercontent.com/61234823/159158494-414a59f7-1ca7-48fd-b702-125cc21f2ac6.png)

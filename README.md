@@ -144,7 +144,6 @@ Some features have been added to the game to make it more user-friendly.
 │   │   │   │   └── GameController.java
 │   │   │   ├── Model/
 │   │   │   │   ├── Board.java
-│   │   │   │   └── Player.java
 │   │   │   ├── Repository/
 │   │   │   │   └── GameRepository.java
 │   │   │   ├── Service/

@@ -1,5 +1,6 @@
 # Tic-Tac-Toe
-A full-stack REST API application for a game of tic tac toe with backend working with Spring Boot and frontend with Vue.js and MongoDB NoSQL as its database. This app has been integrated with Swagger and tested using JUnit. The project has been hosted on Heroku at the following link: https://tictactoe-shameme.herokuapp.com/
+A full-stack REST API application for a game of tic tac toe with backend working with Spring Boot and frontend with Vue.js and MongoDB NoSQL as its database. This app has been integrated with Swagger and tested using JUnit. The project has been hosted on Heroku at the following link: https://tictactoe-shameme.herokuapp.com/ [NOTE: In case of overlapping items, kindly zoom out a little in your browser for a better experience. Thank you.]
+<a name="go-to-top"></a>
 
 Table of Contents
 =================
@@ -44,38 +45,21 @@ but not opposite of opponent move.
 Even if second player plays optimally, first player should
 have a remaining adjacent square which would ensure their win.
 The following image shows one instance of such case. The number indicates the i-th move.
-<details>
-  <summary>Click to expand!</summary>
-
 <img width="382" alt="image" src="https://user-images.githubusercontent.com/61234823/159158262-a5749a39-8413-4c97-b6a9-d0720533fcfa.png">
-
-</details>
 
 <a name="features"></a>
 ## Features
 
 Some features have been added to the game to make it more user-friendly.
   * Users can change their player name to their preference. 
-    <details>
-    <summary>Click to expand!</summary>
-  
     ![image](https://user-images.githubusercontent.com/61234823/159158444-16112dae-b1b8-4d5e-9c07-24f72e222c7b.png)
-    </details>
   * After a winner is declared, the winning move is highlighted, 
     and any extra moves submitted after that are removed from the
     board.
-    <details>
-    <summary>Click to expand!</summary>
-
     ![image](https://user-images.githubusercontent.com/61234823/159158379-bebb6e67-077a-45fc-917d-da2b273662cb.png)
-    </details>
   * When clicked on "Game Stats" button, a new tab is opened which
     shows some details and statistics of the previous games.
-    <details>
-    <summary>Click to expand!</summary>
-
     ![image](https://user-images.githubusercontent.com/61234823/159158494-414a59f7-1ca7-48fd-b702-125cc21f2ac6.png)
-    </details>
 
 <a name="usage"></a>
 ## Usage
@@ -85,9 +69,6 @@ Some features have been added to the game to make it more user-friendly.
   + **POST**: <https://tictactoe-shameme-backend.herokuapp.com/{size}/submitMoves/{inProgress}> : 
   Submit moves for evaluating result. Returns the winner / match status.
   Sample JSON for this request:
-    <details>
-      <summary>Click to expand!</summary>
-
     ```
     [
     "CROSS 2 0",
@@ -101,14 +82,10 @@ Some features have been added to the game to make it more user-friendly.
     "CROSS 2 2"
     ]
     ```
-    </details>
   + **POST**: <https://tictactoe-shameme-backend.herokuapp.com/setPlayerNames/{player1}/{player2}> :
     Set player names given input by users.
   + **GET**: <https://tictactoe-shameme-backend.herokuapp.com/results> :
     Returns the score of all matches so far.
-  <details>
-    <summary>Click to see the rest endpoints!</summary>
-
   + **POST**: <https://tictactoe-shameme-backend.herokuapp.com/reset> :
     Resets the gaming session.
   + **GET**: <https://tictactoe-shameme-backend.herokuapp.com/winningMoves> :
@@ -127,25 +104,14 @@ Some features have been added to the game to make it more user-friendly.
     Returns the name set by player2.
   + **GET**: <https://tictactoe-shameme-backend.herokuapp.com/numberOfMovesMade> :
     Returns the number of moves taken to win the match.
-  </details>
 
 <a name="ui"></a>
 - UI:
   - Swagger is integrated and can be access for interacting with API at 
   : <https://tictactoe-shameme-backend.herokuapp.com/swagger-ui.html>
-    <details>
-    <summary>Click here to expand!</summary>
-    
       ![image](https://user-images.githubusercontent.com/61234823/159158520-ff532baa-fcaf-418c-945a-4fbc88be3455.png)
-
-    </details>
   - Database at mongoDB compass :
-    <details>
-    <summary>Click here to expand!</summary>
-
       ![image](https://user-images.githubusercontent.com/61234823/159158580-722b7746-a970-4208-b560-b06eabbe6e83.png)
-
-    </details>
 
 <a name="structure"></a>
 ## Structure
@@ -240,3 +206,4 @@ Some features have been added to the game to make it more user-friendly.
 - IntelliJ (Editor)
 - Visual Studio Code
 
+[Go to Top](#go-to-top)

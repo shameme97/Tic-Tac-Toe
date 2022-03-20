@@ -252,6 +252,13 @@ public class GameServiceImpl implements GameService {
         return "CIRCLE";
     }
 
+    @Override
+    public int getNumberOfMovesMade() {
+        List<Board> allBoards = gameRepository.findAll();
+        Board currentBoard = allBoards.get(allBoards.size() - 1);
+        return currentBoard.getNumberOfMoves();
+    }
+
     public void setWinStates(int size, List<String[]> winStates){
         String[] populate;
         String[] populate2;

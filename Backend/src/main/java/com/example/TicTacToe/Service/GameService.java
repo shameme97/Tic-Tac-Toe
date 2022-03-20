@@ -15,4 +15,5 @@ public interface GameService {
     public void setPlayerNames(String player1Name, String player2Name);
     public String getCrossName();
     public String getCircleName();
+    public int getNumberOfMovesMade();
 }

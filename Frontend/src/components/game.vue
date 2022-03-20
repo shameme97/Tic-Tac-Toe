@@ -210,11 +210,25 @@ export default {
             else if (response.data == "CIRCLE") this.message = this.player2 + " Wins!";
             this.confettiStart();
             this.gameWon = true;
+            this.removeExtraMoves();
+            this.getWinningMoves();
           }
           this.inProgress = false;
           this.setPlayerNames();
           this.getScore();
-          this.getWinningMoves();
+        }
+      });
+    },
+
+    removeExtraMoves() {
+      let uri = this.uriInUse + "numberOfMovesMade";
+      var numberOfMovesMade;
+      this.axios.get(uri).then((response) => {
+        numberOfMovesMade = response.data;
+        for (let i = numberOfMovesMade; i < this.movesList.length; i++) {
+          var move = this.movesList[i].split(" ", -2);
+          var index = parseInt(move[1]) * this.size + parseInt(move[2]);
+          this.items[index].value = "";
         }
       });
     },

@@ -74,4 +74,9 @@ public class GameController {
     public String getCircleName(){
         return gameService.getCircleName();
     }
+
+    @GetMapping(value = "/numberOfMovesMade")
+    public int getNumberOfMovesMade(){
+        return gameService.getNumberOfMovesMade();
+    }
 }

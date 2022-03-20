@@ -124,7 +124,7 @@ Some features have been added to the game to make it more user-friendly.
 
 <a name="backend"></a>
 <details>
-<summary>Backend</summary>
+<summary>Backend (Click to expand!)</summary>
 
 ```
 .
@@ -156,7 +156,7 @@ Some features have been added to the game to make it more user-friendly.
 
 <a name="frontend"></a>
 <details>
-<summary>Frontend</summary>
+<summary>Frontend (Click to expand!)</summary>
 
 ```
 .

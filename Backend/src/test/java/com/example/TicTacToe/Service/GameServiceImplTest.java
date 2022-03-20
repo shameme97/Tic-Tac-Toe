@@ -62,10 +62,10 @@ class GameServiceImplTest {
     @Test
     void submitMove() {
         List<String> moveSet = Arrays.asList("CIRCLE 2 0","CROSS 0 0","CIRCLE 2 1","CROSS 1 1","CIRCLE 2 2");
-        assertEquals("CIRCLE Wins!", gameService.submitMove(3, moveSet, true));
+        assertEquals("CIRCLE", gameService.submitMove(3, moveSet, true));
 
         List<String> moveSet2 = Arrays.asList("CROSS 2 0","CIRCLE 0 2","CROSS 2 1","CIRCLE 2 1","CROSS 2 2");
-        assertEquals("CROSS Wins!", gameService.submitMove(4, moveSet2, true));
+        assertEquals("CROSS", gameService.submitMove(4, moveSet2, true));
 
         List<String> moveSet3 = Arrays.asList("CROSS 2 0","CIRCLE 0 2","CROSS 2 1","CIRCLE 2 1");
         assertEquals("Match In Progress!", gameService.submitMove(5, moveSet3, true));
@@ -80,13 +80,13 @@ class GameServiceImplTest {
         winStates.add(new String[]{"0 0", "1 1", "2 2"});
         winStates.add(new String[]{"0 2", "1 1", "2 0"});
 
-        Board board = new Board(1, 3, winStates,"", "");
+        Board board = new Board(1, 3, winStates,"", "", new String[3], 0,"", "");
         List<String> moveSet4 = Arrays.asList("CIRCLE 2 0","CROSS 0 0","CIRCLE 2 1","CROSS 1 1","CIRCLE 2 2");
         List<Board> allBoards = new ArrayList<>();
         allBoards.add(board);
 
         when(gameRepository.findAll()).thenReturn(allBoards);
-        assertEquals("CIRCLE Wins!", gameService.submitMove(3, moveSet4, false));
+        assertEquals("CIRCLE", gameService.submitMove(3, moveSet4, false));
     }
 
     @Test
@@ -103,7 +103,7 @@ class GameServiceImplTest {
 
         Board board = new Board(1, 3, winStates,"", "");
         List<String> moveSet = Arrays.asList("CROSS 2 0","CIRCLE 0 0","CROSS 2 1","CIRCLE 1 1","CROSS 2 2");
-        assertEquals("CROSS Wins!", gameService.checkForWinner(board, moveSet));
+        assertEquals("CROSS", gameService.checkForWinner(board, moveSet));
 
         List<String> moveSet2 = Arrays.asList("CIRCLE 0 0" ,"CROSS 0 2","CIRCLE 0 1","CROSS 1 0",
                 "CIRCLE 1 2","CROSS 1 1", "CIRCLE 2 0" ,"CROSS 2 2","CIRCLE 2 1");
@@ -206,4 +206,87 @@ class GameServiceImplTest {
         assertArrayEquals(new int[]{1, 0, 1}, gameService.showResults());
     }
 
+    @Test
+    void getLastValueOfFirstTurn() {
+        List<String[]> winStates = new ArrayList<>();
+        winStates.add(new String[]{"O", "0 1", "0 2"});
+        winStates.add(new String[]{"1 0", "O", "1 2"});
+        winStates.add(new String[]{"X", "X", "X"});
+        winStates.add(new String[]{"O", "1 0", "X"});
+        winStates.add(new String[]{"0 1", "O", "X"});
+        winStates.add(new String[]{"0 2", "1 2", "X"});
+        winStates.add(new String[]{"O", "O", "X"});
+        winStates.add(new String[]{"0 2", "O", "X"});
+
+        Board board = new Board(1, 3, winStates,"CROSS", "CROSS", new String[3],7, "", "");
+        gameRepository.insert(board);
+        Board board2 = new Board(2, 3, winStates,"CIRCLE", "Draw", new String[3],9, "", "");
+        gameRepository.insert(board2);
+        List<Board> allBoards = new ArrayList<>();
+        allBoards.add(board);
+        allBoards.add(board2);
+
+        when(gameRepository.findAll()).thenReturn(allBoards);
+        assertEquals("CIRCLE", gameService.getLastValueOfFirstTurn());
+    }
+
+    @Test
+    void setPlayerNames() {
+        List<String[]> winStates = new ArrayList<>();
+        winStates.add(new String[]{"O", "0 1", "0 2"});
+        winStates.add(new String[]{"1 0", "O", "1 2"});
+        winStates.add(new String[]{"X", "X", "X"});
+        winStates.add(new String[]{"O", "1 0", "X"});
+        winStates.add(new String[]{"0 1", "O", "X"});
+        winStates.add(new String[]{"0 2", "1 2", "X"});
+        winStates.add(new String[]{"O", "O", "X"});
+        winStates.add(new String[]{"0 2", "O", "X"});
+
+        Board board1 = new Board(1, 3, winStates,"CROSS", "CROSS", new String[3],7, "", "");
+        gameRepository.insert(board1);
+        Board board2 = new Board(2, 3, winStates,"CIRCLE", "Draw", new String[3],9, "", "");
+        gameRepository.insert(board2);
+        List<Board> allBoards = new ArrayList<>();
+        allBoards.add(board1);
+        allBoards.add(board2);
+
+        when(gameRepository.findAll()).thenReturn(allBoards);
+        String player1Name = "Ron";
+        String player2Name = "Hermione";
+        gameService.setPlayerNames(player1Name, player2Name);
+        int correct = 0;
+        for (Board board: allBoards){
+            if (board.getPlayer1().equals(player1Name) && board.getPlayer2().equals(player2Name))
+                ++correct;
+        }
+        assertEquals(2, correct);
+    }
+
+    @Test
+    void getCrossName() {
+        List<String[]> winStates = new ArrayList<>();
+        Board board1 = new Board(1, 3, winStates,"CROSS", "CROSS", new String[3],7, "Harry", "Ron");
+        gameRepository.insert(board1);
+        Board board2 = new Board(2, 3, winStates,"CIRCLE", "Draw", new String[3],9, "Harry", "Ron");
+        gameRepository.insert(board2);
+
+        List<Board> allBoards = new ArrayList<>();
+        allBoards.add(board1);
+        allBoards.add(board2);
+        when(gameRepository.findAll()).thenReturn(allBoards);
+
+        assertEquals("Harry", gameService.getCrossName());
+    }
+
+    @Test
+    void getCircleName() {
+        List<String[]> winStates = new ArrayList<>();
+        Board board1 = new Board(1, 3, winStates,"", "", new String[3],0, "", "");
+        gameRepository.insert(board1);
+        List<Board> allBoards = new ArrayList<>();
+        allBoards.add(board1);
+
+        when(gameRepository.findAll()).thenReturn(allBoards);
+        assertEquals("CIRCLE", gameService.getCircleName());
+    }
 }

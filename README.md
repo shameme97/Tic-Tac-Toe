@@ -40,17 +40,6 @@ output of the match, the frontend then displays
 As in a traditional 3x3 game, the users must match
 three of the same signs (circle/row).
 
-In this game, playing in an NxN board where N>3 decreases
-the probability of draws as the previous winning rule still
-applies. If both players are to play optimally, whoever moves
-first should mark in any square except those at the border
-of the board, followed by a move adjacent to the first move
-but not opposite of opponent move.
-Even if second player plays optimally, first player should
-have a remaining adjacent square which would ensure their win.
-The following image shows one instance of such case. The number indicates the i-th move.
-<img width="382" alt="image" src="https://user-images.githubusercontent.com/61234823/159158262-a5749a39-8413-4c97-b6a9-d0720533fcfa.png">
-
 <a name="features"></a>
 ## Features
 

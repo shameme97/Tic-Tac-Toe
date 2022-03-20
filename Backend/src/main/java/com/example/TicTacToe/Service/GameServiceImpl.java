@@ -146,8 +146,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public String getLastValueOfFirstTurn() {
         List<Board> allBoards = gameRepository.findAll();
-        Board currentBoard = allBoards.get(allBoards.size() - 1);
-        return (allBoards.size()==0) ? "" : currentBoard.getFirstTurn();
+        return (allBoards.size()==0) ? "" : allBoards.get(allBoards.size() - 1).getFirstTurn();
     }
 
     @Override

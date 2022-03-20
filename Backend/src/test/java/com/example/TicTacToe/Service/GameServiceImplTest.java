@@ -289,4 +289,24 @@ class GameServiceImplTest {
         when(gameRepository.findAll()).thenReturn(allBoards);
         assertEquals("CIRCLE", gameService.getCircleName());
     }
+
+    @Test
+    void getWinStats() {
+        List<String[]> winStates = new ArrayList<>();
+        Board board1 = new Board(1, 3, winStates,"CROSS", "CROSS", new String[3],7, "Harry", "Ron");
+        gameRepository.insert(board1);
+        Board board2 = new Board(2, 3, winStates,"CIRCLE", "CROSS", new String[3],9, "Harry", "Ron");
+        gameRepository.insert(board2);
+        Board board3 = new Board(3, 3, winStates,"CROSS", "CIRCLE", new String[3],9, "Harry", "Ron");
+        gameRepository.insert(board2);
+
+        List<Board> allBoards = new ArrayList<>();
+        allBoards.add(board1);
+        allBoards.add(board2);
+        allBoards.add(board3);
+        when(gameRepository.findAll()).thenReturn(allBoards);
+
+        double[] actualResult = new double[]{67, 33, 0};
+        assertArrayEquals(actualResult, gameService.getWinStats());
+    }
 }

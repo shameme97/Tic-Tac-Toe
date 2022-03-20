@@ -131,7 +131,7 @@ export default {
             fontSize: "15px",
             fontWeight: "bold",
             fontFamily: "cursive",
-            color: "#0258a8",
+            color: "#06a8ad",
           },
         },
         dataLabels: {

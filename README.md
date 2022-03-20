@@ -1,6 +1,6 @@
 <a name="go-to-top"></a>
 # Tic-Tac-Toe
-A full-stack REST API application for a game of tic tac toe with backend working with Spring Boot and frontend with Vue.js and MongoDB NoSQL as its database. This app has been integrated with Swagger and tested using JUnit. The project has been hosted on Heroku at the following link: https://tictactoe-shameme.herokuapp.com/ [**NOTE:** In case of overlapping items, kindly zoom out a little in your browser for a better experience. Thank you.]
+A full-stack REST API application for a game of tic tac toe with backend working with Spring Boot and frontend with Vue.js and MongoDB NoSQL as its database. This app has been integrated with Swagger and tested using JUnit. The project has been hosted on Heroku at the following link: https://tictactoe-shameme.herokuapp.com/ 
 
 
 Table of Contents

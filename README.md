@@ -68,18 +68,6 @@ Some features have been added to the game to make it more user-friendly.
   shows some details and statistics of the previous games.
   ![image](https://user-images.githubusercontent.com/61234823/159158494-414a59f7-1ca7-48fd-b702-125cc21f2ac6.png)
 
-  * Users can change their player name to their preference.
-    ![image](https://user-images.githubusercontent.com/61234823/159158444-16112dae-b1b8-4d5e-9c07-24f72e222c7b.png)
-
-  * After a winner is declared, the winning move is highlighted,
-    and any extra moves submitted after that are removed from the
-    board.
-    ![image](https://user-images.githubusercontent.com/61234823/159158379-bebb6e67-077a-45fc-917d-da2b273662cb.png)
-
-  * When clicked on "Game Stats" button, a new tab is opened which
-    shows some details and statistics of the previous games.
-    ![image](https://user-images.githubusercontent.com/61234823/159158494-414a59f7-1ca7-48fd-b702-125cc21f2ac6.png)
-
 
 <a name="usage"></a>
 ## Usage

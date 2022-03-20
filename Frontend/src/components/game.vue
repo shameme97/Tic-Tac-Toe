@@ -326,8 +326,8 @@ export default {
         particles: [
           {
             type: "rect",
-            size: 7,
-            dropRate: 7,
+            size: 10,
+            dropRate: 5,
           },
         ],
         defaultColors: ["DodgerBlue", "#f35fc7", "#11d9c5"],

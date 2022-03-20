@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8080")
-//@CrossOrigin(origins = "https://tictactoe-shameme.herokuapp.com/")
+//@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "https://tictactoe-shameme.herokuapp.com/")
 @Api(value = "Game Details")
 @RestController
 @AllArgsConstructor

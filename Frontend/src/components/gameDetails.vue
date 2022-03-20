@@ -102,6 +102,15 @@
 export default {
   data() {
     return {
+      gameDetails: [],
+      winStatsTurn: [],
+      player1: "CROSS",
+      player2: "CIRCLE",
+
+      herokuUri: "https://tictactoe-shameme-backend.herokuapp.com/",
+      localUri: "http://localhost:4023/",
+      uriInUse: "",
+
       series: [0, 0, 0],
       chartOptions: {
         chart: {
@@ -144,18 +153,10 @@ export default {
           show: false,
         },
       },
-
-      gameDetails: [],
-      winStatsTurn: [],
-      player1: "CROSS",
-      player2: "CIRCLE",
-      herokuUri: "https://tictactoe-shameme-backend.herokuapp.com/",
-      localUri: "http://localhost:4023/",
-      uriInUse: "",
     };
   },
   created: function () {
-    this.uriInUse = this.localUri;
+    this.uriInUse = this.herokuUri;
     this.getGameDetails();
     this.getWinStatsTurn();
     this.getWinStats();

@@ -156,7 +156,7 @@ export default {
     };
   },
   created: function () {
-    this.uriInUse = this.herokuUri;
+    this.uriInUse = this.localUri;
     this.getGameDetails();
     this.getWinStatsTurn();
     this.getWinStats();

@@ -165,7 +165,7 @@ export default {
   },
 
   created: function () {
-    this.uriInUse = this.herokuUri;
+    this.uriInUse = this.localUri;
     this.createArray();
     this.getScore();
     this.message = this.beginMessage;

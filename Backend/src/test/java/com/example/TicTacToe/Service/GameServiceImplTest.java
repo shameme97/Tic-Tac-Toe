@@ -309,4 +309,5 @@ class GameServiceImplTest {
         double[] actualResult = new double[]{67, 33, 0};
         assertArrayEquals(actualResult, gameService.getWinStats());
     }
+
 }

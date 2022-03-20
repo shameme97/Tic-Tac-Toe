@@ -23,10 +23,12 @@ Table of Contents
 <a name="about-the-project"></a>
 ## About the project
 
-This version of Tic-Tac-Toe is made with an NxN sized 
-board where the user can pick any value where 3 <= N <= 12.
-The UI allows the user to make moves by clicking on the board. 
-Afterwards, the moves are sent as commands
+This version of Tic-Tac-Toe represents a Tic-Tac-Toe tournament-style game with multiple matches 
+between same two players. The matches are set with an NxN sized 
+board where the users can pick any value where 3 <= N <= 12. The **Reset Score** button needs to be clicked 
+to start a new tournament.
+The UI allows the users to make moves by clicking on the board. 
+Afterwards, by clicking on the **Submit** button, the moves are sent as commands
 from the frontend to the backend for evaluation as a single chunk 
 using the POST method. The frontend then displays the result 
 (Draw / CIRCLE Wins! / CROSS Wins!) based on

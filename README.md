@@ -105,11 +105,13 @@ Some features have been added to the game to make it more user-friendly.
 
 <a name="ui"></a>
 - UI:
-  - Swagger is integrated and can be access for interacting with API at
-    : <https://tictactoe-shameme-backend.herokuapp.com/swagger-ui.html>
-    ![image](https://user-images.githubusercontent.com/61234823/159158520-ff532baa-fcaf-418c-945a-4fbc88be3455.png)
   - Database at mongoDB compass :
     ![image](https://user-images.githubusercontent.com/61234823/159158580-722b7746-a970-4208-b560-b06eabbe6e83.png)
+    
+  - Swagger can be accessed for testing and interacting with API
+    : <https://tictactoe-shameme-backend.herokuapp.com/swagger-ui.html>
+    ![image](https://user-images.githubusercontent.com/61234823/159158520-ff532baa-fcaf-418c-945a-4fbc88be3455.png)
+  
 
 <a name="structure"></a>
 ## Structure
@@ -118,9 +120,7 @@ Some features have been added to the game to make it more user-friendly.
 ### Directory
 
 <a name="backend"></a>
-<details>
-<summary>Backend (Click to expand!)</summary>
-
+Backend
 ```
 .
 ├── src/
@@ -146,11 +146,9 @@ Some features have been added to the game to make it more user-friendly.
 │       └── TicTacToeApplicationTests.java
 └── pom.xml
 ```
-</details>
 
 <a name="frontend"></a>
-<details>
-<summary>Frontend (Click to expand!)</summary>
+Frontend
 
 ```
 .
@@ -170,7 +168,6 @@ Some features have been added to the game to make it more user-friendly.
 ├── server.js
 └── package.json
 ```
-</details>
 
 <a name="dependencies"></a>
 ### Dependencies

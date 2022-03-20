@@ -132,7 +132,7 @@ Backend
 │   │   │   ├── Controller/
 │   │   │   │   └── GameController.java
 │   │   │   ├── Model/
-│   │   │   │   ├── Board.java
+│   │   │   │   └── Board.java
 │   │   │   ├── Repository/
 │   │   │   │   └── GameRepository.java
 │   │   │   ├── Service/

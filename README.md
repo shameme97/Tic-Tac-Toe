@@ -142,7 +142,8 @@ Backend
 │   │   └── resources/
 │   │       └── application.properties
 │   └── test/java/com/example/TicTacToe/
-│       ├── GameServiceImplTest.java
+│       ├── Service/ 
+│       │   └─ GameServiceImplTest.java
 │       └── TicTacToeApplicationTests.java
 └── pom.xml
 ```
